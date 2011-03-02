@@ -3,7 +3,7 @@
 
 <jsp:useBean id="myAppsDatabase" scope="session" class="fr.paris.lutece.plugins.myapps.modules.database.web.MyAppsDatabaseJspBean" />
 
-<% myAppsDatabase.init( request, fr.paris.lutece.plugins.myapps.modules.database.web.MyAppsDatabaseJspBean.RIGHT_MYAPPS_DATABASE_MANAGEMENT  ); %>
+<% myAppsDatabase.init( request, myAppsDatabase.RIGHT_MYAPPS_DATABASE_MANAGEMENT  ); %>
 <%= myAppsDatabase.getCreateMyApp( request ) %>
 
 <%@ include file="../../../../AdminFooter.jsp" %>

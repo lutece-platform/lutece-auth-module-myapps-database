@@ -28,7 +28,7 @@
             <feature-title>module.myapps.database.adminFeature.myapps_database_management.name</feature-title>
             <feature-description>module.myapps.database.adminFeature.myapps_database_management.description</feature-description>
             <feature-level>1</feature-level>
-            <feature-url>jsp/admin/plugins/myapps/modules/database/ManageMyAppsDatabase.jsp</feature-url>
+            <feature-url>jsp/admin/plugins/myapps/modules/database/ManageMyApps.jsp</feature-url>
         </admin-feature>
     </admin-features>
     
