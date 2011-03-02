@@ -1,0 +1,47 @@
+<div class="content-box">
+	<h2>#i18n{module.myapps.database.create_application.tableLabel}</h2>
+	<form method="post"  enctype="multipart/form-data" name="create_application" action="jsp/admin/plugins/myapps/modules/database/DoCreateMyApp.jsp">    
+	    <p>
+	        <label for="myapp_name" >#i18n{module.myapps.database.create_application.rowTitleName} * :</label>
+	        <input type="text" id="myapp_name" name="myapp_name" size="60" maxlength="50"  tabindex="1" />
+	    </p>  
+	    <p>
+	        <label for="myapp_url" >#i18n{module.myapps.database.create_application.rowTitleUrl} * :</label>
+	        <input type="text" id="app_url" name="myapp_url" size="60" maxlength="255"  tabindex="2" />
+	    </p> 
+	    <p>
+	        <label for="myapp_description" >#i18n{module.myapps.database.create_application.rowTitleDescription} :</label>
+	        <input type="text" id="myapp_description" name="myapp_description" size="60" maxlength="255"  tabindex="3" />
+	    </p> 
+	    <p>
+	        <label for="user_name" >#i18n{module.myapps.database.create_application.rowTitleUserName} * :</label>
+	        <input type="text" id="user_name" name="user_name" size="60" maxlength="50"  tabindex="4" />
+	    </p> 
+	    </p> 
+	    <p>
+	        <label for="code_heading" >#i18n{module.myapps.database.create_application.rowTitleUserHeading} :</label>
+	        <input type="text" id="code_heading" name="code_heading" size="60" maxlength="50" tabindex="5" />
+	    </p> 
+	    <p>
+	        <label for="user_password" >#i18n{module.myapps.database.create_application.rowTitleUserPassword} * :</label>
+	        <input type="text" id="user_password" name="user_password" size="60" maxlength="50"  tabindex="6" />
+	    </p> 
+	    <p>
+	        <label for="user_field" >#i18n{module.myapps.database.create_application.rowTitleUserField} :</label>
+	        <input type="text" id="user_field" name="user_field" size="60" maxlength="50" tabindex="7" />
+	    </p> 
+	    <p>
+	        <label for="user_field_heading" >#i18n{module.myapps.database.create_application.rowTitleUserFieldHeading} :</label>
+	        <input type="text" id="user_field_heading" name="user_field_heading" size="60" maxlength="50"  tabindex="8" />
+	    </p> 
+	    <p>
+		<label for="myapp_icon">#i18n{module.myapps.database.create_application.rowTitleIconField} :</label>
+		<input type="file" name="myapp_icon" id="myapp_icon" size="60"/>
+	    </p>
+	    <p>   
+	        <input type="submit" value="#i18n{module.myapps.database.create_application.buttonValidate}" class="button" tabindex="9" />
+	        <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />	
+	    </p>
+	
+	</form>
+</div>

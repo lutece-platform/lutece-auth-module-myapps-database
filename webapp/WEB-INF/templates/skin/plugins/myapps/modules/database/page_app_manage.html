@@ -1,0 +1,89 @@
+<div class="span-22 prepend-1 append-1 append-bottom last">
+    <div class="portlet -lutece-border-radius">
+		<h2 class="page-title">#i18n{module.myapps.database.page_app_manage.pageTitle}</h2>
+		<div class="myapps-content">
+			<div class="backto">
+				<a href="jsp/site/Portal.jsp?page=myapps">
+					<img src="images/local/skin/goback.png" alt="#i18n{module.myapps.database.page_app_manage.labelBackToManagement}" title="#i18n{module.myapps.database.page_app_manage.labelBackToManagement}" height="32" />
+				</a>
+			</div>
+			<fieldset>
+				<legend>
+					<img src="images/admin/skin/enable.png" alt="#i18n{module.myapps.database.page_app_manage.buttonEnabled}" title="#i18n{module.myapps.database.page_app_manage.buttonEnabled}" />
+					#i18n{module.myapps.database.page_app_manage.labelEnabledApp}
+				</legend>
+				<table class="myapps-table">
+					<tr>
+						<th>#i18n{module.myapps.database.page_app_manage.columnTitleIcon}</th>
+				        <th>#i18n{module.myapps.database.page_app_manage.columnTitleName}</th>
+				        <th>#i18n{module.myapps.database.page_app_manage.columnTitleDescription}</th>
+				        <th>#i18n{module.myapps.database.page_app_manage.columnTitleActions}</th>
+				    </tr>
+				    <#if enabled_myapps_list?? && enabled_myapps_list?has_content>
+					    <#list enabled_myapps_list as enabled_myapp>
+						    <tr>
+						        <td>
+						        	<#if enabled_myapp.hasIcon(  )>
+						        		<img src="image?resource_type=myapps_database_icon&id=${enabled_myapp.idApplication}" alt="${enabled_myapp.description}" height="30"/>
+						        	</#if>
+						        </td>
+						        <td><b>${enabled_myapp.name}</b></td>
+						        <td>${enabled_myapp.description}</td>
+						        <td>
+						        	<form method="post" action="jsp/site/Portal.jsp">
+						        		<input type="hidden" name="page" value="myapps-database" />
+						        		<input type="hidden" name="action" value="modify" />
+						        		<input type="hidden" name="myapp_id" value="${enabled_myapp.idApplication}" />
+						        		<input type="submit" value="#i18n{module.myapps.database.page_app_manage.buttonModifyMyApp}" class="button" />
+						        	</form>
+						        	<form method="post" action="jsp/site/Portal.jsp">
+						        		<input type="hidden" name="page" value="myapps-database" />
+						        		<input type="hidden" name="action" value="do_remove" />
+						        		<input type="hidden" name="myapp_id" value="${enabled_myapp.idApplication}" />
+						        		<input type="submit" value="#i18n{module.myapps.database.page_app_manage.buttonRemoveMyApp}" class="button" />
+						        	</form>
+						        </td>
+						    </tr>
+				    	</#list>
+				    </#if>
+				</table>
+			</fieldset>
+			<br />
+			<fieldset>
+				<legend>
+					<img src="images/admin/skin/disable.png" alt="#i18n{module.myapps.database.page_app_manage.buttonDisabled}" title="#i18n{module.myapps.database.page_app_manage.buttonDisabled}" />
+					#i18n{module.myapps.database.page_app_manage.labelDisabledApp}
+				</legend>
+				<table class="myapps-table">
+					<tr>
+						<th>#i18n{module.myapps.database.page_app_manage.columnTitleIcon}</th>
+				        <th>#i18n{module.myapps.database.page_app_manage.columnTitleName}</th>
+				        <th>#i18n{module.myapps.database.page_app_manage.columnTitleDescription}</th>
+				        <th>#i18n{module.myapps.database.page_app_manage.columnTitleActions}</th>
+				    </tr>
+				    <#if disabled_myapps_list?? && disabled_myapps_list?has_content>
+					    <#list disabled_myapps_list as disabled_myapp>
+						    <tr>
+						        <td>
+						        	<#if disabled_myapp.hasIcon(  )>
+						        		<img src="image?resource_type=myapps_database_icon&id=${disabled_myapp.idApplication}" alt="${disabled_myapp.description}" height="30"/>
+						        	</#if>
+						        </td>
+						        <td><b>${disabled_myapp.name}</b></td>
+						        <td>${disabled_myapp.description}</td>
+						        <td>
+						        	<form method="post" action="jsp/site/Portal.jsp">
+						        		<input type="hidden" name="page" value="myapps-database" />
+						        		<input type="hidden" name="action" value="insert" />
+						        		<input type="hidden" name="myapp_id" value="${disabled_myapp.idApplication}" />
+						        		<input type="submit" value="#i18n{module.myapps.database.page_app_manage.buttonInsertMyApp}" class="button" />
+						        	</form>
+						        </td>
+						    </tr>
+				    	</#list>
+				    </#if>
+				</table>
+			</fieldset>
+		</div>
+	</div>
+</div>

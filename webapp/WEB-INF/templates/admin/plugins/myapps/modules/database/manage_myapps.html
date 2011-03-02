@@ -1,0 +1,50 @@
+<div id="content-box-actions">
+	<#if permission_create_myapp>
+		<form method="post" action="jsp/admin/plugins/myapps/modules/database/CreateMyApp.jsp">
+	        <input type="submit" value="#i18n{module.myapps.database.manage_myapps.buttonAddMyApp}" class="button bt-toolbar" />
+	    </form>
+	</#if>
+</div>
+<div class="content-box" >
+    <h2>#i18n{module.myapps.database.manage_myapps.tableLabel}</h2>
+	<@paginationAdmin paginator=paginator combo=1/>
+    <table>
+        <tr>
+            <th>#i18n{module.myapps.database.manage_myapps.columnTitleIcon}</th>
+            <th>#i18n{module.myapps.database.manage_myapps.columnTitleName}</th>
+            <th>#i18n{module.myapps.database.manage_myapps.columnTitleDescription}</th>
+            <th>#i18n{module.myapps.database.manage_myapps.columnTitleActions}</th>
+        </tr>  
+        <#list myapps_list as myapp >
+        <#assign id_application = "" + myapp.idApplication>
+        <#assign permission_modify = permissions_list[id_application][permission_modify_myapp]>
+        <#assign permission_delete = permissions_list[id_application][permission_delete_myapp]>
+        <tr>
+            <td>
+            	<#if myapp.hasIcon(  )>
+                	<img src="image?resource_type=myapps_database_icon&amp;id=${myapp.idApplication}" alt="${myapp.description}" height="30"/>
+                </#if>
+            </td>
+            <td width="40%">
+				${myapp.name}
+            </td>
+            <td width="40%">
+                ${myapp.description}
+            </td>    
+            <td>
+            	<#if permission_modify>
+            		<a href="jsp/admin/plugins/myapps/modules/database/ModifyMyApp.jsp?myapp_id=${myapp.idApplication}" class="admin-menu">
+            			<img src="images/admin/skin/actions/modify.png" alt="#i18n{module.myapps.database.manage_myapps.actionModify}" title="#i18n{module.myapps.database.manage_myapps.actionModify}" />
+            		</a>
+            	</#if>
+            	<#if permission_delete>
+	                <a href="jsp/admin/plugins/myapps/modules/database/RemoveMyApp.jsp?myapp_id=${myapp.idApplication}">
+	                    <img src="images/admin/skin/actions/delete.png" alt="#i18n{module.myapps.database.manage_myapps.actionDelete}" title="#i18n{module.myapps.database.manage_myapps.actionDelete}" />
+	                </a>
+				</#if>
+            </td>
+        </tr>
+        </#list>
+    </table>
+    <@paginationAdmin paginator=paginator/>
+</div>

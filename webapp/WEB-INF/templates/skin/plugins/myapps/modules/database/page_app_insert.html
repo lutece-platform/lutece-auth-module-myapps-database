@@ -1,0 +1,47 @@
+<div class="span-22 prepend-1 append-1 append-bottom last">
+    <div class="portlet -lutece-border-radius">
+		<h2 class="page-title">#i18n{module.myapps.database.page_app_insert.pageTitle}</h2>
+		<div class="myapps-content">
+			<div class="backto">
+				<a href="jsp/site/Portal.jsp?page=myapps-database&amp;action=manage" title="#i18n{module.myapps.database.page_app_insert.labelBackToManagement}">
+					<img src="images/local/skin/goback.png" alt="#i18n{module.myapps.database.page_app_insert.labelBackToManagement}" title="#i18n{module.myapps.database.page_app_insert.labelBackToManagement}" height="32" />
+				</a>
+			</div>
+			<p>
+				${myapp.name} <#if myapp.description?? && myapp.description != "">- ${myapp.description}</#if>
+			</p>
+			<form method="post" action="jsp/site/Portal.jsp?page=myapps-database&amp;action=do_insert">
+				<input type="hidden" name="myapp_id" value="${myapp.idApplication}" />
+				<#if myapp??>
+					<p>
+						<label for="user_login">
+							#i18n{module.myapps.database.page_app_insert.labelLogin}
+	                        <#if myapp.codeHeading?? && myapp.codeHeading != "">
+								${myapp.codeHeading}
+	                        </#if>
+	                        :
+						</label>
+						<input name="user_login" id="user_login" type="text" value="" />
+						<br />
+						<label for="user_password">
+							#i18n{module.myapps.database.page_app_insert.labelPassword} :
+						</label>
+						<input name="user_password" id="user_password" type="password" value="" />
+						<#if myapp.data?? && myapp.data != "">
+							<br />
+							<label for="user_extra_data">
+								#i18n{module.myapps.database.page_app_insert.labelExtraField}
+								<#if myapp.dataHeading?? && myapp.dataHeading != "">
+		                        	(${myapp.dataHeading})
+		                        </#if>
+		                        :
+							</label>
+							<input name="user_extra_data" id="user_extra_data" type="password" value="" />
+						</#if>
+					</p>
+				</#if>
+				<input type="submit" value="#i18n{module.myapps.database.page_app_insert.buttonValidate}" />
+			</form>
+    	</div>
+	</div>
+</div>
