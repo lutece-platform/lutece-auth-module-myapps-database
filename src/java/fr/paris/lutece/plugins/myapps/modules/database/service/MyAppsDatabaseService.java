@@ -246,9 +246,9 @@ public final class MyAppsDatabaseService
      * @param plugin the Plugin
      * @return the collection which contains the data of all the myApps
      */
-    public List<MyApps> getMyAppsListByUser( String strUserName, Plugin plugin )
+    public List<MyApps> getMyAppsListByUser( String strUserName, boolean bIsAscSort, Plugin plugin )
     {
-        return MyAppsDatabaseHome.getMyAppsListByUser( strUserName, plugin );
+        return MyAppsDatabaseHome.getMyAppsListByUser( strUserName, bIsAscSort, plugin );
     }
 
     /**

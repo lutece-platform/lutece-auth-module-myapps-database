@@ -147,7 +147,7 @@ public class MyAppsDatabaseApp implements XPageApplication
         throws SiteMessageException
     {
         List<MyApps> listEnabledMyApps = MyAppsDatabaseService.getInstance(  )
-                                                              .getMyAppsListByUser( user.getName(  ), plugin );
+                                                              .getMyAppsListByUser( user.getName(  ), true, plugin );
         List<MyApps> listDisabledMyApps = MyAppsDatabaseService.getInstance(  ).selectMyAppsList( plugin );
         listDisabledMyApps.removeAll( listEnabledMyApps );
 
@@ -336,7 +336,7 @@ public class MyAppsDatabaseApp implements XPageApplication
                         StringUtils.isBlank( myApp.getData(  ) ) )
                 {
                     String strUserName = user.getName(  );
-                    MyAppsDatabaseUser myAppsUser = new MyAppsDatabaseUser(  );
+                    MyAppsDatabaseUser myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService.getInstance().getCredential(nMyAppId, strUserName, plugin);
 
                     myAppsUser.setName( strUserName );
                     myAppsUser.setIdApplication( nMyAppId );

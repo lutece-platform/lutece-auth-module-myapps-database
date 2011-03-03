@@ -97,7 +97,7 @@ public interface IMyAppsDatabaseDAO
      * @param plugin the Plugin
      * @return the list which contains the myApps
      */
-    List<MyApps> selectMyAppsListByUser( String strUserName, Plugin plugin );
+    List<MyApps> selectMyAppsListByUser( String strUserName, boolean bIsAscSort, Plugin plugin );
 
     /**
      * Loads the icon representing the favorite application

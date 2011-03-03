@@ -67,11 +67,9 @@ public final class MyAppsDatabaseUserHome
      * @param plugin the Plugin
      * @return The instance of myAppsUser which has been created with its primary key.
      */
-    public static MyAppsDatabaseUser create( MyAppsDatabaseUser myAppsUser, Plugin plugin )
+    public static void create( MyAppsDatabaseUser myAppsUser, Plugin plugin )
     {
         _dao.insert( myAppsUser, plugin );
-
-        return myAppsUser;
     }
 
     /**
@@ -81,11 +79,9 @@ public final class MyAppsDatabaseUserHome
      * @param plugin the Plugin
      * @return The instance of the myAppsUser which has been updated
      */
-    public static MyAppsDatabaseUser update( MyAppsDatabaseUser myAppsUser, Plugin plugin )
+    public static void update( MyAppsDatabaseUser myAppsUser, Plugin plugin )
     {
         _dao.store( myAppsUser, plugin );
-
-        return myAppsUser;
     }
 
     /**

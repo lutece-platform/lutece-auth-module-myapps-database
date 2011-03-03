@@ -69,6 +69,10 @@ public final class MyAppsDatabaseDAO implements IMyAppsDatabaseDAO
     //Image resource fetching
     private static final String SQL_QUERY_SELECT_RESOURCE_IMAGE = " SELECT icon_content , icon_mime_type FROM myapps_database_application WHERE id_application= ? ";
 
+    private static final String SQL_ORDER_BY_NAME = " ORDER BY a.name ";
+    private static final String SQL_ASC = " ASC ";
+    private static final String SQL_DESC = " DESC ";
+    
     /**
      * {@inheritDoc}
      */
@@ -245,10 +249,13 @@ public final class MyAppsDatabaseDAO implements IMyAppsDatabaseDAO
     /**
      * {@inheritDoc}
      */
-    public List<MyApps> selectMyAppsListByUser( String strUserName, Plugin plugin )
+    public List<MyApps> selectMyAppsListByUser( String strUserName, boolean bIsAscSort, Plugin plugin )
     {
         List<MyApps> myAppsList = new ArrayList<MyApps>(  );
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_USER, plugin );
+        StringBuilder sbSQL = new StringBuilder( SQL_QUERY_SELECT_BY_USER );
+        sbSQL.append( SQL_ORDER_BY_NAME );
+        sbSQL.append( bIsAscSort ? SQL_ASC : SQL_DESC );
+        DAOUtil daoUtil = new DAOUtil( sbSQL.toString(  ), plugin );
         daoUtil.setString( 1, strUserName );
         daoUtil.executeQuery(  );
 

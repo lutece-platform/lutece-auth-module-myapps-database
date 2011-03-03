@@ -136,11 +136,11 @@ public final class MyAppsDatabaseProvider implements MyAppsProvider
     /**
      * {@inheritDoc}
      */
-    public List<MyApps> getMyAppsListByUserName( String strUserName )
+    public List<MyApps> getMyAppsListByUserName( String strUserName, boolean isAscSort )
     {
         Plugin plugin = PluginService.getPlugin( MyAppsDatabasePlugin.PLUGIN_NAME );
 
-        return MyAppsDatabaseService.getInstance(  ).getMyAppsListByUser( strUserName, plugin );
+        return MyAppsDatabaseService.getInstance(  ).getMyAppsListByUser( strUserName, isAscSort, plugin );
     }
 
     /**

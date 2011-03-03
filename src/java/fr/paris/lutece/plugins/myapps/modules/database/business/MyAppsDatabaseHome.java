@@ -126,9 +126,9 @@ public final class MyAppsDatabaseHome
     * @param plugin the Plugin
     * @return the collection which contains the data of all the myApps
     */
-    public static List<MyApps> getMyAppsListByUser( String strUserName, Plugin plugin )
+    public static List<MyApps> getMyAppsListByUser( String strUserName, boolean bIsAscSort, Plugin plugin )
     {
-        return _dao.selectMyAppsListByUser( strUserName, plugin );
+        return _dao.selectMyAppsListByUser( strUserName, bIsAscSort, plugin );
     }
 
     /**
