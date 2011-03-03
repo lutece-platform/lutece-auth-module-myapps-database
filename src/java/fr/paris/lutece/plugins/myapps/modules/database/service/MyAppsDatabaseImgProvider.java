@@ -41,9 +41,9 @@ import fr.paris.lutece.portal.service.plugin.PluginService;
 
 
 /**
- * 
+ *
  * MyAppsDatabaseImgProvider
- * 
+ *
  */
 public class MyAppsDatabaseImgProvider implements ImageResourceProvider
 {
@@ -59,7 +59,7 @@ public class MyAppsDatabaseImgProvider implements ImageResourceProvider
 
     /**
      * Get the instance of {@link MyAppsDatabaseImgProvider}
-     * 
+     *
      * @return a {@link MyAppsDatabaseImgProvider}
      */
     public static synchronized MyAppsDatabaseImgProvider getInstance(  )
@@ -90,7 +90,7 @@ public class MyAppsDatabaseImgProvider implements ImageResourceProvider
 
     /**
      * Returns the resource type Id
-     * 
+     *
      * @return The resource type Id
      */
     public String getResourceTypeId(  )
@@ -100,7 +100,7 @@ public class MyAppsDatabaseImgProvider implements ImageResourceProvider
 
     /**
      * Get the image resource given an MyApp Id
-     * 
+     *
      * @param nMyAppId the Id of the application
      * @return an {@link ImageResource}
      */

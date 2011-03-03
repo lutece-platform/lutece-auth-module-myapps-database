@@ -66,9 +66,9 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * 
+ *
  * MyAppsDatabaseApp
- * 
+ *
  */
 public class MyAppsDatabaseApp implements XPageApplication
 {
@@ -79,7 +79,7 @@ public class MyAppsDatabaseApp implements XPageApplication
 
     /**
      * Front Office application to manage myapps application
-     * 
+     *
      * @param request The request
      * @param nMode The mode
      * @param plugin The plugin
@@ -336,7 +336,9 @@ public class MyAppsDatabaseApp implements XPageApplication
                         StringUtils.isBlank( myApp.getData(  ) ) )
                 {
                     String strUserName = user.getName(  );
-                    MyAppsDatabaseUser myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService.getInstance().getCredential(nMyAppId, strUserName, plugin);
+                    MyAppsDatabaseUser myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService.getInstance(  )
+                                                                                              .getCredential( nMyAppId,
+                            strUserName, plugin );
 
                     myAppsUser.setName( strUserName );
                     myAppsUser.setIdApplication( nMyAppId );

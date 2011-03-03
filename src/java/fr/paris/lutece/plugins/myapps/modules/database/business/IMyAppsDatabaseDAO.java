@@ -42,9 +42,9 @@ import java.util.List;
 
 
 /**
- * 
+ *
  * IMyAppsDatabaseDAO
- * 
+ *
  */
 public interface IMyAppsDatabaseDAO
 {
@@ -118,7 +118,7 @@ public interface IMyAppsDatabaseDAO
 
     /**
      * Check if the Myapps has an icon or not
-     * 
+     *
      * @param nMyAppId the ID of the MyApp
      * @param plugin {@link Plugin}
      * @return true if it has an icon, false otherwise

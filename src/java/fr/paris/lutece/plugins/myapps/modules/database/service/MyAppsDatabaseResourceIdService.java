@@ -33,10 +33,6 @@
  */
 package fr.paris.lutece.plugins.myapps.modules.database.service;
 
-import java.util.Locale;
-
-import org.apache.commons.lang.StringUtils;
-
 import fr.paris.lutece.plugins.myapps.business.MyApps;
 import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabase;
 import fr.paris.lutece.portal.service.plugin.Plugin;
@@ -47,11 +43,15 @@ import fr.paris.lutece.portal.service.rbac.ResourceType;
 import fr.paris.lutece.portal.service.rbac.ResourceTypeManager;
 import fr.paris.lutece.util.ReferenceList;
 
+import org.apache.commons.lang.StringUtils;
+
+import java.util.Locale;
+
 
 /**
- * 
+ *
  * MyAppsDatabaseResourceIdService
- * 
+ *
  */
 public class MyAppsDatabaseResourceIdService extends ResourceIdService
 {
@@ -102,7 +102,7 @@ public class MyAppsDatabaseResourceIdService extends ResourceIdService
 
     /**
      * Returns a list of resource ids
-     * 
+     *
      * @param locale The current locale
      * @return A list of resource ids
      */
@@ -115,7 +115,7 @@ public class MyAppsDatabaseResourceIdService extends ResourceIdService
 
     /**
      * Returns the Title of a given resource
-     * 
+     *
      * @param strMyAppId The Id of the resource
      * @param locale The current locale
      * @return The Title of a given resource

@@ -45,9 +45,9 @@ import java.util.List;
 
 
 /**
- * 
+ *
  * MyAppsDatabaseHome
- * 
+ *
  */
 public final class MyAppsDatabaseHome
 {
@@ -153,10 +153,10 @@ public final class MyAppsDatabaseHome
     {
         return _dao.getMyAppsList( plugin );
     }
-    
+
     /**
      * Check if the given MyApp Id has an icon or not
-     * 
+     *
      * @param nMyAppId the MyApp Id
      * @param plugin {@link Plugin}
      * @return true if it has an icon, false otherwise

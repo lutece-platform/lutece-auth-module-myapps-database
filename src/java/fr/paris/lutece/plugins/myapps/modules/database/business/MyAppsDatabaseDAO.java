@@ -46,9 +46,9 @@ import java.util.List;
 
 
 /**
- * 
+ *
  * MyAppsDatabaseDAO
- * 
+ *
  */
 public final class MyAppsDatabaseDAO implements IMyAppsDatabaseDAO
 {
@@ -57,8 +57,8 @@ public final class MyAppsDatabaseDAO implements IMyAppsDatabaseDAO
     private static final String SQL_QUERY_SELECT = " SELECT id_application, name, description, url, code, password, data, code_heading, data_heading, icon_mime_type FROM myapps_database_application WHERE id_application = ? ";
     private static final String SQL_QUERY_INSERT = " INSERT INTO myapps_database_application ( id_application, name, description, url, code, password, data, code_heading, data_heading, icon_content, icon_mime_type) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ? ) ";
     private static final String SQL_QUERY_DELETE = " DELETE FROM myapps_database_application WHERE id_application = ? ";
-    private static final String SQL_QUERY_UPDATE = " UPDATE myapps_database_application SET id_application = ?, name = ?, description = ?, url = ?, code = ?, password = ?, data = ?, code_heading = ?, data_heading = ?, icon_content = ?, icon_mime_type = ? WHERE id_application = ? ";
-    private static final String SQL_QUERY_UPDATE_WITHOUT_ICON = " UPDATE myapps_database_application SET id_application = ?, name = ?, description = ?, url = ?, code = ?, password = ?, data = ?, code_heading = ?, data_heading = ? WHERE id_application = ? ";
+    private static final String SQL_QUERY_UPDATE = " UPDATE myapps_database_application SET name = ?, description = ?, url = ?, code = ?, password = ?, data = ?, code_heading = ?, data_heading = ?, icon_content = ?, icon_mime_type = ? WHERE id_application = ? ";
+    private static final String SQL_QUERY_UPDATE_WITHOUT_ICON = " UPDATE myapps_database_application SET name = ?, description = ?, url = ?, code = ?, password = ?, data = ?, code_heading = ?, data_heading = ? WHERE id_application = ? ";
     private static final String SQL_QUERY_SELECTALL = " SELECT id_application, name, description, url, code, password, data, code_heading, data_heading, icon_mime_type FROM myapps_database_application ";
     private static final String SQL_QUERY_SELECT_MYAPPS = " SELECT id_application, name FROM myapps_database_application ";
     private static final String SQL_QUERY_SELECT_BY_USER = " SELECT a.id_application, a.name, a.description, a.url, a.code, a.password, a.data, a.code_heading, a.data_heading, a.icon_mime_type " +
@@ -68,11 +68,10 @@ public final class MyAppsDatabaseDAO implements IMyAppsDatabaseDAO
 
     //Image resource fetching
     private static final String SQL_QUERY_SELECT_RESOURCE_IMAGE = " SELECT icon_content , icon_mime_type FROM myapps_database_application WHERE id_application= ? ";
-
     private static final String SQL_ORDER_BY_NAME = " ORDER BY a.name ";
     private static final String SQL_ASC = " ASC ";
     private static final String SQL_DESC = " DESC ";
-    
+
     /**
      * {@inheritDoc}
      */
@@ -183,7 +182,6 @@ public final class MyAppsDatabaseDAO implements IMyAppsDatabaseDAO
         DAOUtil daoUtil = new DAOUtil( strSQL, plugin );
 
         int nIndex = 1;
-        daoUtil.setInt( nIndex++, myApps.getIdApplication(  ) );
         daoUtil.setString( nIndex++, myApps.getName(  ) );
         daoUtil.setString( nIndex++, myApps.getDescription(  ) );
         daoUtil.setString( nIndex++, myApps.getUrl(  ) );
@@ -255,6 +253,7 @@ public final class MyAppsDatabaseDAO implements IMyAppsDatabaseDAO
         StringBuilder sbSQL = new StringBuilder( SQL_QUERY_SELECT_BY_USER );
         sbSQL.append( SQL_ORDER_BY_NAME );
         sbSQL.append( bIsAscSort ? SQL_ASC : SQL_DESC );
+
         DAOUtil daoUtil = new DAOUtil( sbSQL.toString(  ), plugin );
         daoUtil.setString( 1, strUserName );
         daoUtil.executeQuery(  );

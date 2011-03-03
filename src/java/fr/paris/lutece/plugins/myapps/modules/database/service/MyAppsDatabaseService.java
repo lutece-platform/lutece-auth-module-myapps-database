@@ -110,7 +110,7 @@ public final class MyAppsDatabaseService
 
     /**
      * Select the MyApps list
-     * 
+     *
      * @param plugin {@link Plugin}
      * @return a list of {@link MyApps}
      */
@@ -121,7 +121,7 @@ public final class MyAppsDatabaseService
 
     /**
      * Get the permissions for each {@link MyApps}
-     * 
+     *
      * @param listMyApps a list of {@link MyApps}
      * @param user the current {@link AdminUser}
      * @return a map of permissions
@@ -150,7 +150,7 @@ public final class MyAppsDatabaseService
 
     /**
      * Create a new {@link MyAppsDatabase}
-     * 
+     *
      * @param myApp the {@link MyAppsDatabase} to create
      * @param plugin {@link Plugin}
      */
@@ -161,7 +161,7 @@ public final class MyAppsDatabaseService
 
     /**
      * Update a {@link MyAppsDatabase}
-     * 
+     *
      * @param myApp the {@link MyAppsDatabase} to update
      * @param bUpdateIcon true if the icon must be updated, false otherwise
      * @param plugin {@link Plugin}
@@ -173,7 +173,7 @@ public final class MyAppsDatabaseService
 
     /**
      * Remove a {@link MyAppsDatabase}
-     * 
+     *
      * @param nMyAppId the MyApp Id
      * @param plugin {@link Plugin}
      */
@@ -184,7 +184,7 @@ public final class MyAppsDatabaseService
 
     /**
      * Get the image resource
-     * 
+     *
      * @param nMyAppId the MyApp Id
      * @param plugin {@link Plugin}
      * @return the image resource
@@ -196,7 +196,7 @@ public final class MyAppsDatabaseService
 
     /**
      * Create a new {@link MyAppsDatabaseUser}
-     * 
+     *
      * @param myAppsUser the {@link MyAppsDatabaseUser} to create
      * @param plugin {@link Plugin}
      */
@@ -207,7 +207,7 @@ public final class MyAppsDatabaseService
 
     /**
      * Update a {@link MyAppsDatabaseUser}
-     * 
+     *
      * @param myAppsUser the {@link MyAppsDatabaseUser} to update
      * @param plugin {@link Plugin}
      */
@@ -218,7 +218,7 @@ public final class MyAppsDatabaseService
 
     /**
      * Delete a {@link MyAppsDatabaseUser}
-     * 
+     *
      * @param nMyAppsUserId the MyAppsUser Id
      * @param plugin {@link Plugin}
      */
@@ -229,7 +229,7 @@ public final class MyAppsDatabaseService
 
     /**
      * Delete a {@link MyAppsDatabaseUser}
-     * 
+     *
      * @param nMyAppId the MyApp Id
      * @param strUserName the user name
      * @param plugin {@link Plugin}
@@ -253,7 +253,7 @@ public final class MyAppsDatabaseService
 
     /**
      * Management of the image associated to the application
-     * 
+     *
      * @param strMyAppId The myapp identifier
      * @param plugin {@link Plugin}
      * @return the URL of the image resource
@@ -286,7 +286,7 @@ public final class MyAppsDatabaseService
      * @param strUserName the user name
      * @param plugin the Plugin
      * @return a {@link MyAppsUser}
-     * 
+     *
      */
     public MyAppsUser getCredential( int nMyAppId, String strUserName, Plugin plugin )
     {

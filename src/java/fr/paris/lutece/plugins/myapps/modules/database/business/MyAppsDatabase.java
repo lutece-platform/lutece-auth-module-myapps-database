@@ -39,9 +39,9 @@ import org.apache.commons.lang.StringUtils;
 
 
 /**
- * 
+ *
  * MyAppsDatabase
- * 
+ *
  */
 public class MyAppsDatabase extends MyApps
 {
@@ -56,7 +56,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Returns the Code
-     * 
+     *
      * @return The Code
      */
     public String getCode(  )
@@ -66,7 +66,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Sets the Code
-     * 
+     *
      * @param strCode The Code
      */
     public void setCode( String strCode )
@@ -76,7 +76,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Returns the Password
-     * 
+     *
      * @return The Password
      */
     public String getPassword(  )
@@ -86,7 +86,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Sets the Password
-     * 
+     *
      * @param strPassword The Password
      */
     public void setPassword( String strPassword )
@@ -96,7 +96,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Returns the Data
-     * 
+     *
      * @return The Data
      */
     public String getData(  )
@@ -106,7 +106,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Sets the Data
-     * 
+     *
      * @param strData The Data
      */
     public void setData( String strData )
@@ -116,7 +116,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Returns the CodeHeading
-     * 
+     *
      * @return The CodeHeading
      */
     public String getCodeHeading(  )
@@ -126,7 +126,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Sets the CodeHeading
-     * 
+     *
      * @param strCodeHeading The CodeHeading
      */
     public void setCodeHeading( String strCodeHeading )
@@ -136,7 +136,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Returns the DataHeading
-     * 
+     *
      * @return The DataHeading
      */
     public String getDataHeading(  )
@@ -146,7 +146,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Sets the DataHeading
-     * 
+     *
      * @param strDataHeading The DataHeading
      */
     public void setDataHeading( String strDataHeading )
@@ -156,7 +156,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
     * Returns the icon mime type
-    * 
+    *
     * @return The IconMimeType
     */
     public String getIconMimeType(  )
@@ -166,7 +166,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Sets the Icon mime type
-     * 
+     *
      * @param strIconMimeType The mime type
      */
     public void setIconMimeType( String strIconMimeType )
@@ -196,7 +196,7 @@ public class MyAppsDatabase extends MyApps
 
     /**
      * Check if the MyApps has an icon
-     * 
+     *
      * @return true if it has an icon, false otherwise
      */
     public boolean hasIcon(  )

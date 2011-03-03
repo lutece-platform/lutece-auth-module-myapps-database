@@ -37,9 +37,9 @@ import fr.paris.lutece.plugins.myapps.business.MyAppsUser;
 
 
 /**
- * 
+ *
  * MyAppsDatabaseUser
- * 
+ *
  */
 public class MyAppsDatabaseUser extends MyAppsUser
 {

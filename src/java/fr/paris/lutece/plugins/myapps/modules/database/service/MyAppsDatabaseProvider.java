@@ -51,8 +51,9 @@ import org.apache.commons.lang.StringUtils;
 import java.util.List;
 import java.util.Locale;
 
+
 /**
- * 
+ *
  * MyAppsDatabaseProvider
  *
  */
@@ -71,7 +72,7 @@ public final class MyAppsDatabaseProvider implements MyAppsProvider
 
     /**
      * Get the instance of {@link MyAppsDatabaseProvider}
-     * 
+     *
      * @return an instance of {@link MyAppsDatabaseProvider}
      */
     public static synchronized MyAppsDatabaseProvider getInstance(  )
@@ -130,6 +131,7 @@ public final class MyAppsDatabaseProvider implements MyAppsProvider
     public String getResourceImage( String strMyAppId )
     {
         Plugin plugin = PluginService.getPlugin( MyAppsDatabasePlugin.PLUGIN_NAME );
+
         return MyAppsDatabaseService.getInstance(  ).getResourceImageUrl( strMyAppId, plugin );
     }
 

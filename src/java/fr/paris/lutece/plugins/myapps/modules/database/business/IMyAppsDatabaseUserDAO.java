@@ -40,9 +40,9 @@ import java.util.Collection;
 
 
 /**
- * 
+ *
 * IMyAppsDatabaseUserDAO Interface
-* 
+*
 */
 public interface IMyAppsDatabaseUserDAO
 {

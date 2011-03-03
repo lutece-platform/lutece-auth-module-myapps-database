@@ -33,15 +33,6 @@
  */
 package fr.paris.lutece.plugins.myapps.modules.database.web;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.lang.StringUtils;
-
 import fr.paris.lutece.plugins.myapps.business.MyApps;
 import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabase;
 import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseResourceIdService;
@@ -63,9 +54,18 @@ import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.html.Paginator;
 import fr.paris.lutece.util.url.UrlItem;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
- * 
+ *
  * MyAppsDatabaseJspBean
  *
  */

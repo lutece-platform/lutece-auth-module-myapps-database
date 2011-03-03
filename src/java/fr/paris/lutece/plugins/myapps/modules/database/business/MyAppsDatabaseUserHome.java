@@ -43,9 +43,9 @@ import java.util.Collection;
 
 
 /**
- * 
+ *
  * MyAppsDatabaseUserHome
- * 
+ *
  */
 public final class MyAppsDatabaseUserHome
 {
