@@ -34,6 +34,8 @@
 package fr.paris.lutece.plugins.myapps.modules.database.business;
 
 import fr.paris.lutece.plugins.myapps.business.MyApps;
+import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseProvider;
+import fr.paris.lutece.plugins.myapps.service.MyAppsProvider;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -195,12 +197,18 @@ public class MyAppsDatabase extends MyApps
     }
 
     /**
-     * Check if the MyApps has an icon
-     *
-     * @return true if it has an icon, false otherwise
+     * {@inheritDoc}
      */
     public boolean hasIcon(  )
     {
         return StringUtils.isNotBlank( _strIconMimeType );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public MyAppsProvider getProvider(  )
+    {
+        return MyAppsDatabaseProvider.getInstance(  );
     }
 }

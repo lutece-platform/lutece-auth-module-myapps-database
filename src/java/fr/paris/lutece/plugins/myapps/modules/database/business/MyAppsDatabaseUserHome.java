@@ -65,7 +65,6 @@ public final class MyAppsDatabaseUserHome
      *
      * @param myAppsUser The instance of the MyAppsUser which contains the informations to store
      * @param plugin the Plugin
-     * @return The instance of myAppsUser which has been created with its primary key.
      */
     public static void create( MyAppsDatabaseUser myAppsUser, Plugin plugin )
     {
@@ -77,7 +76,6 @@ public final class MyAppsDatabaseUserHome
      *
      * @param myAppsUser The instance of the MyAppsUser which contains the data to store
      * @param plugin the Plugin
-     * @return The instance of the myAppsUser which has been updated
      */
     public static void update( MyAppsDatabaseUser myAppsUser, Plugin plugin )
     {

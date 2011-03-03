@@ -123,6 +123,7 @@ public final class MyAppsDatabaseHome
     * Loads a list of myApps belonging to a user
     *
     * @param strUserName the user name
+    * @param bIsAscSort true if it is sorted ascendly, false otherwise
     * @param plugin the Plugin
     * @return the collection which contains the data of all the myApps
     */

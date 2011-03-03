@@ -94,6 +94,7 @@ public interface IMyAppsDatabaseDAO
      * Loads all the myapps belonging to a user
      *
      * @param strUserName the user name
+     * @param bIsAscSort true if it is sorted ascendly, false otherwise
      * @param plugin the Plugin
      * @return the list which contains the myApps
      */
