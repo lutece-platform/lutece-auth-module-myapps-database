@@ -365,7 +365,7 @@ public class MyAppsDatabaseJspBean extends PluginAdminPageJspBean
         if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) )
         {
             if ( !RBACService.isAuthorized( MyAppsDatabase.RESOURCE_TYPE, RBAC.WILDCARD_RESOURCES_ID,
-                        MyAppsDatabaseResourceIdService.PERMISSION_CREATE_MYAPPS_DATABASE, getUser(  ) ) )
+                        MyAppsDatabaseResourceIdService.PERMISSION_MODIFY_MYAPPS_DATABASE, getUser(  ) ) )
             {
                 throw new AccessDeniedException(  );
             }
