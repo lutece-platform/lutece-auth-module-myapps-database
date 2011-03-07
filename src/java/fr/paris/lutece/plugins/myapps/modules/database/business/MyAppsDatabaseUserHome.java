@@ -61,6 +61,17 @@ public final class MyAppsDatabaseUserHome
     }
 
     /**
+     * Get a new primary key
+     *
+     * @param plugin {@link Plugin}
+     * @return a new primary key
+     */
+    public static int newPrimaryKey( Plugin plugin )
+    {
+        return _dao.newPrimaryKey( plugin );
+    }
+
+    /**
      * Creation of an instance of myAppsUser
      *
      * @param myAppsUser The instance of the MyAppsUser which contains the informations to store
@@ -123,21 +134,33 @@ public final class MyAppsDatabaseUserHome
      * @param plugin the Plugin
      * @return the collection which contains the data of all the myAppsUsers
      */
-    public static Collection<MyAppsUser> getmyAppsUsersList( Plugin plugin )
+    public static Collection<MyAppsUser> getMyAppsUsersList( Plugin plugin )
     {
         return _dao.selectMyAppsUsersList( plugin );
     }
 
     /**
-    * Loads the data of all the myAppsUsers and returns them in form of a collection
-    *
-    * @param nMyAppId the ID of the appication
-    * @param strUserName the user name
-    * @param plugin the Plugin
-    * @return a {@link MyAppsUser}
-    */
+     * Loads the data of all the myAppsUsers and returns them in form of a collection
+     *
+     * @param nMyAppId the ID of the appication
+     * @param strUserName the user name
+     * @param plugin the Plugin
+     * @return a {@link MyAppsUser}
+     */
     public static MyAppsUser getCredentials( int nMyAppId, String strUserName, Plugin plugin )
     {
         return _dao.getCredentials( nMyAppId, strUserName, plugin );
+    }
+
+    /**
+     * Loads the data of all the myAppsUsers and returns them in form of a collection
+     *
+     * @param nMyAppsUserId the ID of the appication user
+     * @param plugin the Plugin
+     * @return a {@link MyAppsUser}
+     */
+    public static MyAppsUser getCredentials( int nMyAppsUserId, Plugin plugin )
+    {
+        return _dao.getCredentials( nMyAppsUserId, plugin );
     }
 }

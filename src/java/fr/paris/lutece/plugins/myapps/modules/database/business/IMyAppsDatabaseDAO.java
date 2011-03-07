@@ -49,6 +49,14 @@ import java.util.List;
 public interface IMyAppsDatabaseDAO
 {
     /**
+     * Get a new primary key
+     *
+     * @param plugin {@link Plugin}
+     * @return a new primary key
+     */
+    int newPrimaryKey( Plugin plugin );
+
+    /**
      * Insert a new record in the table.
      *
      * @param myApp instance of the MyApps object to insert

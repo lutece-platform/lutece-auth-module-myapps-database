@@ -63,26 +63,37 @@ public final class MyAppsDatabaseHome
     }
 
     /**
+     * Get a new primary key
+     *
+     * @param plugin {@link Plugin}
+     * @return a new primary key
+     */
+    public static int newPrimaryKey( Plugin plugin )
+    {
+        return _dao.newPrimaryKey( plugin );
+    }
+
+    /**
      * Creation of an instance of myApps
      *
-     * @param myApps The instance of the MyApps which contains the informations to store
+     * @param myApp The instance of the MyApps which contains the informations to store
      * @param plugin the Plugin
      */
-    public static void create( MyAppsDatabase myApps, Plugin plugin )
+    public static void create( MyAppsDatabase myApp, Plugin plugin )
     {
-        _dao.insert( myApps, plugin );
+        _dao.insert( myApp, plugin );
     }
 
     /**
      * Update of the myApps which is specified in parameter
      *
-     * @param myApps The instance of the MyApps which contains the data to store
+     * @param myApp The instance of the MyApps which contains the data to store
      * @param bUpdateIcon true if the icon must also be updated, false otherwise
      * @param plugin the Plugin
      */
-    public static void update( MyAppsDatabase myApps, boolean bUpdateIcon, Plugin plugin )
+    public static void update( MyAppsDatabase myApp, boolean bUpdateIcon, Plugin plugin )
     {
-        _dao.store( myApps, bUpdateIcon, plugin );
+        _dao.store( myApp, bUpdateIcon, plugin );
     }
 
     /**

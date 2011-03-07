@@ -47,6 +47,14 @@ import java.util.Collection;
 public interface IMyAppsDatabaseUserDAO
 {
     /**
+     * Get a new primary key
+     *
+     * @param plugin {@link Plugin}
+     * @return a new primary key
+     */
+    int newPrimaryKey( Plugin plugin );
+
+    /**
      * Insert a new record in the table.
      *
      * @param myAppsUser instance of the MyAppsUser object to insert
@@ -105,4 +113,13 @@ public interface IMyAppsDatabaseUserDAO
      * @return a {@link MyAppsDatabaseUser}
      */
     MyAppsUser getCredentials( int nMyAppId, String strUserName, Plugin plugin );
+
+    /**
+     * Get the credentials information
+     *
+     * @param nMyAppsUserId the application user ID
+     * @param plugin {@link Plugin}
+     * @return a {@link MyAppsDatabaseUser}
+     */
+    MyAppsDatabaseUser getCredentials( int nMyAppsUserId, Plugin plugin );
 }

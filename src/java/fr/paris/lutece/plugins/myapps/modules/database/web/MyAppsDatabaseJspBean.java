@@ -100,7 +100,7 @@ public class MyAppsDatabaseJspBean extends PluginAdminPageJspBean
      * @param request The Http request
      * @return the myapps list
      */
-    public String getManageApplications( HttpServletRequest request )
+    public String getManageMyApps( HttpServletRequest request )
     {
         setPageTitleProperty( MyAppsDatabaseConstants.PROPERTY_PAGE_TITLE_MYAPPS );
         _strCurrentPageIndex = Paginator.getPageIndex( request, Paginator.PARAMETER_PAGE_INDEX, _strCurrentPageIndex );
@@ -127,21 +127,6 @@ public class MyAppsDatabaseJspBean extends PluginAdminPageJspBean
         HtmlTemplate templateList = AppTemplateService.getTemplate( TEMPLATE_MYAPPS, getLocale(  ), model );
 
         return getAdminPage( templateList.getHtml(  ) );
-    }
-
-    /**
-     * Returns the form to create a myapp
-     *
-     * @param request The Http request
-     * @return the html code of the myapp form
-     */
-    public String getCreateApplication( HttpServletRequest request )
-    {
-        setPageTitleProperty( MyAppsDatabaseConstants.PROPERTY_PAGE_TITLE_CREATE );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_APPLICATION, getLocale(  ), null );
-
-        return getAdminPage( template.getHtml(  ) );
     }
 
     /**
@@ -244,7 +229,7 @@ public class MyAppsDatabaseJspBean extends PluginAdminPageJspBean
         }
         else
         {
-            getManageApplications( request );
+            getManageMyApps( request );
         }
 
         return strHtml;

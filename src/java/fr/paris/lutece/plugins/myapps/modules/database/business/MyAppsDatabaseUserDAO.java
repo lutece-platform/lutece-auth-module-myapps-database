@@ -252,4 +252,37 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
 
         return myAppsUser;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public MyAppsDatabaseUser getCredentials( int nMyAppsUserId, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
+        daoUtil.setInt( 1, nMyAppsUserId );
+        daoUtil.executeQuery(  );
+
+        MyAppsDatabaseUser myAppsUser = null;
+
+        if ( daoUtil.next(  ) )
+        {
+            int nIndex = 1;
+            myAppsUser = new MyAppsDatabaseUser(  );
+
+            myAppsUser.setMyAppsUserId( daoUtil.getInt( nIndex++ ) );
+            myAppsUser.setName( daoUtil.getString( nIndex++ ) );
+            myAppsUser.setIdApplication( daoUtil.getInt( nIndex++ ) );
+
+            // Decrypt username and password
+            String strUsername = CryptoUtil.decrypt( daoUtil.getString( nIndex++ ), KEY );
+            String strPassword = CryptoUtil.decrypt( daoUtil.getString( nIndex++ ), KEY );
+            myAppsUser.setStoredUserName( strUsername );
+            myAppsUser.setStoredUserPassword( strPassword );
+            myAppsUser.setStoredUserData( daoUtil.getString( nIndex++ ) );
+        }
+
+        daoUtil.free(  );
+
+        return myAppsUser;
+    }
 }
