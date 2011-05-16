@@ -276,7 +276,7 @@ public class MyAppsDatabaseApp implements XPageApplication
             if ( myApp != null )
             {
                 if ( ( StringUtils.isNotBlank( myApp.getData(  ) ) && StringUtils.isNotBlank( strExtraData ) ) ||
-                        StringUtils.isBlank( myApp.getData(  ) ) )
+                        StringUtils.isBlank( myApp.getData(  ) ) || StringUtils.isBlank( myApp.getDataHeading(  ) ) )
                 {
                     String strUserName = user.getName(  );
                     MyAppsDatabaseUser myAppsUser = new MyAppsDatabaseUser(  );
@@ -333,7 +333,7 @@ public class MyAppsDatabaseApp implements XPageApplication
             if ( myApp != null )
             {
                 if ( ( StringUtils.isNotBlank( myApp.getData(  ) ) && StringUtils.isNotBlank( strExtraData ) ) ||
-                        StringUtils.isBlank( myApp.getData(  ) ) )
+                        StringUtils.isBlank( myApp.getData(  ) ) || StringUtils.isBlank( myApp.getDataHeading(  ) ) )
                 {
                     String strUserName = user.getName(  );
                     MyAppsDatabaseUser myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService.getInstance(  )

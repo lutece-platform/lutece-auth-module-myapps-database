@@ -118,6 +118,10 @@ public final class MyAppsDatabaseConstants
     public static final String MESSAGE_CONFIRM_REMOVE_MYAPP = "module.myapps.database.message.confirmRemoveMyApp";
     public static final String MESSAGE_FIELD_TOO_LONG = "module.myapps.database.message.fieldTooLong";
 
+    // CONSTANTS
+    public static final String QUESTION_MARK = "?";
+    public static final String AMPERSAND = "&";
+
     /**
      * Private constructor
      */

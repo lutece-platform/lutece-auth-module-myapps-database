@@ -169,7 +169,30 @@ public final class MyAppsDatabaseProvider implements MyAppsProvider
 
         if ( ( myAppsUser != null ) && ( myapps != null ) )
         {
-            //The login and the url
+            // If the label of data is blank, then the value of data has to concatenated to the url
+            // This way, the AdminUser can pass hidden parameters
+            if ( StringUtils.isBlank( myapps.getDataHeading(  ) ) && StringUtils.isNotBlank( myapps.getData(  ) ) )
+            {
+                StringBuilder sbUrl = new StringBuilder( myapps.getUrl(  ) );
+
+                if ( myapps.getUrl(  ).indexOf( MyAppsDatabaseConstants.QUESTION_MARK ) == -1 )
+                {
+                    sbUrl.append( MyAppsDatabaseConstants.QUESTION_MARK );
+                }
+                else
+                {
+                    sbUrl.append( MyAppsDatabaseConstants.AMPERSAND );
+                }
+
+                sbUrl.append( myapps.getData(  ) );
+                strUrl = sbUrl.toString(  );
+            }
+            else
+            {
+                strUrl = myapps.getUrl(  );
+            }
+
+            //The login
             String strLoginFieldName = myapps.getCode(  );
             String strUserLogin = myAppsUser.getStoredUserName(  );
 
@@ -180,11 +203,13 @@ public final class MyAppsDatabaseProvider implements MyAppsProvider
             //Extra Field
             String strExtraField = myapps.getData(  );
             String strExtraFieldValue = myAppsUser.getStoredUserData(  );
-            UrlItem url = new UrlItem( myapps.getUrl(  ) );
+
+            UrlItem url = new UrlItem( strUrl );
             url.addParameter( strLoginFieldName, strUserLogin );
             url.addParameter( strPasswordField, strUserPassword );
 
-            if ( StringUtils.isNotBlank( strExtraField ) )
+            // If the label of data is not blank, then it is an extra field the LuteceUser has to fill
+            if ( StringUtils.isNotBlank( strExtraField ) && StringUtils.isNotBlank( myapps.getDataHeading(  ) ) )
             {
                 url.addParameter( strExtraField, strExtraFieldValue );
             }

@@ -29,13 +29,11 @@
 							#i18n{module.myapps.database.page_app_modify.labelPassword} :
 						</label>
 						<input name="user_password" id="user_password" type="password" value="" />
-						<#if myapp.data?? && myapp.data != "">
+						<#if myapp.data?? && myapp.data != "" && myapp.dataHeading?? && myapp.dataHeading != "">
 							<br />
 							<label for="user_extra_data">
 								#i18n{module.myapps.database.page_app_modify.labelExtraField}
-								<#if myapp.dataHeading?? && myapp.dataHeading != "">
-		                        	(${myapp.dataHeading})
-		                        </#if>
+		                        (${myapp.dataHeading})
 		                        :
 							</label>
 							<input name="user_extra_data" id="user_extra_data" type="password" />
