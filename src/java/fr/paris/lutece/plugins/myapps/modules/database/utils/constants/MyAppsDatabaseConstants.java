@@ -33,6 +33,8 @@
  */
 package fr.paris.lutece.plugins.myapps.modules.database.utils.constants;
 
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
+
 
 /**
  *
@@ -70,10 +72,11 @@ public final class MyAppsDatabaseConstants
     public static final String PARAMETER_MYAPP_URL = "myapp_url";
     public static final String PARAMETER_MYAPP_ICON = "myapp_icon";
     public static final String PARAMETER_MYAPP_DESCRIPTION = "myapp_description";
-    public static final String PARAMETER_USER_NAME = "user_name";
+    public static final String PARAMETER_CODE = "code";
     public static final String PARAMETER_CODE_HEADING = "code_heading";
-    public static final String PARAMETER_USER_FIELD = "user_field";
-    public static final String PARAMETER_USER_FIELD_HEADING = "user_field_heading";
+    public static final String PARAMETER_PASSWORD = "password";
+    public static final String PARAMETER_DATA = "data";
+    public static final String PARAMETER_DATA_HEADING = "data_heading";
     public static final String PARAMETER_UPDATE_FILE = "update_file";
 
     // ACTIONS
@@ -98,10 +101,22 @@ public final class MyAppsDatabaseConstants
     public static final String PROPERTY_PAGE_TITLE_CREATE = "module.myapps.database.create_application.pageTitle";
     public static final String PROPERTY_PAGE_TITLE_MODIFY = "module.myapps.database.modify_application.pageTitle";
     public static final String PROPERTY_DEFAULT_ITEMS_PER_PAGE = "myapps-database.itemsPerPage";
+    public static final String PROPERTY_DEFAULT_FIELD_SIZE = "myapps-database.field.size";
+    public static final int PROPERTY_DEFAULT_FIELD_SIZE_INT = AppPropertiesService.getPropertyInt( PROPERTY_DEFAULT_FIELD_SIZE,
+            255 );
+    public static final String PROPERTY_LABEL_NAME = "module.myapps.database.label.name";
+    public static final String PROPERTY_LABEL_URL = "module.myapps.database.label.url";
+    public static final String PROPERTY_LABEL_DESCRIPTION = "module.myapps.database.label.description";
+    public static final String PROPERTY_LABEL_USER_NAME = "module.myapps.database.label.userName";
+    public static final String PROPERTY_LABEL_USER_HEADING = "module.myapps.database.label.userHeading";
+    public static final String PROPERTY_LABEL_PASSWORD = "module.myapps.database.label.password";
+    public static final String PROPERTY_LABEL_USER_FIELD = "module.myapps.database.label.userField";
+    public static final String PROPERTY_LABEL_USER_FIELD_HEADING = "module.myapps.database.label.userFieldHeading";
 
     // MESSAGES
     public static final String MESSAGE_ERROR = "module.myapps.database.message.error";
     public static final String MESSAGE_CONFIRM_REMOVE_MYAPP = "module.myapps.database.message.confirmRemoveMyApp";
+    public static final String MESSAGE_FIELD_TOO_LONG = "module.myapps.database.message.fieldTooLong";
 
     /**
      * Private constructor

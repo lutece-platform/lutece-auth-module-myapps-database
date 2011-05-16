@@ -3,8 +3,8 @@
     <form method="post"  enctype="multipart/form-data" name="modify_application" action="jsp/admin/plugins/myapps/modules/database/DoModifyMyApp.jsp">
         <p>
             <label for="myapp_name" >#i18n{module.myapps.database.modify_application.rowTitleName} * :</label>
-            <input type="text" id="myapp_name" name="myapp_name" size="60" maxlength="50" value="${myapp.name}" tabindex="1" />
-            <input type="hidden" id="myapp_id" name="myapp_id" size="60" maxlength="50" value="${myapp.idApplication}" tabindex="1" />
+            <input type="text" id="myapp_name" name="myapp_name" size="60" maxlength="255" value="${myapp.name}" tabindex="1" />
+            <input type="hidden" id="myapp_id" name="myapp_id" value="${myapp.idApplication}" />
         </p>  
         <p>
             <label for="myapp_url" >#i18n{module.myapps.database.modify_application.rowTitleUrl} * :</label>
@@ -15,25 +15,25 @@
             <input type="text" id="myapp_description" name="myapp_description" size="60" maxlength="255" value="${myapp.description}" tabindex="3" />
         </p> 
         <p>
-            <label for="user_name" >#i18n{module.myapps.database.modify_application.rowTitleUserName} * :</label>
-            <input type="text" id="user_name" name="user_name" size="60" maxlength="50" value="${myapp.code}" tabindex="4" />
+            <label for="code" >#i18n{module.myapps.database.modify_application.rowTitleCode} * :</label>
+            <input type="text" id="code" name="code" size="60" maxlength="255" value="${myapp.code}" tabindex="4" />
         </p> 
         </p> 
         <p>
-            <label for="code_heading" >#i18n{module.myapps.database.modify_application.rowTitleUserHeading} :</label>
-            <input type="text" id="code_heading" name="code_heading" size="60" maxlength="50" value="${myapp.codeHeading}" tabindex="5" />
+            <label for="code_heading" >#i18n{module.myapps.database.modify_application.rowTitleCodeHeading} :</label>
+            <input type="text" id="code_heading" name="code_heading" size="60" maxlength="255" value="${myapp.codeHeading}" tabindex="5" />
         </p> 
         <p>
-            <label for="user_password" >#i18n{module.myapps.database.modify_application.rowTitleUserPassword} * :</label>
-            <input type="text" id="user_password" name="user_password" size="60" maxlength="50" value="${myapp.password}" tabindex="6" />
+            <label for="password" >#i18n{module.myapps.database.modify_application.rowTitlePassword} * :</label>
+            <input type="text" id="password" name="password" size="60" maxlength="255" value="${myapp.password}" tabindex="6" />
         </p> 
         <p>
-            <label for="user_field" >#i18n{module.myapps.database.modify_application.rowTitleUserField} :</label>
-            <input type="text" id="user_field" name="user_field" size="60" maxlength="50" value="${myapp.data}" tabindex="7" />
+            <label for="data" >#i18n{module.myapps.database.modify_application.rowTitleData} :</label>
+            <input type="text" id="data" name="data" size="60" maxlength="255" value="${myapp.data}" tabindex="7" />
         </p> 
         <p>
-            <label for="user_field_heading" >#i18n{module.myapps.database.modify_application.rowTitleUserFieldHeading} :</label>
-            <input type="text" id="user_field_heading" name="user_field_heading" size="60" maxlength="50" value="${myapp.dataHeading}" tabindex="8" />
+            <label for="data_heading" >#i18n{module.myapps.database.modify_application.rowTitleDataHeading} :</label>
+            <input type="text" id="data_heading" name="data_heading" size="60" maxlength="255" value="${myapp.dataHeading}" tabindex="8" />
         </p> 
 		<p>
 			<label for="myapp_icon">#i18n{module.myapps.database.modify_application.rowTitleIconField} :</label>

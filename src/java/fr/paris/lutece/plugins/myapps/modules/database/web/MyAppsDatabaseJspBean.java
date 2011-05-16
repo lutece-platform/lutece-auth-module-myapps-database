@@ -40,6 +40,7 @@ import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseSer
 import fr.paris.lutece.plugins.myapps.modules.database.utils.constants.MyAppsDatabaseConstants;
 import fr.paris.lutece.portal.business.rbac.RBAC;
 import fr.paris.lutece.portal.service.admin.AccessDeniedException;
+import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.service.rbac.RBACService;
@@ -277,16 +278,16 @@ public class MyAppsDatabaseJspBean extends PluginAdminPageJspBean
         String strJspUrl = StringUtils.EMPTY;
         String strAppName = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_NAME );
         String strUrl = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_URL );
-        String strPassword = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_PASSWORD );
-        String strCode = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_NAME );
+        String strPassword = request.getParameter( MyAppsDatabaseConstants.PARAMETER_PASSWORD );
+        String strCode = request.getParameter( MyAppsDatabaseConstants.PARAMETER_CODE );
         String strCodeHeading = request.getParameter( MyAppsDatabaseConstants.PARAMETER_CODE_HEADING );
-        String strData = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_FIELD );
-        String strDataHeading = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_FIELD_HEADING );
+        String strData = request.getParameter( MyAppsDatabaseConstants.PARAMETER_DATA );
+        String strDataHeading = request.getParameter( MyAppsDatabaseConstants.PARAMETER_DATA_HEADING );
         String strDescription = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_DESCRIPTION );
 
-        // Mandatory fields
-        if ( StringUtils.isNotBlank( strCode ) && StringUtils.isNotBlank( strPassword ) &&
-                StringUtils.isNotBlank( strUrl ) && StringUtils.isNotBlank( strAppName ) )
+        String strError = verifyFields( request );
+
+        if ( StringUtils.isBlank( strError ) )
         {
             // create the multipart request
             MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
@@ -328,7 +329,7 @@ public class MyAppsDatabaseJspBean extends PluginAdminPageJspBean
         }
         else
         {
-            strJspUrl = AdminMessageService.getMessageUrl( request, Messages.MANDATORY_FIELDS, AdminMessage.TYPE_STOP );
+            strJspUrl = strError;
         }
 
         return strJspUrl;
@@ -357,15 +358,16 @@ public class MyAppsDatabaseJspBean extends PluginAdminPageJspBean
 
             String strAppName = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_NAME );
             String strUrl = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_URL );
-            String strPassword = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_PASSWORD );
-            String strCode = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_NAME );
+            String strPassword = request.getParameter( MyAppsDatabaseConstants.PARAMETER_PASSWORD );
+            String strCode = request.getParameter( MyAppsDatabaseConstants.PARAMETER_CODE );
             String strCodeHeading = request.getParameter( MyAppsDatabaseConstants.PARAMETER_CODE_HEADING );
-            String strData = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_FIELD );
-            String strDataHeading = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_FIELD_HEADING );
+            String strData = request.getParameter( MyAppsDatabaseConstants.PARAMETER_DATA );
+            String strDataHeading = request.getParameter( MyAppsDatabaseConstants.PARAMETER_DATA_HEADING );
             String strDescription = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_DESCRIPTION );
 
-            if ( StringUtils.isNotBlank( strCode ) && StringUtils.isNotBlank( strPassword ) &&
-                    StringUtils.isNotBlank( strUrl ) && StringUtils.isNotBlank( strAppName ) )
+            String strError = verifyFields( request );
+
+            if ( StringUtils.isBlank( strError ) )
             {
                 int nMyAppId = Integer.parseInt( strMyAppId );
 
@@ -407,12 +409,11 @@ public class MyAppsDatabaseJspBean extends PluginAdminPageJspBean
 
                 MyAppsDatabaseService.getInstance(  ).update( myApp, bUpdateImage, getPlugin(  ) );
 
-                return getHomeUrl( request );
+                strJspUrl = getHomeUrl( request );
             }
             else
             {
-                strJspUrl = AdminMessageService.getMessageUrl( request, Messages.MANDATORY_FIELDS,
-                        AdminMessage.TYPE_STOP );
+                strJspUrl = strError;
             }
         }
         else
@@ -422,5 +423,95 @@ public class MyAppsDatabaseJspBean extends PluginAdminPageJspBean
         }
 
         return strJspUrl;
+    }
+
+    /**
+     * Check the sizes of each field
+     * @param request {@link HttpServletRequest}
+     * @return an empty string if there are no error, the url of the error message otherwise
+     */
+    private String verifyFields( HttpServletRequest request )
+    {
+        String strError = StringUtils.EMPTY;
+        String strAppName = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_NAME );
+        String strUrl = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_URL );
+        String strPassword = request.getParameter( MyAppsDatabaseConstants.PARAMETER_PASSWORD );
+        String strCode = request.getParameter( MyAppsDatabaseConstants.PARAMETER_CODE );
+        String strCodeHeading = request.getParameter( MyAppsDatabaseConstants.PARAMETER_CODE_HEADING );
+        String strData = request.getParameter( MyAppsDatabaseConstants.PARAMETER_DATA );
+        String strDataHeading = request.getParameter( MyAppsDatabaseConstants.PARAMETER_DATA_HEADING );
+        String strDescription = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_DESCRIPTION );
+
+        if ( StringUtils.isBlank( strCode ) || StringUtils.isBlank( strPassword ) || StringUtils.isBlank( strUrl ) ||
+                StringUtils.isBlank( strAppName ) )
+        {
+            strError = AdminMessageService.getMessageUrl( request, Messages.MANDATORY_FIELDS, AdminMessage.TYPE_STOP );
+        }
+
+        if ( StringUtils.isBlank( strError ) )
+        {
+            if ( StringUtils.isNotBlank( strAppName ) &&
+                    ( strAppName.length(  ) > MyAppsDatabaseConstants.PROPERTY_DEFAULT_FIELD_SIZE_INT ) )
+            {
+                strError = I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_LABEL_NAME, getLocale(  ) );
+            }
+
+            if ( StringUtils.isBlank( strError ) && StringUtils.isNotBlank( strUrl ) &&
+                    ( strUrl.length(  ) > MyAppsDatabaseConstants.PROPERTY_DEFAULT_FIELD_SIZE_INT ) )
+            {
+                strError = I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_LABEL_URL, getLocale(  ) );
+            }
+
+            if ( StringUtils.isBlank( strError ) && StringUtils.isNotBlank( strPassword ) &&
+                    ( strPassword.length(  ) > MyAppsDatabaseConstants.PROPERTY_DEFAULT_FIELD_SIZE_INT ) )
+            {
+                strError = I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_LABEL_PASSWORD,
+                        getLocale(  ) );
+            }
+
+            if ( StringUtils.isBlank( strError ) && StringUtils.isNotBlank( strCode ) &&
+                    ( strCode.length(  ) > MyAppsDatabaseConstants.PROPERTY_DEFAULT_FIELD_SIZE_INT ) )
+            {
+                strError = I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_LABEL_USER_NAME,
+                        getLocale(  ) );
+            }
+
+            if ( StringUtils.isBlank( strError ) && StringUtils.isNotBlank( strCodeHeading ) &&
+                    ( strCodeHeading.length(  ) > MyAppsDatabaseConstants.PROPERTY_DEFAULT_FIELD_SIZE_INT ) )
+            {
+                strError = I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_LABEL_USER_HEADING,
+                        getLocale(  ) );
+            }
+
+            if ( StringUtils.isBlank( strError ) && StringUtils.isNotBlank( strData ) &&
+                    ( strData.length(  ) > MyAppsDatabaseConstants.PROPERTY_DEFAULT_FIELD_SIZE_INT ) )
+            {
+                strError = I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_LABEL_USER_FIELD,
+                        getLocale(  ) );
+            }
+
+            if ( StringUtils.isBlank( strError ) && StringUtils.isNotBlank( strDataHeading ) &&
+                    ( strDataHeading.length(  ) > MyAppsDatabaseConstants.PROPERTY_DEFAULT_FIELD_SIZE_INT ) )
+            {
+                strError = I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_LABEL_USER_FIELD_HEADING,
+                        getLocale(  ) );
+            }
+
+            if ( StringUtils.isBlank( strError ) && StringUtils.isNotBlank( strDescription ) &&
+                    ( strDescription.length(  ) > MyAppsDatabaseConstants.PROPERTY_DEFAULT_FIELD_SIZE_INT ) )
+            {
+                strError = I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_LABEL_DESCRIPTION,
+                        getLocale(  ) );
+            }
+
+            if ( StringUtils.isNotBlank( strError ) )
+            {
+                Object[] params = { strError, MyAppsDatabaseConstants.PROPERTY_DEFAULT_FIELD_SIZE_INT };
+                strError = AdminMessageService.getMessageUrl( request, MyAppsDatabaseConstants.MESSAGE_FIELD_TOO_LONG,
+                        params, AdminMessage.TYPE_STOP );
+            }
+        }
+
+        return strError;
     }
 }
