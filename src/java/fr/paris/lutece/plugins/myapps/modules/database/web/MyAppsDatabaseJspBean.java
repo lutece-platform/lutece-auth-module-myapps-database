@@ -442,8 +442,7 @@ public class MyAppsDatabaseJspBean extends PluginAdminPageJspBean
         String strDataHeading = request.getParameter( MyAppsDatabaseConstants.PARAMETER_DATA_HEADING );
         String strDescription = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_DESCRIPTION );
 
-        if ( StringUtils.isBlank( strCode ) || StringUtils.isBlank( strPassword ) || StringUtils.isBlank( strUrl ) ||
-                StringUtils.isBlank( strAppName ) )
+        if ( StringUtils.isBlank( strUrl ) || StringUtils.isBlank( strAppName ) )
         {
             strError = AdminMessageService.getMessageUrl( request, Messages.MANDATORY_FIELDS, AdminMessage.TYPE_STOP );
         }

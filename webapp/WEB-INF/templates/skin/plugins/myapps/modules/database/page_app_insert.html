@@ -12,32 +12,34 @@
 			</p>
 			<form method="post" action="jsp/site/Portal.jsp?page=myapps-database&amp;action=do_insert">
 				<input type="hidden" name="myapp_id" value="${myapp.idApplication}" />
-				<#if myapp??>
-					<p>
+				<p>
+					<#if myapp.code?? && myapp.code != ''>
 						<label for="user_login">
 							#i18n{module.myapps.database.page_app_insert.labelLogin}
 	                        <#if myapp.codeHeading?? && myapp.codeHeading != "">
 								${myapp.codeHeading}
 	                        </#if>
-	                        :
+	                        * :
 						</label>
 						<input name="user_login" id="user_login" type="text" value="" />
 						<br />
+					</#if>
+					<#if myapp.password?? && myapp.password != ''>
 						<label for="user_password">
-							#i18n{module.myapps.database.page_app_insert.labelPassword} :
+							#i18n{module.myapps.database.page_app_insert.labelPassword} * :
 						</label>
 						<input name="user_password" id="user_password" type="password" value="" />
-						<#if myapp.data?? && myapp.data != "" && myapp.dataHeading?? && myapp.dataHeading != "">
-							<br />
-							<label for="user_extra_data">
-								#i18n{module.myapps.database.page_app_insert.labelExtraField}
-		                        (${myapp.dataHeading})
-		                        :
-							</label>
-							<input name="user_extra_data" id="user_extra_data" type="password" value="" />
-						</#if>
-					</p>
-				</#if>
+					</#if>
+					<#if myapp.data?? && myapp.data != "" && myapp.dataHeading?? && myapp.dataHeading != "">
+						<br />
+						<label for="user_extra_data">
+							#i18n{module.myapps.database.page_app_insert.labelExtraField}
+	                        (${myapp.dataHeading})
+	                        * :
+						</label>
+						<input name="user_extra_data" id="user_extra_data" type="password" value="" />
+					</#if>
+				</p>
 				<input type="submit" value="#i18n{module.myapps.database.page_app_insert.buttonValidate}" />
 			</form>
     	</div>

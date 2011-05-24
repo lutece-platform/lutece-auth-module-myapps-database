@@ -3,18 +3,18 @@
 	<form method="post"  enctype="multipart/form-data" name="create_application" action="jsp/admin/plugins/myapps/modules/database/DoCreateMyApp.jsp">    
 	    <p>
 	        <label for="myapp_name" >#i18n{module.myapps.database.create_application.rowTitleName} * :</label>
-	        <input type="text" id="myapp_name" name="myapp_name" size="60" maxlength="255"  tabindex="1" />
+	        <input type="text" id="myapp_name" name="myapp_name" size="60" maxlength="255" tabindex="1" />
 	    </p>  
 	    <p>
 	        <label for="myapp_url" >#i18n{module.myapps.database.create_application.rowTitleUrl} * :</label>
-	        <input type="text" id="app_url" name="myapp_url" size="60" maxlength="255"  tabindex="2" />
+	        <input type="text" id="app_url" name="myapp_url" size="60" maxlength="255" tabindex="2" value="http://" />
 	    </p> 
 	    <p>
 	        <label for="myapp_description" >#i18n{module.myapps.database.create_application.rowTitleDescription} :</label>
-	        <input type="text" id="myapp_description" name="myapp_description" size="60" maxlength="255"  tabindex="3" />
+	        <input type="text" id="myapp_description" name="myapp_description" size="60" maxlength="255" tabindex="3" />
 	    </p> 
 	    <p>
-	        <label for="code" >#i18n{module.myapps.database.create_application.rowTitleCode} * :</label>
+	        <label for="code" >#i18n{module.myapps.database.create_application.rowTitleCode} :</label>
 	        <input type="text" id="code" name="code" size="60" maxlength="255" tabindex="4" />
 	    </p> 
 	    </p> 
@@ -23,8 +23,8 @@
 	        <input type="text" id="code_heading" name="code_heading" size="60" maxlength="255" tabindex="5" />
 	    </p> 
 	    <p>
-	        <label for="password" >#i18n{module.myapps.database.create_application.rowTitlePassword} * :</label>
-	        <input type="text" id="password" name="password" size="60" maxlength="255"  tabindex="6" />
+	        <label for="password" >#i18n{module.myapps.database.create_application.rowTitlePassword} :</label>
+	        <input type="text" id="password" name="password" size="60" maxlength="255" tabindex="6" />
 	    </p> 
 	    <p>
 	        <label for="data" >#i18n{module.myapps.database.create_application.rowTitleData} :</label>
@@ -35,7 +35,7 @@
 	    </p> 
 	    <p>
 	        <label for="data_heading" >#i18n{module.myapps.database.create_application.rowTitleDataHeading} :</label>
-	        <input type="text" id="data_heading" name="data_heading" size="60" maxlength="255"  tabindex="8" />
+	        <input type="text" id="data_heading" name="data_heading" size="60" maxlength="255" tabindex="8" />
 	        <br />
 	        <label>&nbsp;</label>
 	        #i18n{module.myapps.database.create_application.rowTitleDataHeadingComment}

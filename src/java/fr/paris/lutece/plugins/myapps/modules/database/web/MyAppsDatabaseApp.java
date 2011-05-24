@@ -173,25 +173,61 @@ public class MyAppsDatabaseApp implements XPageApplication
      * @param plugin {@link Plugin}
      * @return a {@link XPage}
      * @throws SiteMessageException exception if some parameters are not correctly filled
+     * @throws UserNotSignedException 
      */
     private XPage getInsertMyAppsPage( XPage page, HttpServletRequest request, Plugin plugin )
-        throws SiteMessageException
+        throws SiteMessageException, UserNotSignedException
     {
         String strMyAppId = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_ID );
 
         if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) )
         {
             int nMyAppId = Integer.parseInt( strMyAppId );
-            MyApps myApp = MyAppsDatabaseService.getInstance(  ).findByPrimaryKey( nMyAppId, plugin );
-            Map<String, Object> model = new HashMap<String, Object>(  );
-            model.put( MyAppsDatabaseConstants.MARK_MYAPP, myApp );
+            MyAppsDatabase myApp = (MyAppsDatabase) MyAppsDatabaseService.getInstance(  ).findByPrimaryKey( nMyAppId, plugin );
+            if ( myApp != null )
+            {
+            	// Check if the application does not need any login
+            	if ( StringUtils.isBlank( myApp.getCode(  ) ) && StringUtils.isBlank( myApp.getPassword(  ) ) &&
+            			( StringUtils.isBlank( myApp.getDataHeading(  ) ) || StringUtils.isBlank( myApp.getData(  ) ) && 
+            					StringUtils.isNotBlank( myApp.getDataHeading(  ) ) ) )
+                {
+            		/*
+            		 * 2 cases in which the application does not require any login 
+            		 * 1) 	- The application code is empty
+            		 * 		- The application password is empty
+            		 * 		- The application data is empty
+            		 * 2)	- The application code is empty
+            		 * 		- The application password is empty
+            		 * 		- The application code is not empty
+            		 * 		- The application code heading is empty 
+            		 * In this case, the application is directly inserted, and the user
+            		 * is redirected to the myapps management page.
+            		 */
+                	LuteceUser user = getUser( request );
+                	doInsertMyApp( request, user, plugin );
+                	page = getManageMyAppsPage( page, request, user, plugin );
+                }
+                else
+                {
+                	/*
+                	 * This case needs either a login, either a password, either a complementary 
+                	 * data or a combination of those 3.
+                	 */
+                	Map<String, Object> model = new HashMap<String, Object>(  );
+                    model.put( MyAppsDatabaseConstants.MARK_MYAPP, myApp );
 
-            HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MYAPPS_INSERT, request.getLocale(  ), model );
-            page.setContent( template.getHtml(  ) );
-            page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_INSERT_PAGE_TITLE,
-                    request.getLocale(  ) ) );
-            page.setPathLabel( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_INSERT_PAGE_PATH,
-                    request.getLocale(  ) ) );
+                    HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MYAPPS_INSERT, request.getLocale(  ), model );
+                    page.setContent( template.getHtml(  ) );
+                    page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_INSERT_PAGE_TITLE,
+                            request.getLocale(  ) ) );
+                    page.setPathLabel( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_INSERT_PAGE_PATH,
+                            request.getLocale(  ) ) );
+                }
+            }
+            else
+            {
+            	SiteMessageService.setMessage( request, MyAppsDatabaseConstants.MESSAGE_ERROR, SiteMessage.TYPE_STOP );
+            }
         }
         else
         {
@@ -261,49 +297,10 @@ public class MyAppsDatabaseApp implements XPageApplication
     private void doInsertMyApp( HttpServletRequest request, LuteceUser user, Plugin plugin )
         throws SiteMessageException
     {
-        String strMyAppId = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_ID );
-        String strUserLogin = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_LOGIN );
-        String strPassword = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_PASSWORD );
-        String strExtraData = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_EXTRA_DATA );
-
-        if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) &&
-                StringUtils.isNotBlank( strUserLogin ) && StringUtils.isNotBlank( strPassword ) )
+        MyAppsDatabaseUser myAppsUser = getMyAppsDatabaseUserInfo( request, user, plugin );
+        if( myAppsUser != null )
         {
-            int nMyAppId = Integer.parseInt( strMyAppId );
-            MyAppsDatabase myApp = (MyAppsDatabase) MyAppsDatabaseService.getInstance(  )
-                                                                         .findByPrimaryKey( nMyAppId, plugin );
-
-            if ( myApp != null )
-            {
-                if ( ( StringUtils.isNotBlank( myApp.getData(  ) ) && StringUtils.isNotBlank( strExtraData ) ) ||
-                        StringUtils.isBlank( myApp.getData(  ) ) || StringUtils.isBlank( myApp.getDataHeading(  ) ) )
-                {
-                    String strUserName = user.getName(  );
-                    MyAppsDatabaseUser myAppsUser = new MyAppsDatabaseUser(  );
-
-                    myAppsUser.setName( strUserName );
-                    myAppsUser.setIdApplication( nMyAppId );
-                    myAppsUser.setStoredUserName( strUserLogin );
-                    myAppsUser.setStoredUserPassword( strPassword );
-                    myAppsUser.setStoredUserData( ( strExtraData != null ) ? strExtraData : StringUtils.EMPTY );
-                    MyAppsDatabaseService.getInstance(  ).createMyAppUser( myAppsUser, plugin );
-
-                    UrlItem url = new UrlItem( AppPathService.getBaseUrl( request ) );
-                    url.addParameter( MyAppsDatabaseConstants.PARAMETER_PAGE, MyAppsPlugin.PLUGIN_NAME );
-                }
-                else
-                {
-                    SiteMessageService.setMessage( request, Messages.MANDATORY_FIELDS, SiteMessage.TYPE_STOP );
-                }
-            }
-            else
-            {
-                SiteMessageService.setMessage( request, MyAppsDatabaseConstants.MESSAGE_ERROR, SiteMessage.TYPE_STOP );
-            }
-        }
-        else
-        {
-            SiteMessageService.setMessage( request, Messages.MANDATORY_FIELDS, SiteMessage.TYPE_STOP );
+        	MyAppsDatabaseService.getInstance(  ).createMyAppUser( myAppsUser, plugin );
         }
     }
 
@@ -318,52 +315,68 @@ public class MyAppsDatabaseApp implements XPageApplication
     private void doModifyMyApp( HttpServletRequest request, LuteceUser user, Plugin plugin )
         throws SiteMessageException
     {
+    	MyAppsDatabaseUser myAppsUser = getMyAppsDatabaseUserInfo( request, user, plugin );
+    	if( myAppsUser != null )
+        {
+    		MyAppsDatabaseService.getInstance(  ).updateMyAppUser( myAppsUser, plugin );
+        }
+    }
+
+    /**
+     * Get MyAppsDatabaseUser
+     * @param request {@link HttpServletRequest}
+     * @param user the {@link LuteceUser}
+     * @param plugin {@link Plugin}
+     * @return a {@link MyAppsDatabaseUser}
+     * @throws SiteMessageException exception if some parameters are not correctly filled
+     */
+    private MyAppsDatabaseUser getMyAppsDatabaseUserInfo( HttpServletRequest request, LuteceUser user, Plugin plugin )
+    	throws SiteMessageException
+    {
+    	MyAppsDatabaseUser myAppsUser = null;
         String strMyAppId = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_ID );
         String strUserLogin = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_LOGIN );
         String strPassword = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_PASSWORD );
         String strExtraData = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_EXTRA_DATA );
 
-        if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) &&
-                StringUtils.isNotBlank( strUserLogin ) && StringUtils.isNotBlank( strPassword ) )
+        if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) )
         {
             int nMyAppId = Integer.parseInt( strMyAppId );
             MyAppsDatabase myApp = (MyAppsDatabase) MyAppsDatabaseService.getInstance(  )
                                                                          .findByPrimaryKey( nMyAppId, plugin );
 
-            if ( myApp != null )
+            // Check mandatory fields
+            if ( myApp != null && !( StringUtils.isNotBlank( myApp.getCode(  ) ) && StringUtils.isBlank( strUserLogin ) || 
+            		StringUtils.isNotBlank( myApp.getPassword(  ) ) && StringUtils.isBlank( strPassword ) ) && 
+            		( StringUtils.isNotBlank( myApp.getData(  ) ) && StringUtils.isNotBlank( strExtraData ) ) ||
+                    StringUtils.isBlank( myApp.getData(  ) ) || StringUtils.isBlank( myApp.getDataHeading(  ) ) )
             {
-                if ( ( StringUtils.isNotBlank( myApp.getData(  ) ) && StringUtils.isNotBlank( strExtraData ) ) ||
-                        StringUtils.isBlank( myApp.getData(  ) ) || StringUtils.isBlank( myApp.getDataHeading(  ) ) )
-                {
-                    String strUserName = user.getName(  );
-                    MyAppsDatabaseUser myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService.getInstance(  )
-                                                                                              .getCredential( nMyAppId,
-                            strUserName, plugin );
+                String strUserName = user.getName(  );
+                myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService.getInstance(  )
+                                                                                          .getCredential( nMyAppId,
+                        strUserName, plugin );
 
-                    myAppsUser.setName( strUserName );
-                    myAppsUser.setIdApplication( nMyAppId );
-                    myAppsUser.setStoredUserName( strUserLogin );
-                    myAppsUser.setStoredUserPassword( strPassword );
-                    myAppsUser.setStoredUserData( ( strExtraData != null ) ? strExtraData : StringUtils.EMPTY );
-                    MyAppsDatabaseService.getInstance(  ).updateMyAppUser( myAppsUser, plugin );
-
-                    UrlItem url = new UrlItem( AppPathService.getBaseUrl( request ) );
-                    url.addParameter( MyAppsDatabaseConstants.PARAMETER_PAGE, MyAppsPlugin.PLUGIN_NAME );
-                }
-                else
+                if ( myAppsUser == null )
                 {
-                    SiteMessageService.setMessage( request, Messages.MANDATORY_FIELDS, SiteMessage.TYPE_STOP );
+                	myAppsUser = new MyAppsDatabaseUser(  );
                 }
+            	myAppsUser.setName( strUserName );
+                myAppsUser.setIdApplication( nMyAppId );
+                myAppsUser.setStoredUserName( ( strUserLogin != null ) ? strUserLogin : StringUtils.EMPTY );
+                myAppsUser.setStoredUserPassword( ( strPassword != null ) ? strPassword : StringUtils.EMPTY );
+                myAppsUser.setStoredUserData( ( strExtraData != null ) ? strExtraData : StringUtils.EMPTY );
             }
             else
             {
-                SiteMessageService.setMessage( request, MyAppsDatabaseConstants.MESSAGE_ERROR, SiteMessage.TYPE_STOP );
+            	SiteMessageService.setMessage( request, Messages.MANDATORY_FIELDS, SiteMessage.TYPE_STOP );
             }
         }
         else
         {
             SiteMessageService.setMessage( request, Messages.MANDATORY_FIELDS, SiteMessage.TYPE_STOP );
         }
+        
+    	return myAppsUser;
     }
 
     /**

@@ -163,19 +163,19 @@ public final class MyAppsDatabaseProvider implements MyAppsProvider
         MyAppsDatabaseUser myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService.getInstance(  )
                                                                                   .getCredential( nMyAppId,
                 strUserName, plugin );
-        MyAppsDatabase myapps = (MyAppsDatabase) MyAppsDatabaseService.getInstance(  ).findByPrimaryKey( nMyAppId,
+        MyAppsDatabase myApp = (MyAppsDatabase) MyAppsDatabaseService.getInstance(  ).findByPrimaryKey( nMyAppId,
                 plugin );
         String strUrl = StringUtils.EMPTY;
 
-        if ( ( myAppsUser != null ) && ( myapps != null ) )
+        if ( ( myAppsUser != null ) && ( myApp != null ) )
         {
             // If the label of data is blank, then the value of data has to concatenated to the url
             // This way, the AdminUser can pass hidden parameters
-            if ( StringUtils.isBlank( myapps.getDataHeading(  ) ) && StringUtils.isNotBlank( myapps.getData(  ) ) )
+            if ( StringUtils.isBlank( myApp.getDataHeading(  ) ) && StringUtils.isNotBlank( myApp.getData(  ) ) )
             {
-                StringBuilder sbUrl = new StringBuilder( myapps.getUrl(  ) );
+                StringBuilder sbUrl = new StringBuilder( myApp.getUrl(  ) );
 
-                if ( myapps.getUrl(  ).indexOf( MyAppsDatabaseConstants.QUESTION_MARK ) == -1 )
+                if ( myApp.getUrl(  ).indexOf( MyAppsDatabaseConstants.QUESTION_MARK ) == -1 )
                 {
                     sbUrl.append( MyAppsDatabaseConstants.QUESTION_MARK );
                 }
@@ -184,32 +184,38 @@ public final class MyAppsDatabaseProvider implements MyAppsProvider
                     sbUrl.append( MyAppsDatabaseConstants.AMPERSAND );
                 }
 
-                sbUrl.append( myapps.getData(  ) );
+                sbUrl.append( myApp.getData(  ) );
                 strUrl = sbUrl.toString(  );
             }
             else
             {
-                strUrl = myapps.getUrl(  );
+                strUrl = myApp.getUrl(  );
             }
 
             //The login
-            String strLoginFieldName = myapps.getCode(  );
+            String strLoginFieldName = myApp.getCode(  );
             String strUserLogin = myAppsUser.getStoredUserName(  );
 
             //Password
-            String strPasswordField = myapps.getPassword(  );
+            String strPasswordField = myApp.getPassword(  );
             String strUserPassword = myAppsUser.getStoredUserPassword(  );
 
             //Extra Field
-            String strExtraField = myapps.getData(  );
+            String strExtraField = myApp.getData(  );
             String strExtraFieldValue = myAppsUser.getStoredUserData(  );
 
             UrlItem url = new UrlItem( strUrl );
-            url.addParameter( strLoginFieldName, strUserLogin );
-            url.addParameter( strPasswordField, strUserPassword );
+            if ( StringUtils.isNotBlank( myApp.getCode(  ) ) )
+            {
+            	url.addParameter( strLoginFieldName, strUserLogin );
+            }
+            if ( StringUtils.isNotBlank( myApp.getPassword(  ) ) )
+            {
+            	url.addParameter( strPasswordField, strUserPassword );
+            }
 
             // If the label of data is not blank, then it is an extra field the LuteceUser has to fill
-            if ( StringUtils.isNotBlank( strExtraField ) && StringUtils.isNotBlank( myapps.getDataHeading(  ) ) )
+            if ( StringUtils.isNotBlank( strExtraField ) && StringUtils.isNotBlank( myApp.getDataHeading(  ) ) )
             {
                 url.addParameter( strExtraField, strExtraFieldValue );
             }

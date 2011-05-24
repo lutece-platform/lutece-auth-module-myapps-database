@@ -30,12 +30,14 @@
 						        <td><b>${enabled_myapp.name}</b></td>
 						        <td>${enabled_myapp.description}</td>
 						        <td>
-						        	<form method="post" action="jsp/site/Portal.jsp">
-						        		<input type="hidden" name="page" value="myapps-database" />
-						        		<input type="hidden" name="action" value="modify" />
-						        		<input type="hidden" name="myapp_id" value="${enabled_myapp.idApplication}" />
-						        		<input type="submit" value="#i18n{module.myapps.database.page_app_manage.buttonModifyMyApp}" class="button" />
-						        	</form>
+						        	<#if enabled_myapp.code?? && enabled_myapp.code != '' || enabled_myapp.password?? && enabled_myapp.password != ''>
+							        	<form method="post" action="jsp/site/Portal.jsp">
+							        		<input type="hidden" name="page" value="myapps-database" />
+							        		<input type="hidden" name="action" value="modify" />
+							        		<input type="hidden" name="myapp_id" value="${enabled_myapp.idApplication}" />
+							        		<input type="submit" value="#i18n{module.myapps.database.page_app_manage.buttonModifyMyApp}" class="button" />
+							        	</form>
+						        	</#if>
 						        	<form method="post" action="jsp/site/Portal.jsp">
 						        		<input type="hidden" name="page" value="myapps-database" />
 						        		<input type="hidden" name="action" value="do_remove" />
