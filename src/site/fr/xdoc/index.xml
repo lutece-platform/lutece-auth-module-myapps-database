@@ -6,6 +6,8 @@
 	<body>
 		<section name="Module myapps database">
 			<subsection name="Introduction">
+			Pour stoquer les paramétres applicatifs (url, login, motde passe)
+			du plugin myapps en base de donnée.
 			</subsection>
 		</section>
 	</body>
