@@ -33,55 +33,51 @@
  */
 package fr.paris.lutece.plugins.myapps.modules.database.service;
 
-import fr.paris.lutece.plugins.myapps.business.MyApps;
-import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseHome;
-import fr.paris.lutece.portal.service.image.ImageResource;
-import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.portal.service.plugin.PluginService;
-import fr.paris.lutece.test.LuteceTestCase;
+import fr.paris.lutece.plugins.myapps.modules.database.utils.constants.MyAppsDatabaseConstants;
+import fr.paris.lutece.portal.service.cache.ICacheKeyService;
+import fr.paris.lutece.portal.service.security.LuteceUser;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
- *
- * MyAppsDatabaseImgProviderTest
+ * MailAttachmentCacheKeyService
  *
  */
-public class MyAppsDatabaseImgProviderTest extends LuteceTestCase
+public class MyAppsDatabaseCacheKeyService implements ICacheKeyService
 {
-    private final Plugin _plugin = PluginService.getPlugin( "myapps-database" );
+   
 
-    /**
-     * Test method getImageResource of class fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseImgProvider
+    /*
+     * (non-Javadoc)
+     * @see fr.paris.lutece.portal.service.cache.ICacheKeyService#getKey(java.util.Map, int, fr.paris.lutece.portal.service.security.LuteceUser)
      */
-    public void testGetImageResource(  )
+    public String getKey( Map<String, String> mapParams, int nMode, LuteceUser user )
     {
-        System.out.println( "getImageResource" );
+        StringBuilder sbKey = new StringBuilder(  );
 
-        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList(null, _plugin );
-
-        if ( listMyApps.size(  ) > 0 )
+        if ( mapParams.containsKey( MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY)) 
         {
-            int nIndex = 0;
-            boolean bBreak = false;
-
-            while ( ( nIndex < listMyApps.size(  ) ) && !bBreak )
-            {
-                MyApps myApp = listMyApps.get( nIndex );
-
-                if ( myApp.hasIcon(  ) )
-                {
-                    MyAppsDatabaseImgProvider instance = new MyAppsDatabaseImgProvider(  );
-
-                    ImageResource result = instance.getImageResource( myApp.getIdApplication(  ) );
-
-                    assertNotNull( result );
-                    bBreak = true;
-                }
-
-                nIndex++;
-            }
+            sbKey.append( "[category:" ).append( mapParams.get( MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY  )).append( "]" );
         }
+
+        return sbKey.toString(  );
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see fr.paris.lutece.portal.service.cache.ICacheKeyService#setAllowedParametersList(java.util.List)
+     */
+    public void setAllowedParametersList( List<String> arg0 )
+    {
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see fr.paris.lutece.portal.service.cache.ICacheKeyService#setIgnoredParametersList(java.util.List)
+     */
+    public void setIgnoredParametersList( List<String> arg0 )
+    {
     }
 }

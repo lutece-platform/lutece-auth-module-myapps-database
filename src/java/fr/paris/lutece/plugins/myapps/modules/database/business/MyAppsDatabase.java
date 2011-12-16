@@ -33,11 +33,11 @@
  */
 package fr.paris.lutece.plugins.myapps.modules.database.business;
 
+import org.apache.commons.lang.StringUtils;
+
 import fr.paris.lutece.plugins.myapps.business.MyApps;
 import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseProvider;
 import fr.paris.lutece.plugins.myapps.service.MyAppsProvider;
-
-import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -47,7 +47,11 @@ import org.apache.commons.lang.StringUtils;
  */
 public class MyAppsDatabase extends MyApps
 {
-    public static final String RESOURCE_TYPE = "MYAPPS_DATABASE";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5472104596289060318L;
+	public static final String RESOURCE_TYPE = "MYAPPS_DATABASE";
     private String _strCode;
     private String _strPassword;
     private String _strData;
@@ -55,6 +59,7 @@ public class MyAppsDatabase extends MyApps
     private String _strDataHeading;
     private String _strIconMimeType;
     private byte[] _iconContent;
+    private String _strCodeCategory;
 
     /**
      * Returns the Code
@@ -211,4 +216,20 @@ public class MyAppsDatabase extends MyApps
     {
         return MyAppsDatabaseProvider.getInstance(  );
     }
+    
+    /**
+     * set category
+     * @param _strCategory category
+     */
+	public void setCodeCategory(String _strCategory) {
+		this._strCodeCategory = _strCategory;
+	}
+	
+	/**
+	 *  return category
+	 * @return _strCategory
+	 */
+	public String getCodeCategory() {
+		return _strCodeCategory;
+	}
 }

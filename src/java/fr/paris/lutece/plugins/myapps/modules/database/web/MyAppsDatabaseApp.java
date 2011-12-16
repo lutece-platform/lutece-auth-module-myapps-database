@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.myapps.modules.database.web;
 import fr.paris.lutece.plugins.myapps.business.MyApps;
 import fr.paris.lutece.plugins.myapps.business.MyAppsUser;
 import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabase;
+import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseFilter;
 import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseUser;
 import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseService;
 import fr.paris.lutece.plugins.myapps.modules.database.utils.constants.MyAppsDatabaseConstants;
@@ -146,15 +147,21 @@ public class MyAppsDatabaseApp implements XPageApplication
     private XPage getManageMyAppsPage( XPage page, HttpServletRequest request, LuteceUser user, Plugin plugin )
         throws SiteMessageException
     {
-        List<MyApps> listEnabledMyApps = MyAppsDatabaseService.getInstance(  )
-                                                              .getMyAppsListByUser( user.getName(  ), true, plugin );
-        List<MyApps> listDisabledMyApps = MyAppsDatabaseService.getInstance(  ).selectMyAppsList( plugin );
+    	
+    	String strMyAppCategory = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_CODE_CATEGORY );
+    	 
+    	MyAppsDatabaseFilter filter=new MyAppsDatabaseFilter();
+    	filter.setUserName(user.getName(  ));
+    	filter.setCategory(strMyAppCategory);
+    	List<MyApps> listEnabledMyApps = MyAppsDatabaseService.getInstance(  )
+                                                              .getMyAppsListByFilter( filter, true, plugin );
+        List<MyApps> listDisabledMyApps = MyAppsDatabaseService.getInstance(  ).selectMyAppsList( filter,plugin );
         listDisabledMyApps.removeAll( listEnabledMyApps );
 
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MyAppsDatabaseConstants.MARK_ENABLED_MYAPPS_LIST, listEnabledMyApps );
         model.put( MyAppsDatabaseConstants.MARK_DISABLED_MYAPPS_LIST, listDisabledMyApps );
-
+        model.put(MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY, strMyAppCategory);
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MYAPPS_MANAGE, request.getLocale(  ), model );
         page.setContent( template.getHtml(  ) );
         page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_MANAGE_PAGE_TITLE,
@@ -179,7 +186,8 @@ public class MyAppsDatabaseApp implements XPageApplication
         throws SiteMessageException, UserNotSignedException
     {
         String strMyAppId = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_ID );
-
+        String strMyAppCategory = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_CODE_CATEGORY );
+    	
         if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) )
         {
             int nMyAppId = Integer.parseInt( strMyAppId );
@@ -215,7 +223,7 @@ public class MyAppsDatabaseApp implements XPageApplication
                 	 */
                 	Map<String, Object> model = new HashMap<String, Object>(  );
                     model.put( MyAppsDatabaseConstants.MARK_MYAPP, myApp );
-
+                    model.put(MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY, strMyAppCategory);
                     HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MYAPPS_INSERT, request.getLocale(  ), model );
                     page.setContent( template.getHtml(  ) );
                     page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_INSERT_PAGE_TITLE,
@@ -251,7 +259,8 @@ public class MyAppsDatabaseApp implements XPageApplication
         throws SiteMessageException
     {
         String strMyAppId = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_ID );
-
+        String strMyAppCategory = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_CODE_CATEGORY );
+    	
         if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) )
         {
             int nMyAppId = Integer.parseInt( strMyAppId );
@@ -264,7 +273,7 @@ public class MyAppsDatabaseApp implements XPageApplication
                 Map<String, Object> model = new HashMap<String, Object>(  );
                 model.put( MyAppsDatabaseConstants.MARK_MYAPP, myApp );
                 model.put( MyAppsDatabaseConstants.MARK_MYAPP_USER, myAppUser );
-
+                model.put(MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY, strMyAppCategory);
                 HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MYAPPS_MODIFY, request.getLocale(  ),
                         model );
                 page.setContent( template.getHtml(  ) );
@@ -389,6 +398,7 @@ public class MyAppsDatabaseApp implements XPageApplication
     private void doRemoveMyApp( HttpServletRequest request, LuteceUser user, Plugin plugin )
     {
         String strMyAppId = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_ID );
+        String strMyAppCategory = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_CODE_CATEGORY );
 
         if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) )
         {
@@ -397,6 +407,7 @@ public class MyAppsDatabaseApp implements XPageApplication
 
             UrlItem url = new UrlItem( AppPathService.getBaseUrl( request ) );
             url.addParameter( MyAppsDatabaseConstants.PARAMETER_PAGE, MyAppsPlugin.PLUGIN_NAME );
+            url.addParameter(MyAppsDatabaseConstants.PARAMETER_MYAPP_CODE_CATEGORY, strMyAppCategory);
         }
     }
 

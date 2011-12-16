@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.myapps.modules.database.service;
 
 import fr.paris.lutece.plugins.myapps.business.MyApps;
 import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabase;
+import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseFilter;
 import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseUser;
 import fr.paris.lutece.plugins.myapps.modules.database.utils.constants.MyAppsDatabaseConstants;
 import fr.paris.lutece.plugins.myapps.service.MyAppsManager;
@@ -51,178 +52,210 @@ import org.apache.commons.lang.StringUtils;
 import java.util.List;
 import java.util.Locale;
 
-
 /**
- *
+ * 
  * MyAppsDatabaseProvider
- *
+ * 
  */
-public final class MyAppsDatabaseProvider implements MyAppsProvider
-{
-    private static final String PROPERTY_PROVIDER_NAME = "module.myapps.database.page_myapps.provider.name";
-    private static final String PROPERTY_DEFAULT_PROVIDER_NAME = "myapps-database.provider.defaultName";
-    private static MyAppsDatabaseProvider _singleton;
+public final class MyAppsDatabaseProvider implements MyAppsProvider {
+	private static final String PROPERTY_PROVIDER_NAME = "module.myapps.database.page_myapps.provider.name";
+	private static final String PROPERTY_DEFAULT_PROVIDER_NAME = "myapps-database.provider.defaultName";
+	private static MyAppsDatabaseProvider _singleton;
 
-    /**
-     * Constructor
-     */
-    private MyAppsDatabaseProvider(  )
-    {
-    }
+	/**
+	 * Constructor
+	 */
+	private MyAppsDatabaseProvider() {
+	}
 
-    /**
-     * Get the instance of {@link MyAppsDatabaseProvider}
-     *
-     * @return an instance of {@link MyAppsDatabaseProvider}
-     */
-    public static synchronized MyAppsDatabaseProvider getInstance(  )
-    {
-        if ( _singleton == null )
-        {
-            _singleton = new MyAppsDatabaseProvider(  );
+	/**
+	 * Get the instance of {@link MyAppsDatabaseProvider}
+	 * 
+	 * @return an instance of {@link MyAppsDatabaseProvider}
+	 */
+	public static synchronized MyAppsDatabaseProvider getInstance() {
+		if (_singleton == null) {
+			_singleton = new MyAppsDatabaseProvider();
+		}
+
+		return _singleton;
+	}
+
+	/**
+	 * Init the provider
+	 */
+	public void init() {
+		getInstance().register();
+	}
+
+	/**
+	 * Register the provider to the manager
+	 */
+	public void register() {
+		MyAppsManager.getInstance().registerProvider(this);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public String getPluginName() {
+		return MyAppsDatabasePlugin.PLUGIN_NAME;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public String getProviderName() {
+		return AppPropertiesService.getProperty(PROPERTY_DEFAULT_PROVIDER_NAME);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public String getProviderName(Locale locale) {
+		return I18nService.getLocalizedString(PROPERTY_PROVIDER_NAME, locale);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public String getResourceImage(String strMyAppId) {
+		Plugin plugin = PluginService
+				.getPlugin(MyAppsDatabasePlugin.PLUGIN_NAME);
+
+		return MyAppsDatabaseService.getInstance().getResourceImageUrl(
+				strMyAppId, plugin);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<MyApps> getMyAppsListByUserName(String strUserName,
+			boolean isAscSort) {
+		Plugin plugin = PluginService
+				.getPlugin(MyAppsDatabasePlugin.PLUGIN_NAME);
+		MyAppsDatabaseFilter filter = new MyAppsDatabaseFilter();
+		filter.setUserName(strUserName);
+		return MyAppsDatabaseService.getInstance().getMyAppsListByFilter(
+				filter, isAscSort, plugin);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<MyApps> getMyAppsListByCategory(String strCodeCategory,
+			boolean bIsAscSort) {
+		// TODO Auto-generated method stub
+    	List<MyApps> myApps=null;
+        if( !MyAppsDatabaseCacheService.getInstance().isCacheEnable() || MyAppsDatabaseCacheService.getInstance().getFromCache(strCodeCategory)== null)
+        {	
+        	Plugin plugin = PluginService.getPlugin( MyAppsDatabasePlugin.PLUGIN_NAME );
+            MyAppsDatabaseFilter filter=new MyAppsDatabaseFilter();
+            filter.setCategory( strCodeCategory );
+            myApps=MyAppsDatabaseService.getInstance(  ).getMyAppsListByFilter( filter, bIsAscSort, plugin );
+            if( MyAppsDatabaseCacheService.getInstance().isCacheEnable() && myApps !=null && myApps.size()>0 )
+            {
+            	MyAppsDatabaseCacheService.getInstance().putInCache(strCodeCategory, myApps);	
+            }
         }
-
-        return _singleton;
-    }
-
-    /**
-     * Init the provider
-     */
-    public void init(  )
-    {
-        getInstance(  ).register(  );
-    }
-
-    /**
-     * Register the provider to the manager
-     */
-    public void register(  )
-    {
-        MyAppsManager.getInstance(  ).registerProvider( this );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getPluginName(  )
-    {
-        return MyAppsDatabasePlugin.PLUGIN_NAME;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getProviderName(  )
-    {
-        return AppPropertiesService.getProperty( PROPERTY_DEFAULT_PROVIDER_NAME );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getProviderName( Locale locale )
-    {
-        return I18nService.getLocalizedString( PROPERTY_PROVIDER_NAME, locale );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getResourceImage( String strMyAppId )
-    {
-        Plugin plugin = PluginService.getPlugin( MyAppsDatabasePlugin.PLUGIN_NAME );
-
-        return MyAppsDatabaseService.getInstance(  ).getResourceImageUrl( strMyAppId, plugin );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public List<MyApps> getMyAppsListByUserName( String strUserName, boolean isAscSort )
-    {
-        Plugin plugin = PluginService.getPlugin( MyAppsDatabasePlugin.PLUGIN_NAME );
-
-        return MyAppsDatabaseService.getInstance(  ).getMyAppsListByUser( strUserName, isAscSort, plugin );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getLabelManageMyApps( Locale locale )
-    {
-        return I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_LABEL_MANAGE_MYAPPS, locale );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getUrlOpenMyApps( int nMyAppId, LuteceUser user )
-    {
-        Plugin plugin = PluginService.getPlugin( MyAppsDatabasePlugin.PLUGIN_NAME );
-        String strUserName = user.getName(  );
-        MyAppsDatabaseUser myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService.getInstance(  )
-                                                                                  .getCredential( nMyAppId,
-                strUserName, plugin );
-        MyAppsDatabase myApp = (MyAppsDatabase) MyAppsDatabaseService.getInstance(  ).findByPrimaryKey( nMyAppId,
-                plugin );
-        String strUrl = StringUtils.EMPTY;
-
-        if ( ( myAppsUser != null ) && ( myApp != null ) )
+        else
         {
-            // If the label of data is blank, then the value of data has to concatenated to the url
-            // This way, the AdminUser can pass hidden parameters
-            if ( StringUtils.isBlank( myApp.getDataHeading(  ) ) && StringUtils.isNotBlank( myApp.getData(  ) ) )
-            {
-                StringBuilder sbUrl = new StringBuilder( myApp.getUrl(  ) );
-
-                if ( myApp.getUrl(  ).indexOf( MyAppsDatabaseConstants.QUESTION_MARK ) == -1 )
-                {
-                    sbUrl.append( MyAppsDatabaseConstants.QUESTION_MARK );
-                }
-                else
-                {
-                    sbUrl.append( MyAppsDatabaseConstants.AMPERSAND );
-                }
-
-                sbUrl.append( myApp.getData(  ) );
-                strUrl = sbUrl.toString(  );
-            }
-            else
-            {
-                strUrl = myApp.getUrl(  );
-            }
-
-            //The login
-            String strLoginFieldName = myApp.getCode(  );
-            String strUserLogin = myAppsUser.getStoredUserName(  );
-
-            //Password
-            String strPasswordField = myApp.getPassword(  );
-            String strUserPassword = myAppsUser.getStoredUserPassword(  );
-
-            //Extra Field
-            String strExtraField = myApp.getData(  );
-            String strExtraFieldValue = myAppsUser.getStoredUserData(  );
-
-            UrlItem url = new UrlItem( strUrl );
-            if ( StringUtils.isNotBlank( myApp.getCode(  ) ) )
-            {
-            	url.addParameter( strLoginFieldName, strUserLogin );
-            }
-            if ( StringUtils.isNotBlank( myApp.getPassword(  ) ) )
-            {
-            	url.addParameter( strPasswordField, strUserPassword );
-            }
-
-            // If the label of data is not blank, then it is an extra field the LuteceUser has to fill
-            if ( StringUtils.isNotBlank( strExtraField ) && StringUtils.isNotBlank( myApp.getDataHeading(  ) ) )
-            {
-                url.addParameter( strExtraField, strExtraFieldValue );
-            }
-
-            strUrl = url.getUrl(  );
+          myApps=(List<MyApps>)MyAppsDatabaseCacheService.getInstance().getFromCache(strCodeCategory);	
         }
+        return myApps;
+        
+        
+        
+	}
 
-        return strUrl;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<MyApps> getMyAppsListByUserNameAndCategory(String strUserName,
+			String strCodeCategory, boolean bIsAscSort) {
+		// TODO Auto-generated method stub
+		Plugin plugin = PluginService
+				.getPlugin(MyAppsDatabasePlugin.PLUGIN_NAME);
+		MyAppsDatabaseFilter filter = new MyAppsDatabaseFilter();
+		filter.setUserName(strUserName);
+		filter.setCategory(strCodeCategory);
+		return MyAppsDatabaseService.getInstance().getMyAppsListByFilter(
+				filter, bIsAscSort, plugin);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public String getLabelManageMyApps(Locale locale) {
+		return I18nService.getLocalizedString(
+				MyAppsDatabaseConstants.PROPERTY_LABEL_MANAGE_MYAPPS, locale);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public String getUrlOpenMyApps(int nMyAppId, LuteceUser user) {
+		Plugin plugin = PluginService
+				.getPlugin(MyAppsDatabasePlugin.PLUGIN_NAME);
+		String strUserName = user.getName();
+		MyAppsDatabaseUser myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService
+				.getInstance().getCredential(nMyAppId, strUserName, plugin);
+		MyAppsDatabase myApp = (MyAppsDatabase) MyAppsDatabaseService
+				.getInstance().findByPrimaryKey(nMyAppId, plugin);
+		String strUrl = StringUtils.EMPTY;
+
+		if ((myAppsUser != null) && (myApp != null)) {
+			// If the label of data is blank, then the value of data has to
+			// concatenated to the url
+			// This way, the AdminUser can pass hidden parameters
+			if (StringUtils.isBlank(myApp.getDataHeading())
+					&& StringUtils.isNotBlank(myApp.getData())) {
+				StringBuilder sbUrl = new StringBuilder(myApp.getUrl());
+
+				if (myApp.getUrl().indexOf(
+						MyAppsDatabaseConstants.QUESTION_MARK) == -1) {
+					sbUrl.append(MyAppsDatabaseConstants.QUESTION_MARK);
+				} else {
+					sbUrl.append(MyAppsDatabaseConstants.AMPERSAND);
+				}
+
+				sbUrl.append(myApp.getData());
+				strUrl = sbUrl.toString();
+			} else {
+				strUrl = myApp.getUrl();
+			}
+
+			// The login
+			String strLoginFieldName = myApp.getCode();
+			String strUserLogin = myAppsUser.getStoredUserName();
+
+			// Password
+			String strPasswordField = myApp.getPassword();
+			String strUserPassword = myAppsUser.getStoredUserPassword();
+
+			// Extra Field
+			String strExtraField = myApp.getData();
+			String strExtraFieldValue = myAppsUser.getStoredUserData();
+
+			UrlItem url = new UrlItem(strUrl);
+			if (StringUtils.isNotBlank(myApp.getCode())) {
+				url.addParameter(strLoginFieldName, strUserLogin);
+			}
+			if (StringUtils.isNotBlank(myApp.getPassword())) {
+				url.addParameter(strPasswordField, strUserPassword);
+			}
+
+			// If the label of data is not blank, then it is an extra field the
+			// LuteceUser has to fill
+			if (StringUtils.isNotBlank(strExtraField)
+					&& StringUtils.isNotBlank(myApp.getDataHeading())) {
+				url.addParameter(strExtraField, strExtraFieldValue);
+			}
+
+			strUrl = url.getUrl();
+		}
+
+		return strUrl;
+	}
+
 }

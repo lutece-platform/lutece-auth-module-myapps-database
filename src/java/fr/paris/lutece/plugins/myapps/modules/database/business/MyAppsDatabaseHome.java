@@ -122,25 +122,26 @@ public final class MyAppsDatabaseHome
     /**
      * Loads a list of all myApps
      *
+     * @param filter the app filter
      * @param plugin the Plugin
      * @return the collection which contains the data of all the myApps
      */
-    public static List<MyApps> selectMyAppsList( Plugin plugin )
+    public static List<MyApps> selectMyAppsList(MyAppsDatabaseFilter filter, Plugin plugin )
     {
-        return _dao.selectMyAppsList( plugin );
+        return _dao.selectMyAppsList( filter,plugin  );
     }
 
     /**
-    * Loads a list of myApps belonging to a user
+    * Loads a list of myApps belonging to a filter
     *
-    * @param strUserName the user name
+    * @param filter the app filter
     * @param bIsAscSort true if it is sorted ascendly, false otherwise
     * @param plugin the Plugin
     * @return the collection which contains the data of all the myApps
     */
-    public static List<MyApps> getMyAppsListByUser( String strUserName, boolean bIsAscSort, Plugin plugin )
+    public static List<MyApps> getMyAppsListByFilter(MyAppsDatabaseFilter filter , boolean bIsAscSort, Plugin plugin )
     {
-        return _dao.selectMyAppsListByUser( strUserName, bIsAscSort, plugin );
+        return _dao.selectMyAppsListByFilter( filter, bIsAscSort, plugin );
     }
 
     /**

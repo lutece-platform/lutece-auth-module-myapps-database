@@ -44,6 +44,13 @@
 		<label for="myapp_icon">#i18n{module.myapps.database.create_application.rowTitleIconField} :</label>
 		<input type="file" name="myapp_icon" id="myapp_icon" size="60" />
 	    </p>
+	    <p>
+	        <label for="code_category" >#i18n{module.myapps.database.create_application.rowTitleCodeCategory} :</label>
+	         <@combo name="myapp_code_category"  items=myapps_category_list default_value="" />
+	        <br />
+	        <label>&nbsp;</label>
+	        #i18n{module.myapps.database.create_application.rowTitleCodeCategoryComment}
+	    </p>
 	    <p>   
 	        <input type="submit" value="#i18n{module.myapps.database.create_application.buttonValidate}" class="button" tabindex="9" />
 	        <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />	

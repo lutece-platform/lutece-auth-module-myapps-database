@@ -1,0 +1,22 @@
+<div class="content-box">
+	<h2>#i18n{module.myapps.database.modify_category.title}</h2>
+	<form method="post" name="modify_category" action="jsp/admin/plugins/myapps/modules/database/DoModifyMyAppCategory.jsp">    
+	     
+	     <input type="hidden" id="myapp_code_category" name="myapp_code_category" value="${myapp_category.codeCategory}" />
+
+		<p>
+	        <label for="myapp_code_category" >#i18n{module.myapps.database.create_category.rowTitleCodeCategory} * :</label>
+	        ${myapp_category.codeCategory}
+	    </p>  
+	    <p>
+	        <label for="myapp_libelle_category" >#i18n{module.myapps.database.create_category.rowTitleLibelleCategory} * :</label>
+	        <input type="text" id="myapp_libelle_category" name="myapp_libelle_category" size="60" maxlength="249" tabindex="2" value=" ${myapp_category.libelleCategory}"/>
+	    </p> 
+	   
+	    <p>   
+	        <input type="submit" value="#i18n{module.myapps.database.modify_category.buttonValidate}" class="button" tabindex="3" />
+	        <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />	
+	    </p>
+	 
+	</form>
+</div>

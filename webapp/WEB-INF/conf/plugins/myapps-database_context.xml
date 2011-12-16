@@ -3,5 +3,6 @@
 
 <beans>
   <bean id="myapps-database.myAppsDatabaseDAO"  class="fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseDAO" />
+  <bean id="myapps-database.myAppsDatabaseCategoryDAO"  class="fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseCategoryDAO" />
   <bean id="myapps-database.myAppsDatabaseUserDAO"  class="fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseUserDAO" />  
 </beans>

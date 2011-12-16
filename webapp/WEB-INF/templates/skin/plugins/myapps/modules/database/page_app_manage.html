@@ -35,6 +35,7 @@
 							        		<input type="hidden" name="page" value="myapps-database" />
 							        		<input type="hidden" name="action" value="modify" />
 							        		<input type="hidden" name="myapp_id" value="${enabled_myapp.idApplication}" />
+							        		<input type="hidden" name="myapp_code_category" value="${myapp_category!''}" />
 							        		<input type="submit" value="#i18n{module.myapps.database.page_app_manage.buttonModifyMyApp}" class="button" />
 							        	</form>
 						        	</#if>
@@ -42,6 +43,7 @@
 						        		<input type="hidden" name="page" value="myapps-database" />
 						        		<input type="hidden" name="action" value="do_remove" />
 						        		<input type="hidden" name="myapp_id" value="${enabled_myapp.idApplication}" />
+						        		<input type="hidden" name="myapp_code_category" value="${myapp_category!''}" />
 						        		<input type="submit" value="#i18n{module.myapps.database.page_app_manage.buttonRemoveMyApp}" class="button" />
 						        	</form>
 						        </td>
@@ -78,6 +80,7 @@
 						        		<input type="hidden" name="page" value="myapps-database" />
 						        		<input type="hidden" name="action" value="insert" />
 						        		<input type="hidden" name="myapp_id" value="${disabled_myapp.idApplication}" />
+						        		<input type="hidden" name="myapp_code_category" value="${myapp_category!''}" />
 						        		<input type="submit" value="#i18n{module.myapps.database.page_app_manage.buttonInsertMyApp}" class="button" />
 						        	</form>
 						        </td>

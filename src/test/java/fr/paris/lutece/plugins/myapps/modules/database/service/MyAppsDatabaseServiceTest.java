@@ -63,7 +63,7 @@ public class MyAppsDatabaseServiceTest extends LuteceTestCase
     {
         System.out.println( "getMyAppsPermissions" );
 
-        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList( _plugin );
+        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList(null, _plugin );
         AdminUser user = AdminUserHome.findUserByLogin( "admin" );
         user.setRoles( AdminUserHome.getRolesListForUser( user.getUserId(  ) ) );
 
@@ -81,7 +81,7 @@ public class MyAppsDatabaseServiceTest extends LuteceTestCase
     {
         System.out.println( "getImageResource" );
 
-        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList( _plugin );
+        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList( null,_plugin );
 
         if ( listMyApps.size(  ) > 0 )
         {

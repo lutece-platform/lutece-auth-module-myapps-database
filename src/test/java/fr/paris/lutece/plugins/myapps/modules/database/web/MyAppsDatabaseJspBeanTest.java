@@ -108,7 +108,7 @@ public class MyAppsDatabaseJspBeanTest extends LuteceTestCase
     {
         System.out.println( "getModifyMyApp" );
 
-        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList( _plugin );
+        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList(null, _plugin );
 
         if ( listMyApps.size(  ) > 0 )
         {

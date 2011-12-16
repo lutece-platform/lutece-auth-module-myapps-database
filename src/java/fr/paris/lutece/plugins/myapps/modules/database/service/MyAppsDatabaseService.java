@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.myapps.modules.database.service;
 import fr.paris.lutece.plugins.myapps.business.MyApps;
 import fr.paris.lutece.plugins.myapps.business.MyAppsUser;
 import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabase;
+import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseFilter;
 import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseHome;
 import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseUser;
 import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseUserHome;
@@ -109,14 +110,14 @@ public final class MyAppsDatabaseService
     }
 
     /**
-     * Select the MyApps list
-     *
+     * Select the MyApps list 
+     * @param filter the app filter
      * @param plugin {@link Plugin}
      * @return a list of {@link MyApps}
      */
-    public List<MyApps> selectMyAppsList( Plugin plugin )
+    public List<MyApps> selectMyAppsList(MyAppsDatabaseFilter filter, Plugin plugin )
     {
-        return MyAppsDatabaseHome.selectMyAppsList( plugin );
+        return MyAppsDatabaseHome.selectMyAppsList( filter,plugin  );
     }
 
     /**
@@ -240,16 +241,16 @@ public final class MyAppsDatabaseService
     }
 
     /**
-     * Loads a list of myApps belonging to a user
+     * Loads a list of myApps belonging to a filter
      *
-     * @param strUserName the user name
+     * @param filter the app filter
      * @param bIsAscSort true if it is sorted ascendly, false otherwise
      * @param plugin the Plugin
      * @return the collection which contains the data of all the myApps
      */
-    public List<MyApps> getMyAppsListByUser( String strUserName, boolean bIsAscSort, Plugin plugin )
+    public List<MyApps> getMyAppsListByFilter( MyAppsDatabaseFilter filter, boolean bIsAscSort, Plugin plugin )
     {
-        return MyAppsDatabaseHome.getMyAppsListByUser( strUserName, bIsAscSort, plugin );
+        return MyAppsDatabaseHome.getMyAppsListByFilter(filter, bIsAscSort, plugin);
     }
 
     /**

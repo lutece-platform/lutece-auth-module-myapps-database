@@ -92,21 +92,21 @@ public interface IMyAppsDatabaseDAO
 
     /**
      * Loads all the myapps
-     *
+     * @param filter the app filter
      * @param plugin the Plugin
      * @return the list which contains the myApps
      */
-    List<MyApps> selectMyAppsList( Plugin plugin );
+    List<MyApps> selectMyAppsList(MyAppsDatabaseFilter filter, Plugin plugin );
 
     /**
-     * Loads all the myapps belonging to a user
+     * Loads all the myapps belonging to a filter
      *
-     * @param strUserName the user name
+     * @param filter the app filter
      * @param bIsAscSort true if it is sorted ascendly, false otherwise
      * @param plugin the Plugin
      * @return the list which contains the myApps
      */
-    List<MyApps> selectMyAppsListByUser( String strUserName, boolean bIsAscSort, Plugin plugin );
+    List<MyApps> selectMyAppsListByFilter( MyAppsDatabaseFilter filter, boolean bIsAscSort, Plugin plugin );
 
     /**
      * Loads the icon representing the favorite application

@@ -1,18 +1,33 @@
 <div id="content-box-actions">
 	<#if permission_create_myapp>
 		<form method="post" action="jsp/admin/plugins/myapps/modules/database/CreateMyApp.jsp">
-	        <input type="submit" value="#i18n{module.myapps.database.manage_myapps.buttonAddMyApp}" class="button bt-toolbar" />
-	    </form>
+	       <input type="submit" value="#i18n{module.myapps.database.manage_myapps.buttonAddMyApp}" class="button bt-toolbar" />
+	  	 </form>
 	</#if>
+			<form method="post" action="jsp/admin/plugins/myapps/modules/database/ManageMyAppsCategory.jsp">
+		        <input type="submit" value="#i18n{module.myapps.database.manage_myapps.buttonManageCategory}" class="button bt-toolbar" />
+		    </form>
 </div>
 <div class="content-box" >
+     <div class="highlight-box">
+		    <form action="" method="" name="" id="">
+		      <p>
+		        <label for="">
+		          #i18n{module.myapps.database.manage_myapps.searchCodeCategory} : 
+		        </label>
+		         <@combo name="myapp_code_category"  items=myapps_category_list default_value="${code_category_filter!''}" />
+		     	<input  value="#i18n{module.myapps.database.manage_myapps.buttonSearchCodeCategory}" class="button bt-toolbar"	type="submit">
+		      </p>
+		    </form>
+  	</div>
     <h2>#i18n{module.myapps.database.manage_myapps.tableLabel}</h2>
-	<@paginationAdmin paginator=paginator combo=1/>
+    <@paginationAdmin paginator=paginator combo=1/>
     <table>
         <tr>
             <th>#i18n{module.myapps.database.manage_myapps.columnTitleIcon}</th>
             <th>#i18n{module.myapps.database.manage_myapps.columnTitleName}</th>
             <th>#i18n{module.myapps.database.manage_myapps.columnTitleDescription}</th>
+            <th>#i18n{module.myapps.database.manage_myapps.columnTitleCodeCategory}</th>
             <th>#i18n{module.myapps.database.manage_myapps.columnTitleActions}</th>
         </tr>  
         <#list myapps_list as myapp >
@@ -25,12 +40,15 @@
                 	<img src="image?resource_type=myapps_database_icon&amp;id=${myapp.idApplication}" alt="${myapp.description}" height="30"/>
                 </#if>
             </td>
-            <td width="40%">
+            <td width="30%">
 				${myapp.name}
             </td>
-            <td width="40%">
+            <td width="30%">
                 ${myapp.description}
-            </td>    
+            </td>
+            <td width="20%">
+                ${myapp.codeCategory}
+            </td>      
             <td>
             	<#if permission_modify>
             		<a href="jsp/admin/plugins/myapps/modules/database/ModifyMyApp.jsp?myapp_id=${myapp.idApplication}" class="admin-menu">

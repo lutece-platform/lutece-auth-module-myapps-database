@@ -33,55 +33,59 @@
  */
 package fr.paris.lutece.plugins.myapps.modules.database.service;
 
-import fr.paris.lutece.plugins.myapps.business.MyApps;
-import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseHome;
-import fr.paris.lutece.portal.service.image.ImageResource;
-import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.portal.service.plugin.PluginService;
-import fr.paris.lutece.test.LuteceTestCase;
+import fr.paris.lutece.plugins.myapps.modules.database.utils.constants.MyAppsDatabaseConstants;
+import fr.paris.lutece.portal.service.cache.AbstractCacheableService;
+import fr.paris.lutece.portal.service.cache.ICacheKeyService;
 
-import java.util.List;
+import java.util.HashMap;
 
 
 /**
- *
- * MyAppsDatabaseImgProviderTest
- *
+ * MailAttachment CacheService
  */
-public class MyAppsDatabaseImgProviderTest extends LuteceTestCase
+public class MyAppsDatabaseCacheService extends AbstractCacheableService
 {
-    private final Plugin _plugin = PluginService.getPlugin( "myapps-database" );
+    private static MyAppsDatabaseCacheService _singleton;
+    private static ICacheKeyService _cksMyAppsDatabase = new MyAppsDatabaseCacheKeyService(  );
+    private static final String SERVICE_NAME = "MyApps Database Cache Service";
+
+    private MyAppsDatabaseCacheService(  )
+    {
+    }
 
     /**
-     * Test method getImageResource of class fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseImgProvider
+     * {@inheritDoc }
      */
-    public void testGetImageResource(  )
+    public String getName(  )
     {
-        System.out.println( "getImageResource" );
+        return SERVICE_NAME;
+    }
 
-        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList(null, _plugin );
-
-        if ( listMyApps.size(  ) > 0 )
+    /**
+     *
+     * @return an instance of MailAttachmentCacheService
+     */
+    public static MyAppsDatabaseCacheService getInstance(  )
+    {
+        if ( _singleton == null )
         {
-            int nIndex = 0;
-            boolean bBreak = false;
-
-            while ( ( nIndex < listMyApps.size(  ) ) && !bBreak )
-            {
-                MyApps myApp = listMyApps.get( nIndex );
-
-                if ( myApp.hasIcon(  ) )
-                {
-                    MyAppsDatabaseImgProvider instance = new MyAppsDatabaseImgProvider(  );
-
-                    ImageResource result = instance.getImageResource( myApp.getIdApplication(  ) );
-
-                    assertNotNull( result );
-                    bBreak = true;
-                }
-
-                nIndex++;
-            }
+            _singleton = new MyAppsDatabaseCacheService(  );
+            _singleton.initCache(  );
         }
+
+        return _singleton;
+    }
+
+    /**
+     * return the cache key associated to the category value
+     * @param strValue the value
+     * @return the cache key associated to the category value
+     */
+    public String getKey( String strValue )
+    {
+        HashMap<String, String> htParam = new HashMap<String, String>(  );
+        htParam.put( MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY, strValue );
+
+        return _cksMyAppsDatabase.getKey( htParam, 0, null );
     }
 }

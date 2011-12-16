@@ -55,6 +55,13 @@
 				<img src="image?resource_type=myapps_database_icon&amp;id=${myapp.idApplication}" alt="${myapp.description}" height="30" />
 			</#if>
 		</p>
+		<p>
+	        <label for="code_category" >#i18n{module.myapps.database.create_application.rowTitleCodeCategory} :</label>
+	         <@combo name="myapp_code_category"  items=myapps_category_list default_value="${myapp.codeCategory!''}" />
+	        <br />
+	        <label>&nbsp;</label>
+	        #i18n{module.myapps.database.create_application.rowTitleCodeCategoryComment}
+	    </p>
         <p>
             <input type="submit" value="#i18n{module.myapps.database.modify_application.buttonValidate}" class="button" tabindex="9" />
             <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />	

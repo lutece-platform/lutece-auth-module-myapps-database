@@ -46,13 +46,17 @@ public final class MyAppsDatabaseConstants
     // BEANS
     public static final String BEAN_MYAPPS_DATABASE_DAO = "myapps-database.myAppsDatabaseDAO";
     public static final String BEAN_MYAPPS_DATABASE_USER_DAO = "myapps-database.myAppsDatabaseUserDAO";
+    public static final String BEAN_MYAPPS_DATABASE_CATEGORY_DAO = "myapps-database.myAppsDatabaseCategoryDAO";
 
     // MARKS
     public static final String MARK_MYAPP = "myapp";
+    public static final String MARK_MYAPP_CATEGORY = "myapp_category";
+    public static final String MARK_MYAPP_CODE_CATEGORY_FILTER = "code_category_filter";
     public static final String MARK_MYAPP_USER = "myapp_user";
     public static final String MARK_PAGINATOR = "paginator";
     public static final String MARK_NB_ITEMS_PER_PAGE = "nb_items_per_page";
     public static final String MARK_MYAPPS_LIST = "myapps_list";
+    public static final String MARK_MYAPPS_CATEGORY_LIST = "myapps_category_list";
     public static final String MARK_ENABLED_MYAPPS_LIST = "enabled_myapps_list";
     public static final String MARK_DISABLED_MYAPPS_LIST = "disabled_myapps_list";
     public static final String MARK_PERMISSION_CREATE_MYAPP = "permission_create_myapp";
@@ -78,6 +82,8 @@ public final class MyAppsDatabaseConstants
     public static final String PARAMETER_DATA = "data";
     public static final String PARAMETER_DATA_HEADING = "data_heading";
     public static final String PARAMETER_UPDATE_FILE = "update_file";
+    public static final String PARAMETER_MYAPP_CODE_CATEGORY = "myapp_code_category";
+    public static final String PARAMETER_MYAPP_LIBELLE_CATEGORY = "myapp_libelle_category";
 
     // ACTIONS
     public static final String ACTION_MANAGE = "manage";
@@ -98,8 +104,11 @@ public final class MyAppsDatabaseConstants
     public static final String PROPERTY_MODIFY_PAGE_TITLE = "module.myapps.database.page_app_modify.pageTitle";
     public static final String PROPERTY_MODIFY_PAGE_PATH = "module.myapps.database.page_app_modify.pagePathLabel";
     public static final String PROPERTY_PAGE_TITLE_MYAPPS = "module.myapps.database.manage_myapps.pageTitle";
+    public static final String PROPERTY_PAGE_TITLE_MYAPPS_CATEGORY = "module.myapps.database.manage_category.pageTitle";
     public static final String PROPERTY_PAGE_TITLE_CREATE = "module.myapps.database.create_application.pageTitle";
+    public static final String PROPERTY_PAGE_TITLE_CREATE_CATEGORY = "module.myapps.database.create_category.pageTitle";
     public static final String PROPERTY_PAGE_TITLE_MODIFY = "module.myapps.database.modify_application.pageTitle";
+    public static final String PROPERTY_PAGE_TITLE_MODIFY_CATEGORY = "module.myapps.database.modify_category.pageTitle";
     public static final String PROPERTY_DEFAULT_ITEMS_PER_PAGE = "myapps-database.itemsPerPage";
     public static final String PROPERTY_DEFAULT_FIELD_SIZE = "myapps-database.field.size";
     public static final int PROPERTY_DEFAULT_FIELD_SIZE_INT = AppPropertiesService.getPropertyInt( PROPERTY_DEFAULT_FIELD_SIZE,
@@ -112,16 +121,33 @@ public final class MyAppsDatabaseConstants
     public static final String PROPERTY_LABEL_PASSWORD = "module.myapps.database.label.password";
     public static final String PROPERTY_LABEL_USER_FIELD = "module.myapps.database.label.userField";
     public static final String PROPERTY_LABEL_USER_FIELD_HEADING = "module.myapps.database.label.userFieldHeading";
+    public static final String PROPERTY_LABEL_LIBELLE_CATEGORY = "module.myapps.database.label.libelleCategory";
+    public static final String PROPERTY_LABEL_CODE_CATEGORY = "module.myapps.database.label.codeCategory";
 
     // MESSAGES
     public static final String MESSAGE_ERROR = "module.myapps.database.message.error";
     public static final String MESSAGE_CONFIRM_REMOVE_MYAPP = "module.myapps.database.message.confirmRemoveMyApp";
+    public static final String MESSAGE_CONFIRM_REMOVE_MYAPP_CATEGORY = "module.myapps.database.message.confirmRemoveMyAppCategory";
+    public static final String MESSAGE_ERROR_CAN_NOT_REMOVE_MYAPP_CATEGORY = "module.myapps.database.message.error.canNotRemoveMyAppCategory";
     public static final String MESSAGE_FIELD_TOO_LONG = "module.myapps.database.message.fieldTooLong";
+    public static final String MESSAGE_FIELD_CATEGORY_ALREADY_EXIST = "module.myapps.database.message.categoryAlreadyExist";
 
     // CONSTANTS
     public static final String QUESTION_MARK = "?";
     public static final String AMPERSAND = "&";
-
+    //JSP
+    public static final String JSP_DO_REMOVE_MYAPP = "jsp/admin/plugins/myapps/modules/database/DoRemoveMyApp.jsp";
+    public static final String JSP_DO_REMOVE_MYAPP_CATEGORY = "jsp/admin/plugins/myapps/modules/database/DoRemoveMyAppCategory.jsp";
+    public static final String JSP_MANAGE_MYAPP_CATEGORY = "jsp/admin/plugins/myapps/modules/database/ManageMyAppsCategory.jsp";    
+    // TEMPLATES
+    public static final String TEMPLATE_MYAPPS = "admin/plugins/myapps/modules/database/manage_myapps.html";
+    public static final String TEMPLATE_MYAPPS_CATEGORY = "admin/plugins/myapps/modules/database/manage_myapps_category.html";
+    public static final String TEMPLATE_CREATE_APPLICATION = "admin/plugins/myapps/modules/database/create_myapp.html";
+    public static final String TEMPLATE_MODIFY_APPLICATION = "admin/plugins/myapps/modules/database/modify_myapp.html";
+    public static final String TEMPLATE_CREATE_CATEGORY = "admin/plugins/myapps/modules/database/create_myapp_category.html";
+    public static final String TEMPLATE_MODIFY_CATEGORY = "admin/plugins/myapps/modules/database/modify_myapp_category.html";
+    
+    
     /**
      * Private constructor
      */

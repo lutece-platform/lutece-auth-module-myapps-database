@@ -38,6 +38,7 @@ import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabasePlu
 import fr.paris.lutece.plugins.myapps.modules.database.utils.constants.MyAppsDatabaseConstants;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
+import fr.paris.lutece.util.ReferenceList;
 
 import java.util.Collection;
 
@@ -138,6 +139,8 @@ public final class MyAppsDatabaseUserHome
     {
         return _dao.selectMyAppsUsersList( plugin );
     }
+    
+
 
     /**
      * Loads the data of all the myAppsUsers and returns them in form of a collection

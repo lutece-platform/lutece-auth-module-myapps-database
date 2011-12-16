@@ -1,0 +1,19 @@
+<div class="content-box">
+	<h2>#i18n{module.myapps.database.create_category.title}</h2>
+	<form method="post" name="create_category" action="jsp/admin/plugins/myapps/modules/database/DoCreateMyAppCategory.jsp">    
+	    <p>
+	        <label for="myapp_code_category" >#i18n{module.myapps.database.create_category.rowTitleCodeCategory} * :</label>
+	        <input type="text" id="myapp_code_category" name="myapp_code_category" size="40" maxlength="49" tabindex="1" />
+	    </p>  
+	    <p>
+	        <label for="myapp_libelle_category" >#i18n{module.myapps.database.create_category.rowTitleLibelleCategory} * :</label>
+	        <input type="text" id="myapp_libelle_category" name="myapp_libelle_category" size="60" maxlength="249" tabindex="2"/>
+	    </p> 
+	   
+	    <p>   
+	        <input type="submit" value="#i18n{module.myapps.database.create_category.buttonValidate}" class="button" tabindex="3" />
+	        <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />	
+	    </p>
+	 
+	</form>
+</div>

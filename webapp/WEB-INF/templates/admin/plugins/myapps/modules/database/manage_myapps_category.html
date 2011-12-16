@@ -1,0 +1,34 @@
+<div id="content-box-actions">
+	<form method="post" action="jsp/admin/plugins/myapps/modules/database/CreateMyAppCategory.jsp">
+        <input type="submit" value="#i18n{module.myapps.database.manage_category.buttonAddCategory}" class="button bt-toolbar" />
+    </form>
+</div>
+<div class="content-box" >
+    <h2>#i18n{module.myapps.database.manage_category.tableLabel}</h2>
+    <table>
+        <tr>
+            <th>#i18n{module.myapps.database.manage_category.columnCodeCategory}</th>
+            <th>#i18n{module.myapps.database.manage_category.columnLibelleCategory}</th>
+             <th>#i18n{module.myapps.database.manage_category.columnTitleActions}</th>
+        </tr>  
+        <#list myapps_category_list as category >
+        <tr>
+            <td width="40%">
+				${category.codeCategory}
+            </td>
+            <td width="40%">
+                ${category.libelleCategory}
+            </td>    
+            <td>
+            		<a href="jsp/admin/plugins/myapps/modules/database/ModifyMyAppCategory.jsp?myapp_code_category=${category.codeCategory}" class="admin-menu">
+            			<img src="images/admin/skin/actions/modify.png" alt="#i18n{module.myapps.database.manage_category.actionModify}" title="#i18n{module.myapps.database.manage_category.actionModify" />
+            		</a>
+                    <a href="jsp/admin/plugins/myapps/modules/database/RemoveMyAppCategory.jsp?myapp_code_category=${category.codeCategory}">
+	                    <img src="images/admin/skin/actions/delete.png" alt="#i18n{module.myapps.database.manage_category.actionDelete}" title="#i18n{module.myapps.database.manage_category.actionDelete}" />
+	                </a>
+		    </td>
+        </tr>
+        </#list>
+    </table>
+
+</div>

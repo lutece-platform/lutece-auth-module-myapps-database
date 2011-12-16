@@ -3,7 +3,7 @@
 		<h2 class="page-title">#i18n{module.myapps.database.page_app_insert.pageTitle}</h2>
 		<div class="myapps-content">
 			<div class="backto">
-				<a href="jsp/site/Portal.jsp?page=myapps-database&amp;action=manage" title="#i18n{module.myapps.database.page_app_insert.labelBackToManagement}">
+				<a href="jsp/site/Portal.jsp?page=myapps-database&amp;action=manage&amp;myapp_code_category=${myapp_category!''}"" title="#i18n{module.myapps.database.page_app_insert.labelBackToManagement}">
 					<img src="images/local/skin/goback.png" alt="#i18n{module.myapps.database.page_app_insert.labelBackToManagement}" title="#i18n{module.myapps.database.page_app_insert.labelBackToManagement}" height="32" />
 				</a>
 			</div>
@@ -12,6 +12,7 @@
 			</p>
 			<form method="post" action="jsp/site/Portal.jsp?page=myapps-database&amp;action=do_insert">
 				<input type="hidden" name="myapp_id" value="${myapp.idApplication}" />
+				<input type="hidden" name="myapp_code_category" value="${myapp_category!''}" />
 				<p>
 					<#if myapp.code?? && myapp.code != ''>
 						<label for="user_login">
