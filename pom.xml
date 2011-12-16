@@ -30,8 +30,7 @@
 			<version>[2.1.0,)</version>
 			<type>lutece-plugin</type>
 		</dependency>
-	</dependencies>
-
+		</dependencies>
 	<properties>
 		<componentName>myapps-database</componentName>
 		<jiraProjectName>MYAPPSDATABASE</jiraProjectName>
