@@ -197,14 +197,12 @@ public final class MyAppsDatabaseProvider implements MyAppsProvider {
 	public String getUrlOpenMyApps(int nMyAppId, LuteceUser user) {
 		Plugin plugin = PluginService
 				.getPlugin(MyAppsDatabasePlugin.PLUGIN_NAME);
-		String strUserName = user.getName();
-		MyAppsDatabaseUser myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService
-				.getInstance().getCredential(nMyAppId, strUserName, plugin);
+	
 		MyAppsDatabase myApp = (MyAppsDatabase) MyAppsDatabaseService
 				.getInstance().findByPrimaryKey(nMyAppId, plugin);
 		String strUrl = StringUtils.EMPTY;
 
-		if ((myAppsUser != null) && (myApp != null)) {
+		if (  myApp != null ) {
 			// If the label of data is blank, then the value of data has to
 			// concatenated to the url
 			// This way, the AdminUser can pass hidden parameters
@@ -224,32 +222,45 @@ public final class MyAppsDatabaseProvider implements MyAppsProvider {
 			} else {
 				strUrl = myApp.getUrl();
 			}
-
-			// The login
-			String strLoginFieldName = myApp.getCode();
-			String strUserLogin = myAppsUser.getStoredUserName();
-
-			// Password
-			String strPasswordField = myApp.getPassword();
-			String strUserPassword = myAppsUser.getStoredUserPassword();
-
-			// Extra Field
-			String strExtraField = myApp.getData();
-			String strExtraFieldValue = myAppsUser.getStoredUserData();
-
 			UrlItem url = new UrlItem(strUrl);
-			if (StringUtils.isNotBlank(myApp.getCode())) {
-				url.addParameter(strLoginFieldName, strUserLogin);
-			}
-			if (StringUtils.isNotBlank(myApp.getPassword())) {
-				url.addParameter(strPasswordField, strUserPassword);
-			}
-
-			// If the label of data is not blank, then it is an extra field the
-			// LuteceUser has to fill
-			if (StringUtils.isNotBlank(strExtraField)
-					&& StringUtils.isNotBlank(myApp.getDataHeading())) {
-				url.addParameter(strExtraField, strExtraFieldValue);
+			if( user != null )
+			{
+				
+				String strUserName = user.getName();
+				MyAppsDatabaseUser myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService
+						.getInstance().getCredential(nMyAppId, strUserName, plugin);
+				
+				//an myApp can be not associated to a user
+				if(myAppsUser !=null)
+				{
+					
+				// The login
+					String strLoginFieldName = myApp.getCode();
+					String strUserLogin = myAppsUser.getStoredUserName();
+		
+					// Password
+					String strPasswordField = myApp.getPassword();
+					String strUserPassword = myAppsUser.getStoredUserPassword();
+		
+					// Extra Field
+					String strExtraField = myApp.getData();
+					String strExtraFieldValue = myAppsUser.getStoredUserData();
+		
+					
+					if (StringUtils.isNotBlank(myApp.getCode())) {
+						url.addParameter(strLoginFieldName, strUserLogin);
+					}
+					if (StringUtils.isNotBlank(myApp.getPassword())) {
+						url.addParameter(strPasswordField, strUserPassword);
+					}
+		
+					// If the label of data is not blank, then it is an extra field the
+					// LuteceUser has to fill
+					if (StringUtils.isNotBlank(strExtraField)
+							&& StringUtils.isNotBlank(myApp.getDataHeading())) {
+						url.addParameter(strExtraField, strExtraFieldValue);
+					}
+				}
 			}
 
 			strUrl = url.getUrl();
