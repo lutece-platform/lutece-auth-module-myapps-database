@@ -3,7 +3,7 @@
     <!-- Plugin Informations --> 
     <name>myapps-database</name>
     <class>fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabasePlugin</class>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <documentation/>
     <installation/>
     <changes/>
