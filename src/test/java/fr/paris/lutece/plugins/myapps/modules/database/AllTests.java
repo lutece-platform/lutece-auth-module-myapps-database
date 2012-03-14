@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.myapps.modules.database;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseTest;
+import fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseUserTest;
 import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseImgProviderTest;
 import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseServiceTest;
 import fr.paris.lutece.plugins.myapps.modules.database.web.MyAppsDatabaseJspBeanTest;
