@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
-		<artifactId>lutece-plugins-pom</artifactId>
-		<groupId>fr.paris.lutece.plugins</groupId>
-		<version>3.7</version>
+        <artifactId>lutece-global-pom</artifactId>
+        <groupId>fr.paris.lutece.tools</groupId>
+        <version>3.0.11</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -29,7 +29,8 @@
 			<version>[2.1.0,)</version>
 			<type>lutece-plugin</type>
 		</dependency>
-		</dependencies>
+	</dependencies>
+
 	<properties>
 		<componentName>myapps-database</componentName>
 		<jiraProjectName>MYAPPSDATABASE</jiraProjectName>
@@ -37,8 +38,8 @@
 	</properties>
 	
 	<scm>
-        <connection>scm:svn:http://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/authentication/module-myapps-database</connection>
-        <developerConnection>scm:svn:https://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/authentication/module-myapps-database</developerConnection>
-        <url>http://dev.lutece.paris.fr/viewvc/lutece/portal/trunk/plugins/authentication/module-myapps-database</url>
-    </scm>
+        <connection>scm:git:https://github.com/lutece-platform/lutece-auth-module-myapps-database</connection>
+        <developerConnection>scm:git:https://github.com/lutece-platform/lutece-auth-module-myapps-database</developerConnection>
+        <url>https://github.com/lutece-platform/lutece-auth-module-myapps-database</url>
+	</scm>
 </project>
