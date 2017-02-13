@@ -10,7 +10,7 @@
 	<groupId>fr.paris.lutece.plugins</groupId>
 	<artifactId>module-myapps-database</artifactId>
 	<packaging>lutece-plugin</packaging>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<name>Lutece myapps database module</name>
 
 	<repositories>
@@ -41,6 +41,6 @@
         <connection>scm:git:https://github.com/lutece-platform/lutece-auth-module-myapps-database</connection>
         <developerConnection>scm:git:https://github.com/lutece-platform/lutece-auth-module-myapps-database</developerConnection>
         <url>https://github.com/lutece-platform/lutece-auth-module-myapps-database</url>
-	  <tag>lutece-auth-module-myapps-database-1.0.1</tag>
+	  <tag>HEAD</tag>
   </scm>
 </project>
