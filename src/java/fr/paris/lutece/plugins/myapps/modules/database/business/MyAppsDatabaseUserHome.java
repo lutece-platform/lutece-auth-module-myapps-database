@@ -42,7 +42,6 @@ import fr.paris.lutece.plugins.myapps.modules.database.utils.constants.MyAppsDat
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
-
 /**
  *
  * MyAppsDatabaseUserHome
@@ -57,14 +56,15 @@ public final class MyAppsDatabaseUserHome
     /**
      * Private constructor
      */
-    private MyAppsDatabaseUserHome(  )
+    private MyAppsDatabaseUserHome( )
     {
     }
 
     /**
      * Get a new primary key
      *
-     * @param plugin {@link Plugin}
+     * @param plugin
+     *            {@link Plugin}
      * @return a new primary key
      */
     public static int newPrimaryKey( Plugin plugin )
@@ -75,8 +75,10 @@ public final class MyAppsDatabaseUserHome
     /**
      * Creation of an instance of myAppsUser
      *
-     * @param myAppsUser The instance of the MyAppsUser which contains the informations to store
-     * @param plugin the Plugin
+     * @param myAppsUser
+     *            The instance of the MyAppsUser which contains the informations to store
+     * @param plugin
+     *            the Plugin
      */
     public static void create( MyAppsDatabaseUser myAppsUser, Plugin plugin )
     {
@@ -86,8 +88,10 @@ public final class MyAppsDatabaseUserHome
     /**
      * Update of the myAppsUser which is specified in parameter
      *
-     * @param myAppsUser The instance of the MyAppsUser which contains the data to store
-     * @param plugin the Plugin
+     * @param myAppsUser
+     *            The instance of the MyAppsUser which contains the data to store
+     * @param plugin
+     *            the Plugin
      */
     public static void update( MyAppsDatabaseUser myAppsUser, Plugin plugin )
     {
@@ -97,8 +101,10 @@ public final class MyAppsDatabaseUserHome
     /**
      * Remove the myAppsUser whose identifier is specified in parameter
      *
-     * @param nMyAppsUserId The myAppsUser Id
-     * @param plugin the Plugin
+     * @param nMyAppsUserId
+     *            The myAppsUser Id
+     * @param plugin
+     *            the Plugin
      */
     public static void remove( int nMyAppsUserId, Plugin plugin )
     {
@@ -108,9 +114,12 @@ public final class MyAppsDatabaseUserHome
     /**
      * Remove the myAppsUser whose identifier is specified in parameter
      *
-     * @param nMyAppId The Id of the application
-     * @param strUserName the user name
-     * @param plugin the Plugin
+     * @param nMyAppId
+     *            The Id of the application
+     * @param strUserName
+     *            the user name
+     * @param plugin
+     *            the Plugin
      */
     public static void remove( int nMyAppId, String strUserName, Plugin plugin )
     {
@@ -120,8 +129,10 @@ public final class MyAppsDatabaseUserHome
     /**
      * Returns an instance of a myAppsUser whose identifier is specified in parameter
      *
-     * @param nMyAppsUserId The myAppsUser primary key
-     * @param plugin the Plugin
+     * @param nMyAppsUserId
+     *            The myAppsUser primary key
+     * @param plugin
+     *            the Plugin
      * @return an instance of MyAppsUser
      */
     public static MyAppsUser findByPrimaryKey( int nMyAppsUserId, Plugin plugin )
@@ -132,22 +143,24 @@ public final class MyAppsDatabaseUserHome
     /**
      * Loads the data of all the myAppsUsers and returns them in form of a collection
      *
-     * @param plugin the Plugin
+     * @param plugin
+     *            the Plugin
      * @return the collection which contains the data of all the myAppsUsers
      */
     public static Collection<MyAppsUser> getMyAppsUsersList( Plugin plugin )
     {
         return _dao.selectMyAppsUsersList( plugin );
     }
-    
-
 
     /**
      * Loads the data of all the myAppsUsers and returns them in form of a collection
      *
-     * @param nMyAppId the ID of the appication
-     * @param strUserName the user name
-     * @param plugin the Plugin
+     * @param nMyAppId
+     *            the ID of the appication
+     * @param strUserName
+     *            the user name
+     * @param plugin
+     *            the Plugin
      * @return a {@link MyAppsUser}
      */
     public static MyAppsUser getCredentials( int nMyAppId, String strUserName, Plugin plugin )
@@ -158,34 +171,42 @@ public final class MyAppsDatabaseUserHome
     /**
      * Loads the data of all the myAppsUsers and returns them in form of a collection
      *
-     * @param nMyAppsUserId the ID of the appication user
-     * @param plugin the Plugin
+     * @param nMyAppsUserId
+     *            the ID of the appication user
+     * @param plugin
+     *            the Plugin
      * @return a {@link MyAppsUser}
      */
     public static MyAppsUser getCredentials( int nMyAppsUserId, Plugin plugin )
     {
         return _dao.getCredentials( nMyAppsUserId, plugin );
     }
-    
+
     /**
      * Return the list of all applications of a user
      * 
-     * @param strUserName the user name
-     * @param plugin the Plugin
+     * @param strUserName
+     *            the user name
+     * @param plugin
+     *            the Plugin
      * @return the list of all applications of the user
      */
     public static List<MyAppsDatabaseUser> getUserListApplications( String strUserName, Plugin plugin )
     {
         return _dao.selectUserApplications( strUserName, plugin );
     }
-    
+
     /**
      * Update the order of MyApps user
      * 
-     * @param nApplicationOrder the new order to set
-     * @param nApplicationId the id of the application to update
-     * @param strUserName the name of the user
-     * @param plugin the {@link Plugin}
+     * @param nApplicationOrder
+     *            the new order to set
+     * @param nApplicationId
+     *            the id of the application to update
+     * @param strUserName
+     *            the name of the user
+     * @param plugin
+     *            the {@link Plugin}
      */
     public static void updateMyAppsDatabseUserOrder( int nMyAppsOrder, int nMyAppsUserId, String strUserName, Plugin plugin )
     {

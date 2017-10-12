@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.myapps.modules.database.business;
 
 import fr.paris.lutece.plugins.myapps.business.MyAppsUser;
 
-
 /**
  *
  * MyAppsDatabaseUser
@@ -53,7 +52,7 @@ public class MyAppsDatabaseUser extends MyAppsUser
      *
      * @return The StoredUserName
      */
-    public String getStoredUserName(  )
+    public String getStoredUserName( )
     {
         return _strStoredUserName;
     }
@@ -61,7 +60,8 @@ public class MyAppsDatabaseUser extends MyAppsUser
     /**
      * Sets the StoredUserName
      *
-     * @param strStoredUserName The StoredUserName
+     * @param strStoredUserName
+     *            The StoredUserName
      */
     public void setStoredUserName( String strStoredUserName )
     {
@@ -73,7 +73,7 @@ public class MyAppsDatabaseUser extends MyAppsUser
      *
      * @return The StoredUserPassword
      */
-    public String getStoredUserPassword(  )
+    public String getStoredUserPassword( )
     {
         return _strStoredUserPassword;
     }
@@ -81,7 +81,8 @@ public class MyAppsDatabaseUser extends MyAppsUser
     /**
      * Sets the StoredUserPassword
      *
-     * @param strStoredUserPassword The StoredUserPassword
+     * @param strStoredUserPassword
+     *            The StoredUserPassword
      */
     public void setStoredUserPassword( String strStoredUserPassword )
     {
@@ -93,7 +94,7 @@ public class MyAppsDatabaseUser extends MyAppsUser
      *
      * @return The StoredUserData
      */
-    public String getStoredUserData(  )
+    public String getStoredUserData( )
     {
         return _strStoredUserData;
     }
@@ -101,7 +102,8 @@ public class MyAppsDatabaseUser extends MyAppsUser
     /**
      * Sets the StoredUserData
      *
-     * @param strStoredUserData The StoredUserData
+     * @param strStoredUserData
+     *            The StoredUserData
      */
     public void setStoredUserData( String strStoredUserData )
     {
@@ -121,7 +123,8 @@ public class MyAppsDatabaseUser extends MyAppsUser
     /**
      * Sets the application order
      * 
-     * @param nApplicationOrder the nApplicationOrder to set
+     * @param nApplicationOrder
+     *            the nApplicationOrder to set
      */
     public void setApplicationOrder( int nApplicationOrder )
     {

@@ -50,363 +50,388 @@ import java.util.List;
  * MyAppsDatabaseDAO
  * 
  */
-public final class MyAppsDatabaseDAO implements IMyAppsDatabaseDAO {
-	// SQL
-	private static final String SQL_QUERY_NEW_PK = " SELECT max( id_application ) FROM myapps_database_application ";
-	private static final String SQL_QUERY_SELECT = " SELECT id_application, name, description, url, code, password, data, code_heading, data_heading, icon_mime_type,code_category FROM myapps_database_application WHERE id_application = ? ";
-	private static final String SQL_QUERY_INSERT = " INSERT INTO myapps_database_application ( id_application, name, description, url, code, password, data, code_heading, data_heading, icon_content, icon_mime_type,code_category) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,?, ? , ?, ? ) ";
-	private static final String SQL_QUERY_DELETE = " DELETE FROM myapps_database_application WHERE id_application = ? ";
-	private static final String SQL_QUERY_UPDATE = " UPDATE myapps_database_application SET name = ?, description = ?, url = ?, code = ?, password = ?, data = ?, code_heading = ?, data_heading = ?, icon_content = ?, icon_mime_type = ?,code_category = ? WHERE id_application = ? ";
-	private static final String SQL_QUERY_UPDATE_WITHOUT_ICON = " UPDATE myapps_database_application SET name = ?, description = ?, url = ?, code = ?, password = ?, data = ?, code_heading = ?, data_heading = ?,code_category = ? WHERE id_application = ? ";
-	private static final String SQL_QUERY_SELECTALL = " SELECT a.id_application, a.name, a.description, a.url, a.code, a.password, a.data, a.code_heading, a.data_heading, a.icon_mime_type ,code_category FROM myapps_database_application as a ";
-	private static final String SQL_QUERY_SELECT_MYAPPS = " SELECT a.id_application, a.name FROM myapps_database_application as a ";
-	
-	
-	private static final String SQL_QUERY_SELECT_ICON_MIME_TYPE = " SELECT icon_mime_type FROM myapps_database_application WHERE id_application = ? ";
-	private// SQL clause
-	static final String SQL_QUERY_WHERE = "WHERE";
-	static final String SQL_QUERY_AND = "AND";
-	// filter
-	private static final String SQL_FILTER_USER_NAME = " INNER JOIN myapps_database_user as u ON (a.id_application = u.id_application and u.name= ? )";
-	private static final String SQL_FILTER_CATEGORY = " a.code_category= ? ";
-	// Image resource fetching
-	private static final String SQL_QUERY_SELECT_RESOURCE_IMAGE = " SELECT icon_content , icon_mime_type FROM myapps_database_application WHERE id_application= ? ";
-	private static final String SQL_ORDER_BY_NAME = " ORDER BY a.name ";
-	private static final String SQL_ORDER_BY_APPLICATION_ORDER = " ORDER BY u.application_order";
-	private static final String SQL_ASC = " ASC ";
-	private static final String SQL_DESC = " DESC ";
+public final class MyAppsDatabaseDAO implements IMyAppsDatabaseDAO
+{
+    // SQL
+    private static final String SQL_QUERY_NEW_PK = " SELECT max( id_application ) FROM myapps_database_application ";
+    private static final String SQL_QUERY_SELECT = " SELECT id_application, name, description, url, code, password, data, code_heading, data_heading, icon_mime_type,code_category FROM myapps_database_application WHERE id_application = ? ";
+    private static final String SQL_QUERY_INSERT = " INSERT INTO myapps_database_application ( id_application, name, description, url, code, password, data, code_heading, data_heading, icon_content, icon_mime_type,code_category) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,?, ? , ?, ? ) ";
+    private static final String SQL_QUERY_DELETE = " DELETE FROM myapps_database_application WHERE id_application = ? ";
+    private static final String SQL_QUERY_UPDATE = " UPDATE myapps_database_application SET name = ?, description = ?, url = ?, code = ?, password = ?, data = ?, code_heading = ?, data_heading = ?, icon_content = ?, icon_mime_type = ?,code_category = ? WHERE id_application = ? ";
+    private static final String SQL_QUERY_UPDATE_WITHOUT_ICON = " UPDATE myapps_database_application SET name = ?, description = ?, url = ?, code = ?, password = ?, data = ?, code_heading = ?, data_heading = ?,code_category = ? WHERE id_application = ? ";
+    private static final String SQL_QUERY_SELECTALL = " SELECT a.id_application, a.name, a.description, a.url, a.code, a.password, a.data, a.code_heading, a.data_heading, a.icon_mime_type ,code_category FROM myapps_database_application as a ";
+    private static final String SQL_QUERY_SELECT_MYAPPS = " SELECT a.id_application, a.name FROM myapps_database_application as a ";
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public int newPrimaryKey(Plugin plugin) {
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_NEW_PK, plugin);
-		daoUtil.executeQuery();
+    private static final String SQL_QUERY_SELECT_ICON_MIME_TYPE = " SELECT icon_mime_type FROM myapps_database_application WHERE id_application = ? ";
+    private// SQL clause
+    static final String SQL_QUERY_WHERE = "WHERE";
+    static final String SQL_QUERY_AND = "AND";
+    // filter
+    private static final String SQL_FILTER_USER_NAME = " INNER JOIN myapps_database_user as u ON (a.id_application = u.id_application and u.name= ? )";
+    private static final String SQL_FILTER_CATEGORY = " a.code_category= ? ";
+    // Image resource fetching
+    private static final String SQL_QUERY_SELECT_RESOURCE_IMAGE = " SELECT icon_content , icon_mime_type FROM myapps_database_application WHERE id_application= ? ";
+    private static final String SQL_ORDER_BY_NAME = " ORDER BY a.name ";
+    private static final String SQL_ORDER_BY_APPLICATION_ORDER = " ORDER BY u.application_order";
+    private static final String SQL_ASC = " ASC ";
+    private static final String SQL_DESC = " DESC ";
 
-		int nKey;
+    /**
+     * {@inheritDoc}
+     */
+    public int newPrimaryKey( Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin );
+        daoUtil.executeQuery( );
 
-		if (!daoUtil.next()) {
-			// if the table is empty
-			nKey = 1;
-		}
+        int nKey;
 
-		nKey = daoUtil.getInt(1) + 1;
-		daoUtil.free();
+        if ( !daoUtil.next( ) )
+        {
+            // if the table is empty
+            nKey = 1;
+        }
 
-		return nKey;
-	}
+        nKey = daoUtil.getInt( 1 ) + 1;
+        daoUtil.free( );
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void insert(MyAppsDatabase myApps, Plugin plugin) {
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_INSERT, plugin);
+        return nKey;
+    }
 
-		int nIndex = 1;
-		myApps.setIdApplication(newPrimaryKey(plugin));
+    /**
+     * {@inheritDoc}
+     */
+    public void insert( MyAppsDatabase myApps, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
 
-		daoUtil.setInt(nIndex++, myApps.getIdApplication());
-		daoUtil.setString(nIndex++, myApps.getName());
-		daoUtil.setString(nIndex++, myApps.getDescription());
-		daoUtil.setString(nIndex++, myApps.getUrl());
-		daoUtil.setString(nIndex++, myApps.getCode());
-		daoUtil.setString(nIndex++, myApps.getPassword());
-		daoUtil.setString(nIndex++, myApps.getData());
-		daoUtil.setString(nIndex++, myApps.getCodeHeading());
-		daoUtil.setString(nIndex++, myApps.getDataHeading());
+        int nIndex = 1;
+        myApps.setIdApplication( newPrimaryKey( plugin ) );
 
-		if ((myApps.getIconContent() == null)) {
-			daoUtil.setBytes(nIndex++, null);
-			daoUtil.setString(nIndex++, StringUtils.EMPTY);
-		} else {
-			daoUtil.setBytes(nIndex++, myApps.getIconContent());
-			daoUtil.setString(nIndex++, myApps.getIconMimeType());
-		}
-		daoUtil.setString(nIndex++, myApps.getCodeCategory());
+        daoUtil.setInt( nIndex++, myApps.getIdApplication( ) );
+        daoUtil.setString( nIndex++, myApps.getName( ) );
+        daoUtil.setString( nIndex++, myApps.getDescription( ) );
+        daoUtil.setString( nIndex++, myApps.getUrl( ) );
+        daoUtil.setString( nIndex++, myApps.getCode( ) );
+        daoUtil.setString( nIndex++, myApps.getPassword( ) );
+        daoUtil.setString( nIndex++, myApps.getData( ) );
+        daoUtil.setString( nIndex++, myApps.getCodeHeading( ) );
+        daoUtil.setString( nIndex++, myApps.getDataHeading( ) );
 
-		daoUtil.executeUpdate();
-		daoUtil.free();
-	}
+        if ( ( myApps.getIconContent( ) == null ) )
+        {
+            daoUtil.setBytes( nIndex++, null );
+            daoUtil.setString( nIndex++, StringUtils.EMPTY );
+        }
+        else
+        {
+            daoUtil.setBytes( nIndex++, myApps.getIconContent( ) );
+            daoUtil.setString( nIndex++, myApps.getIconMimeType( ) );
+        }
+        daoUtil.setString( nIndex++, myApps.getCodeCategory( ) );
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public MyApps load(int nId, Plugin plugin) {
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_SELECT, plugin);
-		daoUtil.setInt(1, nId);
-		daoUtil.executeQuery();
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
+    }
 
-		MyAppsDatabase myApps = null;
+    /**
+     * {@inheritDoc}
+     */
+    public MyApps load( int nId, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
+        daoUtil.setInt( 1, nId );
+        daoUtil.executeQuery( );
 
-		if (daoUtil.next()) {
-			int nIndex = 1;
-			myApps = new MyAppsDatabase();
+        MyAppsDatabase myApps = null;
 
-			myApps.setIdApplication(daoUtil.getInt(nIndex++));
-			myApps.setName(daoUtil.getString(nIndex++));
-			myApps.setDescription(daoUtil.getString(nIndex++));
-			myApps.setUrl(daoUtil.getString(nIndex++));
-			myApps.setCode(daoUtil.getString(nIndex++));
-			myApps.setPassword(daoUtil.getString(nIndex++));
-			myApps.setData(daoUtil.getString(nIndex++));
-			myApps.setCodeHeading(daoUtil.getString(nIndex++));
-			myApps.setDataHeading(daoUtil.getString(nIndex++));
-			myApps.setIconMimeType(daoUtil.getString(nIndex++));
-			myApps.setCodeCategory(daoUtil.getString(nIndex++));
-		}
+        if ( daoUtil.next( ) )
+        {
+            int nIndex = 1;
+            myApps = new MyAppsDatabase( );
 
-		daoUtil.free();
+            myApps.setIdApplication( daoUtil.getInt( nIndex++ ) );
+            myApps.setName( daoUtil.getString( nIndex++ ) );
+            myApps.setDescription( daoUtil.getString( nIndex++ ) );
+            myApps.setUrl( daoUtil.getString( nIndex++ ) );
+            myApps.setCode( daoUtil.getString( nIndex++ ) );
+            myApps.setPassword( daoUtil.getString( nIndex++ ) );
+            myApps.setData( daoUtil.getString( nIndex++ ) );
+            myApps.setCodeHeading( daoUtil.getString( nIndex++ ) );
+            myApps.setDataHeading( daoUtil.getString( nIndex++ ) );
+            myApps.setIconMimeType( daoUtil.getString( nIndex++ ) );
+            myApps.setCodeCategory( daoUtil.getString( nIndex++ ) );
+        }
 
-		return myApps;
-	}
+        daoUtil.free( );
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void delete(int nMyAppsId, Plugin plugin) {
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_DELETE, plugin);
-		daoUtil.setInt(1, nMyAppsId);
-		daoUtil.executeUpdate();
-		daoUtil.free();
-	}
+        return myApps;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void store(MyAppsDatabase myApps, boolean bUpdateIcon, Plugin plugin) {
-		String strSQL = bUpdateIcon ? SQL_QUERY_UPDATE
-				: SQL_QUERY_UPDATE_WITHOUT_ICON;
-		DAOUtil daoUtil = new DAOUtil(strSQL, plugin);
+    /**
+     * {@inheritDoc}
+     */
+    public void delete( int nMyAppsId, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
+        daoUtil.setInt( 1, nMyAppsId );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
+    }
 
-		int nIndex = 1;
-		daoUtil.setString(nIndex++, myApps.getName());
-		daoUtil.setString(nIndex++, myApps.getDescription());
-		daoUtil.setString(nIndex++, myApps.getUrl());
-		daoUtil.setString(nIndex++, myApps.getCode());
-		daoUtil.setString(nIndex++, myApps.getPassword());
-		daoUtil.setString(nIndex++, myApps.getData());
-		daoUtil.setString(nIndex++, myApps.getCodeHeading());
-		daoUtil.setString(nIndex++, myApps.getDataHeading());
+    /**
+     * {@inheritDoc}
+     */
+    public void store( MyAppsDatabase myApps, boolean bUpdateIcon, Plugin plugin )
+    {
+        String strSQL = bUpdateIcon ? SQL_QUERY_UPDATE : SQL_QUERY_UPDATE_WITHOUT_ICON;
+        DAOUtil daoUtil = new DAOUtil( strSQL, plugin );
 
-		if (bUpdateIcon) {
-			if (myApps.getIconContent() == null) {
-				daoUtil.setBytes(nIndex++, null);
-				daoUtil.setString(nIndex++, StringUtils.EMPTY);
-			} else {
-				daoUtil.setBytes(nIndex++, myApps.getIconContent());
-				daoUtil.setString(nIndex++, myApps.getIconMimeType());
-			}
-		}
-		daoUtil.setString(nIndex++, myApps.getCodeCategory());
-		daoUtil.setInt(nIndex++, myApps.getIdApplication());
+        int nIndex = 1;
+        daoUtil.setString( nIndex++, myApps.getName( ) );
+        daoUtil.setString( nIndex++, myApps.getDescription( ) );
+        daoUtil.setString( nIndex++, myApps.getUrl( ) );
+        daoUtil.setString( nIndex++, myApps.getCode( ) );
+        daoUtil.setString( nIndex++, myApps.getPassword( ) );
+        daoUtil.setString( nIndex++, myApps.getData( ) );
+        daoUtil.setString( nIndex++, myApps.getCodeHeading( ) );
+        daoUtil.setString( nIndex++, myApps.getDataHeading( ) );
 
-		daoUtil.executeUpdate();
-		daoUtil.free();
-	}
+        if ( bUpdateIcon )
+        {
+            if ( myApps.getIconContent( ) == null )
+            {
+                daoUtil.setBytes( nIndex++, null );
+                daoUtil.setString( nIndex++, StringUtils.EMPTY );
+            }
+            else
+            {
+                daoUtil.setBytes( nIndex++, myApps.getIconContent( ) );
+                daoUtil.setString( nIndex++, myApps.getIconMimeType( ) );
+            }
+        }
+        daoUtil.setString( nIndex++, myApps.getCodeCategory( ) );
+        daoUtil.setInt( nIndex++, myApps.getIdApplication( ) );
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<MyApps> selectMyAppsList(MyAppsDatabaseFilter filter,Plugin plugin
-			) {
-		List<MyApps> myAppsList = new ArrayList<MyApps>();
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
+    }
 
-		StringBuilder sbSQL = new StringBuilder(SQL_QUERY_SELECTALL);
-		if (filter!=null && filter.containsCategory()) {
-			sbSQL.append(SQL_QUERY_WHERE);
-			sbSQL.append(SQL_FILTER_CATEGORY);
-		}
+    /**
+     * {@inheritDoc}
+     */
+    public List<MyApps> selectMyAppsList( MyAppsDatabaseFilter filter, Plugin plugin )
+    {
+        List<MyApps> myAppsList = new ArrayList<MyApps>( );
 
-		DAOUtil daoUtil = new DAOUtil(sbSQL.toString(), plugin);
+        StringBuilder sbSQL = new StringBuilder( SQL_QUERY_SELECTALL );
+        if ( filter != null && filter.containsCategory( ) )
+        {
+            sbSQL.append( SQL_QUERY_WHERE );
+            sbSQL.append( SQL_FILTER_CATEGORY );
+        }
 
-		int ncpt = 0;
-		if (filter!=null && filter.containsCategory()) {
+        DAOUtil daoUtil = new DAOUtil( sbSQL.toString( ), plugin );
 
-			daoUtil.setString(++ncpt, filter.getCategory());
+        int ncpt = 0;
+        if ( filter != null && filter.containsCategory( ) )
+        {
 
-		}
-		daoUtil.executeQuery();
+            daoUtil.setString( ++ncpt, filter.getCategory( ) );
 
-		while (daoUtil.next()) {
-			int nIndex = 1;
-			MyAppsDatabase myApps = new MyAppsDatabase();
+        }
+        daoUtil.executeQuery( );
 
-			myApps.setIdApplication(daoUtil.getInt(nIndex++));
-			myApps.setName(daoUtil.getString(nIndex++));
-			myApps.setDescription(daoUtil.getString(nIndex++));
-			myApps.setUrl(daoUtil.getString(nIndex++));
-			myApps.setCode(daoUtil.getString(nIndex++));
-			myApps.setPassword(daoUtil.getString(nIndex++));
-			myApps.setData(daoUtil.getString(nIndex++));
-			myApps.setCodeHeading(daoUtil.getString(nIndex++));
-			myApps.setDataHeading(daoUtil.getString(nIndex++));
-			myApps.setIconMimeType(daoUtil.getString(nIndex++));
-			myApps.setCodeCategory(daoUtil.getString(nIndex++));
+        while ( daoUtil.next( ) )
+        {
+            int nIndex = 1;
+            MyAppsDatabase myApps = new MyAppsDatabase( );
 
-			myAppsList.add(myApps);
-		}
+            myApps.setIdApplication( daoUtil.getInt( nIndex++ ) );
+            myApps.setName( daoUtil.getString( nIndex++ ) );
+            myApps.setDescription( daoUtil.getString( nIndex++ ) );
+            myApps.setUrl( daoUtil.getString( nIndex++ ) );
+            myApps.setCode( daoUtil.getString( nIndex++ ) );
+            myApps.setPassword( daoUtil.getString( nIndex++ ) );
+            myApps.setData( daoUtil.getString( nIndex++ ) );
+            myApps.setCodeHeading( daoUtil.getString( nIndex++ ) );
+            myApps.setDataHeading( daoUtil.getString( nIndex++ ) );
+            myApps.setIconMimeType( daoUtil.getString( nIndex++ ) );
+            myApps.setCodeCategory( daoUtil.getString( nIndex++ ) );
 
-		daoUtil.free();
+            myAppsList.add( myApps );
+        }
 
-		return myAppsList;
-	}
+        daoUtil.free( );
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<MyApps> selectMyAppsListByFilter(MyAppsDatabaseFilter filter,
-			boolean bIsAscSort, Plugin plugin) {
-		List<MyApps> myAppsList = new ArrayList<MyApps>();
-		StringBuilder sbSQL = new StringBuilder(SQL_QUERY_SELECTALL);
-		
-		if (filter.containsUserName()) {
-			sbSQL.append(SQL_FILTER_USER_NAME);
-		}
-		
-		if (filter.containsCategory() ) {
-			sbSQL.append(SQL_QUERY_WHERE);
-			sbSQL.append(SQL_FILTER_CATEGORY);
-		}
-		
+        return myAppsList;
+    }
 
-		sbSQL.append(SQL_ORDER_BY_NAME);
-		sbSQL.append(bIsAscSort ? SQL_ASC : SQL_DESC);
+    /**
+     * {@inheritDoc}
+     */
+    public List<MyApps> selectMyAppsListByFilter( MyAppsDatabaseFilter filter, boolean bIsAscSort, Plugin plugin )
+    {
+        List<MyApps> myAppsList = new ArrayList<MyApps>( );
+        StringBuilder sbSQL = new StringBuilder( SQL_QUERY_SELECTALL );
 
-		DAOUtil daoUtil = new DAOUtil(sbSQL.toString(), plugin);
-		int ncpt = 0;
-		
-		if (filter.containsUserName()) {
+        if ( filter.containsUserName( ) )
+        {
+            sbSQL.append( SQL_FILTER_USER_NAME );
+        }
 
-			daoUtil.setString(++ncpt, filter.getUserName());
-		}
-		if (filter.containsCategory()) {
+        if ( filter.containsCategory( ) )
+        {
+            sbSQL.append( SQL_QUERY_WHERE );
+            sbSQL.append( SQL_FILTER_CATEGORY );
+        }
 
-			daoUtil.setString(++ncpt, filter.getCategory());
+        sbSQL.append( SQL_ORDER_BY_NAME );
+        sbSQL.append( bIsAscSort ? SQL_ASC : SQL_DESC );
 
-		}
-		
+        DAOUtil daoUtil = new DAOUtil( sbSQL.toString( ), plugin );
+        int ncpt = 0;
 
-		daoUtil.executeQuery();
+        if ( filter.containsUserName( ) )
+        {
 
-		while (daoUtil.next()) {
-			int nIndex = 1;
-			MyAppsDatabase myApps = new MyAppsDatabase();
+            daoUtil.setString( ++ncpt, filter.getUserName( ) );
+        }
+        if ( filter.containsCategory( ) )
+        {
 
-			myApps.setIdApplication(daoUtil.getInt(nIndex++));
-			myApps.setName(daoUtil.getString(nIndex++));
-			myApps.setDescription(daoUtil.getString(nIndex++));
-			myApps.setUrl(daoUtil.getString(nIndex++));
-			myApps.setCode(daoUtil.getString(nIndex++));
-			myApps.setPassword(daoUtil.getString(nIndex++));
-			myApps.setData(daoUtil.getString(nIndex++));
-			myApps.setCodeHeading(daoUtil.getString(nIndex++));
-			myApps.setDataHeading(daoUtil.getString(nIndex++));
-			myApps.setIconMimeType(daoUtil.getString(nIndex++));
-			myApps.setCodeCategory(daoUtil.getString(nIndex++));
-			
-			myAppsList.add(myApps);
-		}
+            daoUtil.setString( ++ncpt, filter.getCategory( ) );
 
-		daoUtil.free();
+        }
 
-		return myAppsList;
-	}
+        daoUtil.executeQuery( );
 
-	/**
-    * {@inheritDoc}
-    */
-	public List<MyApps> selectMyAppsListByUser( String strUserName, Plugin plugin )
-	{
-	    List<MyApps> myAppsList = new ArrayList<MyApps>( );
-	    StringBuilder sbSQL = new StringBuilder( SQL_QUERY_SELECTALL );
-	    sbSQL.append( SQL_FILTER_USER_NAME );
-	    sbSQL.append( SQL_ORDER_BY_APPLICATION_ORDER );
+        while ( daoUtil.next( ) )
+        {
+            int nIndex = 1;
+            MyAppsDatabase myApps = new MyAppsDatabase( );
 
-	    DAOUtil daoUtil = new DAOUtil( sbSQL.toString( ), plugin );
-	    daoUtil.setString( NumberUtils.INTEGER_ONE, strUserName );
-	    daoUtil.executeQuery( );
+            myApps.setIdApplication( daoUtil.getInt( nIndex++ ) );
+            myApps.setName( daoUtil.getString( nIndex++ ) );
+            myApps.setDescription( daoUtil.getString( nIndex++ ) );
+            myApps.setUrl( daoUtil.getString( nIndex++ ) );
+            myApps.setCode( daoUtil.getString( nIndex++ ) );
+            myApps.setPassword( daoUtil.getString( nIndex++ ) );
+            myApps.setData( daoUtil.getString( nIndex++ ) );
+            myApps.setCodeHeading( daoUtil.getString( nIndex++ ) );
+            myApps.setDataHeading( daoUtil.getString( nIndex++ ) );
+            myApps.setIconMimeType( daoUtil.getString( nIndex++ ) );
+            myApps.setCodeCategory( daoUtil.getString( nIndex++ ) );
 
-	    while ( daoUtil.next( ) ) {
-	        int nIndex = 1;
-	        MyAppsDatabase myApps = new MyAppsDatabase( );
+            myAppsList.add( myApps );
+        }
 
-	        myApps.setIdApplication(daoUtil.getInt(nIndex++));
-	        myApps.setName(daoUtil.getString(nIndex++));
-	        myApps.setDescription(daoUtil.getString(nIndex++));
-	        myApps.setUrl(daoUtil.getString(nIndex++));
-	        myApps.setCode(daoUtil.getString(nIndex++));
-	        myApps.setPassword(daoUtil.getString(nIndex++));
-	        myApps.setData(daoUtil.getString(nIndex++));
-	        myApps.setCodeHeading(daoUtil.getString(nIndex++));
-	        myApps.setDataHeading(daoUtil.getString(nIndex++));
-	        myApps.setIconMimeType(daoUtil.getString(nIndex++));
-	        myApps.setCodeCategory(daoUtil.getString(nIndex++));
+        daoUtil.free( );
 
-	        myAppsList.add( myApps );
-	    }
+        return myAppsList;
+    }
 
-	    daoUtil.free( );
+    /**
+     * {@inheritDoc}
+     */
+    public List<MyApps> selectMyAppsListByUser( String strUserName, Plugin plugin )
+    {
+        List<MyApps> myAppsList = new ArrayList<MyApps>( );
+        StringBuilder sbSQL = new StringBuilder( SQL_QUERY_SELECTALL );
+        sbSQL.append( SQL_FILTER_USER_NAME );
+        sbSQL.append( SQL_ORDER_BY_APPLICATION_ORDER );
 
-	    return myAppsList;
-	}
-	   
-	/**
-	 * {@inheritDoc}
-	 */
-	public ImageResource getIconResource(int nIdMyApps, Plugin plugin) {
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_SELECT_RESOURCE_IMAGE, plugin);
-		daoUtil.setInt(1, nIdMyApps);
-		daoUtil.executeQuery();
+        DAOUtil daoUtil = new DAOUtil( sbSQL.toString( ), plugin );
+        daoUtil.setString( NumberUtils.INTEGER_ONE, strUserName );
+        daoUtil.executeQuery( );
 
-		ImageResource image = null;
+        while ( daoUtil.next( ) )
+        {
+            int nIndex = 1;
+            MyAppsDatabase myApps = new MyAppsDatabase( );
 
-		if (daoUtil.next()) {
-			int nIndex = 1;
-			image = new ImageResource();
-			image.setImage(daoUtil.getBytes(nIndex++));
-			image.setMimeType(daoUtil.getString(nIndex++));
-		}
+            myApps.setIdApplication( daoUtil.getInt( nIndex++ ) );
+            myApps.setName( daoUtil.getString( nIndex++ ) );
+            myApps.setDescription( daoUtil.getString( nIndex++ ) );
+            myApps.setUrl( daoUtil.getString( nIndex++ ) );
+            myApps.setCode( daoUtil.getString( nIndex++ ) );
+            myApps.setPassword( daoUtil.getString( nIndex++ ) );
+            myApps.setData( daoUtil.getString( nIndex++ ) );
+            myApps.setCodeHeading( daoUtil.getString( nIndex++ ) );
+            myApps.setDataHeading( daoUtil.getString( nIndex++ ) );
+            myApps.setIconMimeType( daoUtil.getString( nIndex++ ) );
+            myApps.setCodeCategory( daoUtil.getString( nIndex++ ) );
 
-		daoUtil.free();
+            myAppsList.add( myApps );
+        }
 
-		return image;
-	}
+        daoUtil.free( );
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public ReferenceList getMyAppsList(Plugin plugin) {
-		ReferenceList myAppsList = new ReferenceList();
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_SELECT_MYAPPS, plugin);
-		daoUtil.executeQuery();
+        return myAppsList;
+    }
 
-		while (daoUtil.next()) {
-			int nIndex = 1;
-			myAppsList.addItem(daoUtil.getString(nIndex++), daoUtil
-					.getString(nIndex++));
-		}
+    /**
+     * {@inheritDoc}
+     */
+    public ImageResource getIconResource( int nIdMyApps, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_RESOURCE_IMAGE, plugin );
+        daoUtil.setInt( 1, nIdMyApps );
+        daoUtil.executeQuery( );
 
-		daoUtil.free();
+        ImageResource image = null;
 
-		return myAppsList;
-	}
+        if ( daoUtil.next( ) )
+        {
+            int nIndex = 1;
+            image = new ImageResource( );
+            image.setImage( daoUtil.getBytes( nIndex++ ) );
+            image.setMimeType( daoUtil.getString( nIndex++ ) );
+        }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean hasIcon(int nIdApps, Plugin plugin) {
-		boolean bHasIcon = false;
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_SELECT_ICON_MIME_TYPE, plugin);
-		daoUtil.setInt(1, nIdApps);
-		daoUtil.executeQuery();
+        daoUtil.free( );
 
-		if (daoUtil.next()) {
-			bHasIcon = true;
-		}
+        return image;
+    }
 
-		daoUtil.free();
+    /**
+     * {@inheritDoc}
+     */
+    public ReferenceList getMyAppsList( Plugin plugin )
+    {
+        ReferenceList myAppsList = new ReferenceList( );
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_MYAPPS, plugin );
+        daoUtil.executeQuery( );
 
-		return bHasIcon;
-	}
-	
+        while ( daoUtil.next( ) )
+        {
+            int nIndex = 1;
+            myAppsList.addItem( daoUtil.getString( nIndex++ ), daoUtil.getString( nIndex++ ) );
+        }
+
+        daoUtil.free( );
+
+        return myAppsList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean hasIcon( int nIdApps, Plugin plugin )
+    {
+        boolean bHasIcon = false;
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_ICON_MIME_TYPE, plugin );
+        daoUtil.setInt( 1, nIdApps );
+        daoUtil.executeQuery( );
+
+        if ( daoUtil.next( ) )
+        {
+            bHasIcon = true;
+        }
+
+        daoUtil.free( );
+
+        return bHasIcon;
+    }
+
 }

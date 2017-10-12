@@ -43,7 +43,6 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.ReferenceList;
 
-
 /**
  *
  * MyAppsDatabaseHome
@@ -58,14 +57,15 @@ public final class MyAppsDatabaseHome
     /**
      * Private constructor
      */
-    private MyAppsDatabaseHome(  )
+    private MyAppsDatabaseHome( )
     {
     }
 
     /**
      * Get a new primary key
      *
-     * @param plugin {@link Plugin}
+     * @param plugin
+     *            {@link Plugin}
      * @return a new primary key
      */
     public static int newPrimaryKey( Plugin plugin )
@@ -76,8 +76,10 @@ public final class MyAppsDatabaseHome
     /**
      * Creation of an instance of myApps
      *
-     * @param myApp The instance of the MyApps which contains the informations to store
-     * @param plugin the Plugin
+     * @param myApp
+     *            The instance of the MyApps which contains the informations to store
+     * @param plugin
+     *            the Plugin
      */
     public static void create( MyAppsDatabase myApp, Plugin plugin )
     {
@@ -87,9 +89,12 @@ public final class MyAppsDatabaseHome
     /**
      * Update of the myApps which is specified in parameter
      *
-     * @param myApp The instance of the MyApps which contains the data to store
-     * @param bUpdateIcon true if the icon must also be updated, false otherwise
-     * @param plugin the Plugin
+     * @param myApp
+     *            The instance of the MyApps which contains the data to store
+     * @param bUpdateIcon
+     *            true if the icon must also be updated, false otherwise
+     * @param plugin
+     *            the Plugin
      */
     public static void update( MyAppsDatabase myApp, boolean bUpdateIcon, Plugin plugin )
     {
@@ -99,8 +104,10 @@ public final class MyAppsDatabaseHome
     /**
      * Remove the myApps whose identifier is specified in parameter
      *
-     * @param nMyAppId The myApp Id
-     * @param plugin the Plugin
+     * @param nMyAppId
+     *            The myApp Id
+     * @param plugin
+     *            the Plugin
      */
     public static void remove( int nMyAppId, Plugin plugin )
     {
@@ -110,8 +117,10 @@ public final class MyAppsDatabaseHome
     /**
      * Returns an instance of a myApps whose identifier is specified in parameter
      *
-     * @param nMyAppId The myApps primary key
-     * @param plugin the Plugin
+     * @param nMyAppId
+     *            The myApps primary key
+     * @param plugin
+     *            the Plugin
      * @return an instance of MyApps
      */
     public static MyApps findByPrimaryKey( int nMyAppId, Plugin plugin )
@@ -122,33 +131,40 @@ public final class MyAppsDatabaseHome
     /**
      * Loads a list of all myApps
      *
-     * @param filter the app filter
-     * @param plugin the Plugin
+     * @param filter
+     *            the app filter
+     * @param plugin
+     *            the Plugin
      * @return the collection which contains the data of all the myApps
      */
-    public static List<MyApps> selectMyAppsList(MyAppsDatabaseFilter filter, Plugin plugin )
+    public static List<MyApps> selectMyAppsList( MyAppsDatabaseFilter filter, Plugin plugin )
     {
-        return _dao.selectMyAppsList( filter,plugin  );
+        return _dao.selectMyAppsList( filter, plugin );
     }
 
     /**
-    * Loads a list of myApps belonging to a filter
-    *
-    * @param filter the app filter
-    * @param bIsAscSort true if it is sorted ascendly, false otherwise
-    * @param plugin the Plugin
-    * @return the collection which contains the data of all the myApps
-    */
-    public static List<MyApps> getMyAppsListByFilter(MyAppsDatabaseFilter filter , boolean bIsAscSort, Plugin plugin )
+     * Loads a list of myApps belonging to a filter
+     *
+     * @param filter
+     *            the app filter
+     * @param bIsAscSort
+     *            true if it is sorted ascendly, false otherwise
+     * @param plugin
+     *            the Plugin
+     * @return the collection which contains the data of all the myApps
+     */
+    public static List<MyApps> getMyAppsListByFilter( MyAppsDatabaseFilter filter, boolean bIsAscSort, Plugin plugin )
     {
         return _dao.selectMyAppsListByFilter( filter, bIsAscSort, plugin );
     }
-    
+
     /**
      * Loads all the myapps belonging to a user ordered by the order specify by the user
      *
-     * @param strUserName the name of the user
-     * @param plugin the Plugin
+     * @param strUserName
+     *            the name of the user
+     * @param plugin
+     *            the Plugin
      * @return the list which contains the myApps of the user ordered
      */
     public static List<MyApps> getMyAppsListByUser( String strUserName, Plugin plugin )
@@ -157,12 +173,14 @@ public final class MyAppsDatabaseHome
     }
 
     /**
-    * Get the image resource
-    *
-    * @param nMyAppId The myApp Id
-    * @param plugin the Plugin
-    * @return ImageResource
-    */
+     * Get the image resource
+     *
+     * @param nMyAppId
+     *            The myApp Id
+     * @param plugin
+     *            the Plugin
+     * @return ImageResource
+     */
     public static ImageResource getImageResource( int nMyAppId, Plugin plugin )
     {
         return _dao.getIconResource( nMyAppId, plugin );
@@ -171,7 +189,8 @@ public final class MyAppsDatabaseHome
     /**
      * Get the list of myApps
      *
-     * @param plugin {@link Plugin}
+     * @param plugin
+     *            {@link Plugin}
      * @return a list of {@link MyApps}
      */
     public static ReferenceList getMyAppsList( Plugin plugin )
@@ -182,8 +201,10 @@ public final class MyAppsDatabaseHome
     /**
      * Check if the given MyApp Id has an icon or not
      *
-     * @param nMyAppId the MyApp Id
-     * @param plugin {@link Plugin}
+     * @param nMyAppId
+     *            the MyApp Id
+     * @param plugin
+     *            {@link Plugin}
      * @return true if it has an icon, false otherwise
      */
     public static boolean hasIcon( int nMyAppId, Plugin plugin )

@@ -40,7 +40,6 @@ import fr.paris.lutece.util.ReferenceList;
 
 import java.util.List;
 
-
 /**
  *
  * IMyAppsDatabaseDAO
@@ -51,7 +50,8 @@ public interface IMyAppsDatabaseDAO
     /**
      * Get a new primary key
      *
-     * @param plugin {@link Plugin}
+     * @param plugin
+     *            {@link Plugin}
      * @return a new primary key
      */
     int newPrimaryKey( Plugin plugin );
@@ -59,60 +59,77 @@ public interface IMyAppsDatabaseDAO
     /**
      * Insert a new record in the table.
      *
-     * @param myApp instance of the MyApps object to insert
-     * @param plugin the Plugin
+     * @param myApp
+     *            instance of the MyApps object to insert
+     * @param plugin
+     *            the Plugin
      */
     void insert( MyAppsDatabase myApp, Plugin plugin );
 
     /**
      * Update the record in the table
      *
-     * @param myApp the reference of the MyApps
-     * @param bUpdateIcon true if the icon must also be updated, false otherwise
-     * @param plugin the Plugin
+     * @param myApp
+     *            the reference of the MyApps
+     * @param bUpdateIcon
+     *            true if the icon must also be updated, false otherwise
+     * @param plugin
+     *            the Plugin
      */
     void store( MyAppsDatabase myApp, boolean bUpdateIcon, Plugin plugin );
 
     /**
      * Delete a record from the table
      *
-     * @param nMyAppId int identifier of the MyApps to delete
-     * @param plugin the Plugin
+     * @param nMyAppId
+     *            int identifier of the MyApps to delete
+     * @param plugin
+     *            the Plugin
      */
     void delete( int nMyAppId, Plugin plugin );
 
     /**
      * load the data of the right from the table
      *
-     * @param nMyAppId The identifier of the myApps
-     * @param plugin the Plugin
+     * @param nMyAppId
+     *            The identifier of the myApps
+     * @param plugin
+     *            the Plugin
      * @return The instance of the myApps
      */
     MyApps load( int nMyAppId, Plugin plugin );
 
     /**
      * Loads all the myapps
-     * @param filter the app filter
-     * @param plugin the Plugin
+     * 
+     * @param filter
+     *            the app filter
+     * @param plugin
+     *            the Plugin
      * @return the list which contains the myApps
      */
-    List<MyApps> selectMyAppsList(MyAppsDatabaseFilter filter, Plugin plugin );
+    List<MyApps> selectMyAppsList( MyAppsDatabaseFilter filter, Plugin plugin );
 
     /**
      * Loads all the myapps belonging to a filter
      *
-     * @param filter the app filter
-     * @param bIsAscSort true if it is sorted ascendly, false otherwise
-     * @param plugin the Plugin
+     * @param filter
+     *            the app filter
+     * @param bIsAscSort
+     *            true if it is sorted ascendly, false otherwise
+     * @param plugin
+     *            the Plugin
      * @return the list which contains the myApps
      */
     List<MyApps> selectMyAppsListByFilter( MyAppsDatabaseFilter filter, boolean bIsAscSort, Plugin plugin );
-    
+
     /**
      * Loads all the myapps belonging to a user ordered by the order specify by the user
      *
-     * @param strUserName the name of the user
-     * @param plugin the Plugin
+     * @param strUserName
+     *            the name of the user
+     * @param plugin
+     *            the Plugin
      * @return the list which contains the myApps of the user ordered
      */
     List<MyApps> selectMyAppsListByUser( String strUserName, Plugin plugin );
@@ -120,8 +137,10 @@ public interface IMyAppsDatabaseDAO
     /**
      * Loads the icon representing the favorite application
      *
-     * @param nMyAppId int identifier of the MyApps to fetch
-     * @param plugin the Plugin
+     * @param nMyAppId
+     *            int identifier of the MyApps to fetch
+     * @param plugin
+     *            the Plugin
      * @return the image resource
      */
     ImageResource getIconResource( int nMyAppId, Plugin plugin );
@@ -129,7 +148,8 @@ public interface IMyAppsDatabaseDAO
     /**
      * Get the list of my apps
      *
-     * @param plugin {@link Plugin}
+     * @param plugin
+     *            {@link Plugin}
      * @return a list of {@link MyAppsDatabase}
      */
     ReferenceList getMyAppsList( Plugin plugin );
@@ -137,8 +157,10 @@ public interface IMyAppsDatabaseDAO
     /**
      * Check if the Myapps has an icon or not
      *
-     * @param nMyAppId the ID of the MyApp
-     * @param plugin {@link Plugin}
+     * @param nMyAppId
+     *            the ID of the MyApp
+     * @param plugin
+     *            {@link Plugin}
      * @return true if it has an icon, false otherwise
      */
     boolean hasIcon( int nMyAppId, Plugin plugin );

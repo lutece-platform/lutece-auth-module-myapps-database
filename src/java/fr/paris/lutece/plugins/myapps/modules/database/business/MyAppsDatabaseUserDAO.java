@@ -42,7 +42,6 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  *
  * MyAppsDatabaseUserDAO
@@ -58,12 +57,12 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
     private static final String SQL_QUERY_DELETE_FROM_MYAPP_ID_AND_USER_NAME = " DELETE FROM myapps_database_user WHERE id_application = ? AND name = ? ";
     private static final String SQL_QUERY_UPDATE = " UPDATE myapps_database_user SET id_myapps_user = ?, name = ?, id_application = ?, stored_user_name = ?, stored_user_password = ?, stored_user_data = ?, application_order = ? WHERE id_myapps_user = ? ";
     private static final String SQL_QUERY_SELECTALL = " SELECT id_myapps_user, name, id_application, stored_user_name, stored_user_password, stored_user_data, application_order FROM myapps_database_user ";
-    private static final String SQL_QUERY_BY_USER = " SELECT id_myapps_user, name, id_application, stored_user_name, stored_user_password, stored_user_data, application_order FROM myapps_database_user " +
-        " WHERE name = ? AND id_application = ? ";
+    private static final String SQL_QUERY_BY_USER = " SELECT id_myapps_user, name, id_application, stored_user_name, stored_user_password, stored_user_data, application_order FROM myapps_database_user "
+            + " WHERE name = ? AND id_application = ? ";
     private static final String SQL_QUERY_SELECT_USER_APPLICATIONS = SQL_QUERY_SELECTALL + " WHERE name = ? ORDER BY application_order";
     private static final String SQL_QUERY_UPDATE_ORDER = " UPDATE myapps_database_user SET application_order = ? WHERE id_application = ? AND name = ? ";
 
-    //Encryption param
+    // Encryption param
     private static final String PROPERTY_CRYPTO_KEY = "crypto.key";
     private static final String KEY = AppPropertiesService.getProperty( PROPERTY_CRYPTO_KEY );
 
@@ -73,18 +72,18 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
     public int newPrimaryKey( Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
         int nKey;
 
-        if ( !daoUtil.next(  ) )
+        if ( !daoUtil.next( ) )
         {
             // if the table is empty
             nKey = 1;
         }
 
         nKey = daoUtil.getInt( 1 ) + 1;
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return nKey;
     }
@@ -99,20 +98,20 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
         myAppsUser.setMyAppsUserId( newPrimaryKey( plugin ) );
 
         // Encrypt username and password
-        String strUsername = CryptoUtil.encrypt( myAppsUser.getStoredUserName(  ), KEY );
-        String strPassword = CryptoUtil.encrypt( myAppsUser.getStoredUserPassword(  ), KEY );
+        String strUsername = CryptoUtil.encrypt( myAppsUser.getStoredUserName( ), KEY );
+        String strPassword = CryptoUtil.encrypt( myAppsUser.getStoredUserPassword( ), KEY );
 
         int nIndex = 1;
-        daoUtil.setInt( nIndex++, myAppsUser.getMyAppsUserId(  ) );
-        daoUtil.setString( nIndex++, myAppsUser.getName(  ) );
-        daoUtil.setInt( nIndex++, myAppsUser.getIdApplication(  ) );
+        daoUtil.setInt( nIndex++, myAppsUser.getMyAppsUserId( ) );
+        daoUtil.setString( nIndex++, myAppsUser.getName( ) );
+        daoUtil.setInt( nIndex++, myAppsUser.getIdApplication( ) );
         daoUtil.setString( nIndex++, strUsername );
         daoUtil.setString( nIndex++, strPassword );
-        daoUtil.setString( nIndex++, myAppsUser.getStoredUserData(  ) );
+        daoUtil.setString( nIndex++, myAppsUser.getStoredUserData( ) );
         daoUtil.setInt( nIndex++, myAppsUser.getApplicationOrder( ) );
 
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
@@ -122,14 +121,14 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
         daoUtil.setInt( 1, nMyAppsUserId );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
         MyAppsDatabaseUser myAppsUser = null;
 
-        if ( daoUtil.next(  ) )
+        if ( daoUtil.next( ) )
         {
             int nIndex = 1;
-            myAppsUser = new MyAppsDatabaseUser(  );
+            myAppsUser = new MyAppsDatabaseUser( );
 
             myAppsUser.setMyAppsUserId( daoUtil.getInt( nIndex++ ) );
             myAppsUser.setName( daoUtil.getString( nIndex++ ) );
@@ -140,7 +139,7 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
             myAppsUser.setApplicationOrder( daoUtil.getInt( nIndex++ ) );
         }
 
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return myAppsUser;
     }
@@ -152,8 +151,8 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
         daoUtil.setInt( 1, nMyAppsUserId );
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
@@ -165,8 +164,8 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_FROM_MYAPP_ID_AND_USER_NAME, plugin );
         daoUtil.setInt( nIndex++, nMyAppId );
         daoUtil.setString( nIndex++, strUserName );
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
@@ -177,20 +176,20 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
 
         int nIndex = 1;
-        daoUtil.setInt( nIndex++, myAppsUser.getMyAppsUserId(  ) );
-        daoUtil.setString( nIndex++, myAppsUser.getName(  ) );
-        daoUtil.setInt( nIndex++, myAppsUser.getIdApplication(  ) );
+        daoUtil.setInt( nIndex++, myAppsUser.getMyAppsUserId( ) );
+        daoUtil.setString( nIndex++, myAppsUser.getName( ) );
+        daoUtil.setInt( nIndex++, myAppsUser.getIdApplication( ) );
 
-        String strUsername = CryptoUtil.encrypt( myAppsUser.getStoredUserName(  ), KEY );
-        String strPassword = CryptoUtil.encrypt( myAppsUser.getStoredUserPassword(  ), KEY );
+        String strUsername = CryptoUtil.encrypt( myAppsUser.getStoredUserName( ), KEY );
+        String strPassword = CryptoUtil.encrypt( myAppsUser.getStoredUserPassword( ), KEY );
         daoUtil.setString( nIndex++, strUsername );
         daoUtil.setString( nIndex++, strPassword );
-        daoUtil.setString( nIndex++, myAppsUser.getStoredUserData(  ) );
+        daoUtil.setString( nIndex++, myAppsUser.getStoredUserData( ) );
         daoUtil.setInt( nIndex++, myAppsUser.getApplicationOrder( ) );
-        daoUtil.setInt( nIndex++, myAppsUser.getMyAppsUserId(  ) );
+        daoUtil.setInt( nIndex++, myAppsUser.getMyAppsUserId( ) );
 
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
@@ -198,14 +197,14 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
      */
     public List<MyAppsUser> selectMyAppsUsersList( Plugin plugin )
     {
-        List<MyAppsUser> myAppsUserList = new ArrayList<MyAppsUser>(  );
+        List<MyAppsUser> myAppsUserList = new ArrayList<MyAppsUser>( );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
-        while ( daoUtil.next(  ) )
+        while ( daoUtil.next( ) )
         {
             int nIndex = 1;
-            MyAppsDatabaseUser myAppsUser = new MyAppsDatabaseUser(  );
+            MyAppsDatabaseUser myAppsUser = new MyAppsDatabaseUser( );
 
             myAppsUser.setMyAppsUserId( daoUtil.getInt( nIndex++ ) );
             myAppsUser.setName( daoUtil.getString( nIndex++ ) );
@@ -218,7 +217,7 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
             myAppsUserList.add( myAppsUser );
         }
 
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return myAppsUserList;
     }
@@ -233,14 +232,14 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
         daoUtil.setString( nIndex++, strUserName );
         daoUtil.setInt( nIndex++, nApplicationId );
 
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
         MyAppsDatabaseUser myAppsUser = null;
 
-        if ( daoUtil.next(  ) )
+        if ( daoUtil.next( ) )
         {
             nIndex = 1;
-            myAppsUser = new MyAppsDatabaseUser(  );
+            myAppsUser = new MyAppsDatabaseUser( );
 
             myAppsUser.setMyAppsUserId( daoUtil.getInt( nIndex++ ) );
             myAppsUser.setName( daoUtil.getString( nIndex++ ) );
@@ -255,7 +254,7 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
             myAppsUser.setApplicationOrder( daoUtil.getInt( nIndex++ ) );
         }
 
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return myAppsUser;
     }
@@ -267,14 +266,14 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
         daoUtil.setInt( 1, nMyAppsUserId );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
         MyAppsDatabaseUser myAppsUser = null;
 
-        if ( daoUtil.next(  ) )
+        if ( daoUtil.next( ) )
         {
             int nIndex = 1;
-            myAppsUser = new MyAppsDatabaseUser(  );
+            myAppsUser = new MyAppsDatabaseUser( );
 
             myAppsUser.setMyAppsUserId( daoUtil.getInt( nIndex++ ) );
             myAppsUser.setName( daoUtil.getString( nIndex++ ) );
@@ -289,7 +288,7 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
             myAppsUser.setApplicationOrder( daoUtil.getInt( nIndex++ ) );
         }
 
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return myAppsUser;
     }
@@ -302,12 +301,12 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
         List<MyAppsDatabaseUser> myAppsDatabaseUserList = new ArrayList<>( );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_USER_APPLICATIONS, plugin );
         daoUtil.setString( 1, strUserName );
-        daoUtil.executeQuery(  );
-        
-        while ( daoUtil.next(  ) )
+        daoUtil.executeQuery( );
+
+        while ( daoUtil.next( ) )
         {
             int nIndex = 1;
-            MyAppsDatabaseUser myAppsUser = new MyAppsDatabaseUser(  );
+            MyAppsDatabaseUser myAppsUser = new MyAppsDatabaseUser( );
 
             myAppsUser.setMyAppsUserId( daoUtil.getInt( nIndex++ ) );
             myAppsUser.setName( daoUtil.getString( nIndex++ ) );
@@ -320,24 +319,24 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
             myAppsDatabaseUserList.add( myAppsUser );
         }
 
-        daoUtil.free(  );
-        
+        daoUtil.free( );
+
         return myAppsDatabaseUserList;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void updateMyAppsDatabaseUserOrder( int nApplicationOrder, int nApplicationId, String strUserName, Plugin plugin )
     {
         int nIndex = 1;
-        
+
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE_ORDER, plugin );
         daoUtil.setInt( nIndex++, nApplicationOrder );
         daoUtil.setInt( nIndex++, nApplicationId );
         daoUtil.setString( nIndex++, strUserName );
 
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 }

@@ -39,18 +39,18 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
 import java.util.List;
 
-
 /**
  *
-* IMyAppsDatabaseUserDAO Interface
-*
-*/
+ * IMyAppsDatabaseUserDAO Interface
+ *
+ */
 public interface IMyAppsDatabaseUserDAO
 {
     /**
      * Get a new primary key
      *
-     * @param plugin {@link Plugin}
+     * @param plugin
+     *            {@link Plugin}
      * @return a new primary key
      */
     int newPrimaryKey( Plugin plugin );
@@ -58,59 +58,74 @@ public interface IMyAppsDatabaseUserDAO
     /**
      * Insert a new record in the table.
      *
-     * @param myAppsUser instance of the MyAppsUser object to insert
-     * @param plugin the Plugin
+     * @param myAppsUser
+     *            instance of the MyAppsUser object to insert
+     * @param plugin
+     *            the Plugin
      */
     void insert( MyAppsDatabaseUser myAppsUser, Plugin plugin );
 
     /**
-    * Update the record in the table
-    *
-    * @param myAppsUser the reference of the MyAppsUser
-    * @param plugin the Plugin
-    */
+     * Update the record in the table
+     *
+     * @param myAppsUser
+     *            the reference of the MyAppsUser
+     * @param plugin
+     *            the Plugin
+     */
     void store( MyAppsDatabaseUser myAppsUser, Plugin plugin );
 
     /**
      * Delete a record from the table
      *
-     * @param nMyAppsUserId int identifier of the MyAppsUser to delete
-     * @param plugin the Plugin
+     * @param nMyAppsUserId
+     *            int identifier of the MyAppsUser to delete
+     * @param plugin
+     *            the Plugin
      */
     void delete( int nMyAppsUserId, Plugin plugin );
 
     /**
      * Delete a record from the table
      *
-     * @param nMyAppId the id of the MyApp
-     * @param strUserName the user name
-     * @param plugin the Plugin
+     * @param nMyAppId
+     *            the id of the MyApp
+     * @param strUserName
+     *            the user name
+     * @param plugin
+     *            the Plugin
      */
     void delete( int nMyAppId, String strUserName, Plugin plugin );
 
     /**
      * load the data of the right from the table
      *
-     * @param nMyAppsUserId The identifier of the myAppsUser
-     * @param plugin the Plugin
+     * @param nMyAppsUserId
+     *            The identifier of the myAppsUser
+     * @param plugin
+     *            the Plugin
      * @return The instance of the myAppsUser
      */
     MyAppsUser load( int nMyAppsUserId, Plugin plugin );
 
     /**
-    * Loads the data of all the myAppsUsers and returns them in form of a collection
-    *
-    * @param plugin the Plugin
-    * @return the collection which contains the data of all the myAppsUsers
-    */
+     * Loads the data of all the myAppsUsers and returns them in form of a collection
+     *
+     * @param plugin
+     *            the Plugin
+     * @return the collection which contains the data of all the myAppsUsers
+     */
     Collection<MyAppsUser> selectMyAppsUsersList( Plugin plugin );
 
     /**
      * Get the credentials information
      *
-     * @param nMyAppId the application ID
-     * @param strUserName the user name
-     * @param plugin {@link Plugin}
+     * @param nMyAppId
+     *            the application ID
+     * @param strUserName
+     *            the user name
+     * @param plugin
+     *            {@link Plugin}
      * @return a {@link MyAppsDatabaseUser}
      */
     MyAppsUser getCredentials( int nMyAppId, String strUserName, Plugin plugin );
@@ -118,28 +133,36 @@ public interface IMyAppsDatabaseUserDAO
     /**
      * Get the credentials information
      *
-     * @param nMyAppsUserId the application user ID
-     * @param plugin {@link Plugin}
+     * @param nMyAppsUserId
+     *            the application user ID
+     * @param plugin
+     *            {@link Plugin}
      * @return a {@link MyAppsDatabaseUser}
      */
     MyAppsDatabaseUser getCredentials( int nMyAppsUserId, Plugin plugin );
-    
+
     /**
      * Select all the applications of a user
      * 
-     * @param strUserName the user name
-     * @param plugin {@link Plugin}
+     * @param strUserName
+     *            the user name
+     * @param plugin
+     *            {@link Plugin}
      * @return the list which contains all the user application
      */
     List<MyAppsDatabaseUser> selectUserApplications( String strUserName, Plugin plugin );
-    
+
     /**
      * Update the order of MyApps user
      * 
-     * @param nApplicationOrder the new order to set
-     * @param nApplicationId the id of the application to update
-     * @param strUserName the name of the user
-     * @param plugin the {@link Plugin}
+     * @param nApplicationOrder
+     *            the new order to set
+     * @param nApplicationId
+     *            the id of the application to update
+     * @param strUserName
+     *            the name of the user
+     * @param plugin
+     *            the {@link Plugin}
      */
     void updateMyAppsDatabaseUserOrder( int nApplicationOrder, int nApplicationId, String strUserName, Plugin plugin );
 }
