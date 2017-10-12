@@ -39,7 +39,6 @@ import fr.paris.lutece.plugins.myapps.business.MyApps;
 import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseProvider;
 import fr.paris.lutece.plugins.myapps.service.MyAppsProvider;
 
-
 /**
  *
  * MyAppsDatabase
@@ -50,15 +49,15 @@ public class MyAppsDatabase extends MyApps
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = -5472104596289060318L;
-	public static final String RESOURCE_TYPE = "MYAPPS_DATABASE";
+    private static final long serialVersionUID = -5472104596289060318L;
+    public static final String RESOURCE_TYPE = "MYAPPS_DATABASE";
     private String _strCode;
     private String _strPassword;
     private String _strData;
     private String _strCodeHeading;
     private String _strDataHeading;
     private String _strIconMimeType;
-    private byte[] _iconContent;
+    private byte [ ] _iconContent;
     private String _strCodeCategory;
 
     /**
@@ -66,7 +65,7 @@ public class MyAppsDatabase extends MyApps
      *
      * @return The Code
      */
-    public String getCode(  )
+    public String getCode( )
     {
         return _strCode;
     }
@@ -74,7 +73,8 @@ public class MyAppsDatabase extends MyApps
     /**
      * Sets the Code
      *
-     * @param strCode The Code
+     * @param strCode
+     *            The Code
      */
     public void setCode( String strCode )
     {
@@ -86,7 +86,7 @@ public class MyAppsDatabase extends MyApps
      *
      * @return The Password
      */
-    public String getPassword(  )
+    public String getPassword( )
     {
         return _strPassword;
     }
@@ -94,7 +94,8 @@ public class MyAppsDatabase extends MyApps
     /**
      * Sets the Password
      *
-     * @param strPassword The Password
+     * @param strPassword
+     *            The Password
      */
     public void setPassword( String strPassword )
     {
@@ -106,7 +107,7 @@ public class MyAppsDatabase extends MyApps
      *
      * @return The Data
      */
-    public String getData(  )
+    public String getData( )
     {
         return _strData;
     }
@@ -114,7 +115,8 @@ public class MyAppsDatabase extends MyApps
     /**
      * Sets the Data
      *
-     * @param strData The Data
+     * @param strData
+     *            The Data
      */
     public void setData( String strData )
     {
@@ -126,7 +128,7 @@ public class MyAppsDatabase extends MyApps
      *
      * @return The CodeHeading
      */
-    public String getCodeHeading(  )
+    public String getCodeHeading( )
     {
         return _strCodeHeading;
     }
@@ -134,7 +136,8 @@ public class MyAppsDatabase extends MyApps
     /**
      * Sets the CodeHeading
      *
-     * @param strCodeHeading The CodeHeading
+     * @param strCodeHeading
+     *            The CodeHeading
      */
     public void setCodeHeading( String strCodeHeading )
     {
@@ -146,7 +149,7 @@ public class MyAppsDatabase extends MyApps
      *
      * @return The DataHeading
      */
-    public String getDataHeading(  )
+    public String getDataHeading( )
     {
         return _strDataHeading;
     }
@@ -154,7 +157,8 @@ public class MyAppsDatabase extends MyApps
     /**
      * Sets the DataHeading
      *
-     * @param strDataHeading The DataHeading
+     * @param strDataHeading
+     *            The DataHeading
      */
     public void setDataHeading( String strDataHeading )
     {
@@ -162,11 +166,11 @@ public class MyAppsDatabase extends MyApps
     }
 
     /**
-    * Returns the icon mime type
-    *
-    * @return The IconMimeType
-    */
-    public String getIconMimeType(  )
+     * Returns the icon mime type
+     *
+     * @return The IconMimeType
+     */
+    public String getIconMimeType( )
     {
         return _strIconMimeType;
     }
@@ -174,7 +178,8 @@ public class MyAppsDatabase extends MyApps
     /**
      * Sets the Icon mime type
      *
-     * @param strIconMimeType The mime type
+     * @param strIconMimeType
+     *            The mime type
      */
     public void setIconMimeType( String strIconMimeType )
     {
@@ -186,7 +191,7 @@ public class MyAppsDatabase extends MyApps
      *
      * @return The IconContent
      */
-    public byte[] getIconContent(  )
+    public byte [ ] getIconContent( )
     {
         return _iconContent;
     }
@@ -194,9 +199,10 @@ public class MyAppsDatabase extends MyApps
     /**
      * Sets the IconContent
      *
-     * @param iconContent The IconContent
+     * @param iconContent
+     *            The IconContent
      */
-    public void setIconContent( byte[] iconContent )
+    public void setIconContent( byte [ ] iconContent )
     {
         _iconContent = iconContent;
     }
@@ -204,7 +210,7 @@ public class MyAppsDatabase extends MyApps
     /**
      * {@inheritDoc}
      */
-    public boolean hasIcon(  )
+    public boolean hasIcon( )
     {
         return StringUtils.isNotBlank( _strIconMimeType );
     }
@@ -212,24 +218,29 @@ public class MyAppsDatabase extends MyApps
     /**
      * {@inheritDoc}
      */
-    public MyAppsProvider getProvider(  )
+    public MyAppsProvider getProvider( )
     {
-        return MyAppsDatabaseProvider.getInstance(  );
+        return MyAppsDatabaseProvider.getInstance( );
     }
-    
+
     /**
      * set category
-     * @param _strCategory category
+     * 
+     * @param _strCategory
+     *            category
      */
-	public void setCodeCategory(String _strCategory) {
-		this._strCodeCategory = _strCategory;
-	}
-	
-	/**
-	 *  return category
-	 * @return _strCategory
-	 */
-	public String getCodeCategory() {
-		return _strCodeCategory;
-	}
+    public void setCodeCategory( String _strCategory )
+    {
+        this._strCodeCategory = _strCategory;
+    }
+
+    /**
+     * return category
+     * 
+     * @return _strCategory
+     */
+    public String getCodeCategory( )
+    {
+        return _strCodeCategory;
+    }
 }

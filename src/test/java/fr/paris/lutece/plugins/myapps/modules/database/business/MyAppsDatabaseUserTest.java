@@ -37,7 +37,6 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.test.LuteceTestCase;
 
-
 /**
  *
  * MyAppsDatabaseUserTest
@@ -60,10 +59,10 @@ public class MyAppsDatabaseUserTest extends LuteceTestCase
     /**
      * Test business of class fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseUser
      */
-    public void testBusiness(  )
+    public void testBusiness( )
     {
         // Initialize an object
-        MyAppsDatabaseUser myAppUser = new MyAppsDatabaseUser(  );
+        MyAppsDatabaseUser myAppUser = new MyAppsDatabaseUser( );
         myAppUser.setMyAppsUserId( MyAppsDatabaseUserHome.newPrimaryKey( _plugin ) );
         myAppUser.setIdApplication( IDAPPLICATION1 );
         myAppUser.setName( NAME1 );
@@ -74,16 +73,15 @@ public class MyAppsDatabaseUserTest extends LuteceTestCase
         // Create test
         MyAppsDatabaseUserHome.create( myAppUser, _plugin );
 
-        MyAppsDatabaseUser myAppUserStored = (MyAppsDatabaseUser) MyAppsDatabaseUserHome.getCredentials( myAppUser.getMyAppsUserId(  ),
-                _plugin );
-        assertEquals( myAppUserStored.getMyAppsUserId(  ), myAppUser.getMyAppsUserId(  ) );
-        assertEquals( myAppUserStored.getIdApplication(  ), myAppUser.getIdApplication(  ) );
-        assertEquals( myAppUserStored.getName(  ), myAppUser.getName(  ) );
-        assertEquals( myAppUserStored.getStoredUserData(  ), myAppUser.getStoredUserData(  ) );
-        System.out.println( "stored : " + myAppUserStored.getStoredUserName(  ) );
-        System.out.println( "actual : " + myAppUser.getStoredUserName(  ) );
-        assertEquals( myAppUserStored.getStoredUserName(  ), myAppUser.getStoredUserName(  ) );
-        assertEquals( myAppUserStored.getStoredUserPassword(  ), myAppUser.getStoredUserPassword(  ) );
+        MyAppsDatabaseUser myAppUserStored = (MyAppsDatabaseUser) MyAppsDatabaseUserHome.getCredentials( myAppUser.getMyAppsUserId( ), _plugin );
+        assertEquals( myAppUserStored.getMyAppsUserId( ), myAppUser.getMyAppsUserId( ) );
+        assertEquals( myAppUserStored.getIdApplication( ), myAppUser.getIdApplication( ) );
+        assertEquals( myAppUserStored.getName( ), myAppUser.getName( ) );
+        assertEquals( myAppUserStored.getStoredUserData( ), myAppUser.getStoredUserData( ) );
+        System.out.println( "stored : " + myAppUserStored.getStoredUserName( ) );
+        System.out.println( "actual : " + myAppUser.getStoredUserName( ) );
+        assertEquals( myAppUserStored.getStoredUserName( ), myAppUser.getStoredUserName( ) );
+        assertEquals( myAppUserStored.getStoredUserPassword( ), myAppUser.getStoredUserPassword( ) );
 
         // Update test
         myAppUser.setIdApplication( IDAPPLICATION2 );
@@ -92,22 +90,20 @@ public class MyAppsDatabaseUserTest extends LuteceTestCase
         myAppUser.setStoredUserName( STOREDUSERNAME2 );
         myAppUser.setStoredUserPassword( STOREDUSERPASSWORD2 );
         MyAppsDatabaseUserHome.update( myAppUser, _plugin );
-        myAppUserStored = (MyAppsDatabaseUser) MyAppsDatabaseUserHome.getCredentials( myAppUser.getMyAppsUserId(  ),
-                _plugin );
-        assertEquals( myAppUserStored.getMyAppsUserId(  ), myAppUser.getMyAppsUserId(  ) );
-        assertEquals( myAppUserStored.getIdApplication(  ), myAppUser.getIdApplication(  ) );
-        assertEquals( myAppUserStored.getName(  ), myAppUser.getName(  ) );
-        assertEquals( myAppUserStored.getStoredUserData(  ), myAppUser.getStoredUserData(  ) );
-        assertEquals( myAppUserStored.getStoredUserName(  ), myAppUser.getStoredUserName(  ) );
-        assertEquals( myAppUserStored.getStoredUserPassword(  ), myAppUser.getStoredUserPassword(  ) );
+        myAppUserStored = (MyAppsDatabaseUser) MyAppsDatabaseUserHome.getCredentials( myAppUser.getMyAppsUserId( ), _plugin );
+        assertEquals( myAppUserStored.getMyAppsUserId( ), myAppUser.getMyAppsUserId( ) );
+        assertEquals( myAppUserStored.getIdApplication( ), myAppUser.getIdApplication( ) );
+        assertEquals( myAppUserStored.getName( ), myAppUser.getName( ) );
+        assertEquals( myAppUserStored.getStoredUserData( ), myAppUser.getStoredUserData( ) );
+        assertEquals( myAppUserStored.getStoredUserName( ), myAppUser.getStoredUserName( ) );
+        assertEquals( myAppUserStored.getStoredUserPassword( ), myAppUser.getStoredUserPassword( ) );
 
         // List test
         MyAppsDatabaseUserHome.getMyAppsUsersList( _plugin );
 
         // Delete test
-        MyAppsDatabaseUserHome.remove( myAppUser.getMyAppsUserId(  ), _plugin );
-        myAppUserStored = (MyAppsDatabaseUser) MyAppsDatabaseUserHome.getCredentials( myAppUser.getMyAppsUserId(  ),
-                _plugin );
+        MyAppsDatabaseUserHome.remove( myAppUser.getMyAppsUserId( ), _plugin );
+        myAppUserStored = (MyAppsDatabaseUser) MyAppsDatabaseUserHome.getCredentials( myAppUser.getMyAppsUserId( ), _plugin );
         assertNull( myAppUserStored );
     }
 }

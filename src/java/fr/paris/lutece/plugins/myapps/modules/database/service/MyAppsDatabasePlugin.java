@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.myapps.modules.database.service;
 
 import fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation;
 
-
 /**
  * MyAppsDatabasePlugin
  */
@@ -46,10 +45,10 @@ public class MyAppsDatabasePlugin extends PluginDefaultImplementation
     /**
      * Initialize the module MyAppsDatabase
      */
-    public void init(  )
+    public void init( )
     {
-        MyAppsDatabaseService.getInstance(  ).init(  );
-        MyAppsDatabaseImgProvider.getInstance(  ).init(  );
-        MyAppsDatabaseProvider.getInstance(  ).init(  );
+        MyAppsDatabaseService.getInstance( ).init( );
+        MyAppsDatabaseImgProvider.getInstance( ).init( );
+        MyAppsDatabaseProvider.getInstance( ).init( );
     }
 }

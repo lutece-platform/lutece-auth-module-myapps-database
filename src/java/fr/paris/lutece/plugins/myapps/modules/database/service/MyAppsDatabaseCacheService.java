@@ -39,24 +39,23 @@ import fr.paris.lutece.portal.service.cache.ICacheKeyService;
 
 import java.util.HashMap;
 
-
 /**
  * MailAttachment CacheService
  */
 public class MyAppsDatabaseCacheService extends AbstractCacheableService
 {
     private static MyAppsDatabaseCacheService _singleton;
-    private static ICacheKeyService _cksMyAppsDatabase = new MyAppsDatabaseCacheKeyService(  );
+    private static ICacheKeyService _cksMyAppsDatabase = new MyAppsDatabaseCacheKeyService( );
     private static final String SERVICE_NAME = "MyApps Database Cache Service";
 
-    private MyAppsDatabaseCacheService(  )
+    private MyAppsDatabaseCacheService( )
     {
     }
 
     /**
      * {@inheritDoc }
      */
-    public String getName(  )
+    public String getName( )
     {
         return SERVICE_NAME;
     }
@@ -65,12 +64,12 @@ public class MyAppsDatabaseCacheService extends AbstractCacheableService
      *
      * @return an instance of MailAttachmentCacheService
      */
-    public static MyAppsDatabaseCacheService getInstance(  )
+    public static MyAppsDatabaseCacheService getInstance( )
     {
         if ( _singleton == null )
         {
-            _singleton = new MyAppsDatabaseCacheService(  );
-            _singleton.initCache(  );
+            _singleton = new MyAppsDatabaseCacheService( );
+            _singleton.initCache( );
         }
 
         return _singleton;
@@ -78,12 +77,14 @@ public class MyAppsDatabaseCacheService extends AbstractCacheableService
 
     /**
      * return the cache key associated to the category value
-     * @param strValue the value
+     * 
+     * @param strValue
+     *            the value
      * @return the cache key associated to the category value
      */
     public String getKey( String strValue )
     {
-        HashMap<String, String> htParam = new HashMap<String, String>(  );
+        HashMap<String, String> htParam = new HashMap<String, String>( );
         htParam.put( MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY, strValue );
 
         return _cksMyAppsDatabase.getKey( htParam, 0, null );

@@ -40,33 +40,33 @@ import fr.paris.lutece.portal.service.security.LuteceUser;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * MailAttachmentCacheKeyService
  *
  */
 public class MyAppsDatabaseCacheKeyService implements ICacheKeyService
 {
-   
 
     /*
      * (non-Javadoc)
+     * 
      * @see fr.paris.lutece.portal.service.cache.ICacheKeyService#getKey(java.util.Map, int, fr.paris.lutece.portal.service.security.LuteceUser)
      */
     public String getKey( Map<String, String> mapParams, int nMode, LuteceUser user )
     {
-        StringBuilder sbKey = new StringBuilder(  );
+        StringBuilder sbKey = new StringBuilder( );
 
-        if ( mapParams.containsKey( MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY)) 
+        if ( mapParams.containsKey( MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY ) )
         {
-            sbKey.append( "[category:" ).append( mapParams.get( MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY  )).append( "]" );
+            sbKey.append( "[category:" ).append( mapParams.get( MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY ) ).append( "]" );
         }
 
-        return sbKey.toString(  );
+        return sbKey.toString( );
     }
 
     /*
      * (non-Javadoc)
+     * 
      * @see fr.paris.lutece.portal.service.cache.ICacheKeyService#setAllowedParametersList(java.util.List)
      */
     public void setAllowedParametersList( List<String> arg0 )
@@ -75,6 +75,7 @@ public class MyAppsDatabaseCacheKeyService implements ICacheKeyService
 
     /*
      * (non-Javadoc)
+     * 
      * @see fr.paris.lutece.portal.service.cache.ICacheKeyService#setIgnoredParametersList(java.util.List)
      */
     public void setIgnoredParametersList( List<String> arg0 )

@@ -41,7 +41,6 @@ import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseImg
 import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseServiceTest;
 import fr.paris.lutece.plugins.myapps.modules.database.web.MyAppsDatabaseJspBeanTest;
 
-
 /**
  * This class is the main test suite for the package fr.paris.lutece.plugins.myapps.modules.database
  */
@@ -49,20 +48,21 @@ public final class AllTests
 {
     /**
      * A set of tests
+     * 
      * @return Test the tests
      */
-    public static Test suite(  )
+    public static Test suite( )
     {
         TestSuite suite = new TestSuite( "*** Tests Module MyApps Database " );
 
-        //$JUnit-BEGIN$
+        // $JUnit-BEGIN$
         suite.addTest( new TestSuite( MyAppsDatabaseTest.class ) );
         suite.addTest( new TestSuite( MyAppsDatabaseUserTest.class ) );
         suite.addTest( new TestSuite( MyAppsDatabaseJspBeanTest.class ) );
         suite.addTest( new TestSuite( MyAppsDatabaseImgProviderTest.class ) );
         suite.addTest( new TestSuite( MyAppsDatabaseServiceTest.class ) );
 
-        //$JUnit-END$
+        // $JUnit-END$
         return suite;
     }
 }

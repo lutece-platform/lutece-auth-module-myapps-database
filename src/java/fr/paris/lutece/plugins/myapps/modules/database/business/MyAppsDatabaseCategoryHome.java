@@ -42,7 +42,6 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
 
-
 /**
  *
  * MyAppsDatabaseCategoryHome
@@ -57,16 +56,17 @@ public final class MyAppsDatabaseCategoryHome
     /**
      * Private constructor
      */
-    private MyAppsDatabaseCategoryHome(  )
+    private MyAppsDatabaseCategoryHome( )
     {
     }
 
-    
     /**
      * Creation of an instance of myAppsCategory
      *
-     * @param myAppsCategory The instance of the category which contains the informations to store
-     * @param plugin the Plugin
+     * @param myAppsCategory
+     *            The instance of the category which contains the informations to store
+     * @param plugin
+     *            the Plugin
      */
     public static void create( MyAppsDatabaseCategory myAppsCategory, Plugin plugin )
     {
@@ -76,8 +76,10 @@ public final class MyAppsDatabaseCategoryHome
     /**
      * Update of the myAppsCategory which is specified in parameter
      *
-     * @param myAppsCategoryr The instance of the myAppsCategory which contains the data to store
-     * @param plugin the Plugin
+     * @param myAppsCategoryr
+     *            The instance of the myAppsCategory which contains the data to store
+     * @param plugin
+     *            the Plugin
      */
     public static void update( MyAppsDatabaseCategory myAppsCategory, Plugin plugin )
     {
@@ -87,20 +89,23 @@ public final class MyAppsDatabaseCategoryHome
     /**
      * Remove the category whose identifier is specified in parameter
      *
-     * @param strCodeCategory the category code
-     * @param plugin the Plugin
+     * @param strCodeCategory
+     *            the category code
+     * @param plugin
+     *            the Plugin
      */
     public static void remove( String strCodeCategory, Plugin plugin )
     {
         _dao.delete( strCodeCategory, plugin );
     }
 
-    
     /**
      * Returns an instance of a myAppsCategory whose identifier is specified in parameter
      *
-     * @param nMyAppsUserId The myAppsUser primary key
-     * @param plugin the Plugin
+     * @param nMyAppsUserId
+     *            The myAppsUser primary key
+     * @param plugin
+     *            the Plugin
      * @return an instance of MyAppsUser
      */
     public static MyAppsDatabaseCategory findByPrimaryKey( String strCodeCategory, Plugin plugin )
@@ -111,36 +116,34 @@ public final class MyAppsDatabaseCategoryHome
     /**
      * Loads the data of all the myAppsCategory and returns them in form of a collection
      *
-     * @param plugin the Plugin
+     * @param plugin
+     *            the Plugin
      * @return the collection which contains the data of all the myAppsCategory
      */
     public static Collection<MyAppsDatabaseCategory> getMyAppsCategoryList( Plugin plugin )
     {
         return _dao.selectCategoryList( plugin );
     }
-    
-    
+
     public static ReferenceList getMyAppsCategoryRefList( Plugin plugin )
     {
-    	
-    	Collection<MyAppsDatabaseCategory> listCategory=getMyAppsCategoryList(plugin);
-    	ReferenceList refList=new ReferenceList();
-    	ReferenceItem referenceItem;
-    	referenceItem=new ReferenceItem();
-    	referenceItem.setCode("");
-    	referenceItem.setName("");
-    	refList.add(referenceItem);
-    	for(MyAppsDatabaseCategory category:listCategory)
-    	{
-    		referenceItem=new ReferenceItem();
-    		referenceItem.setCode(category.getCodeCategory());
-    		referenceItem.setName(category.getLibelleCategory());
-    		refList.add(referenceItem);
-    	}
-    	return refList;
-    	
-    }
-    
 
+        Collection<MyAppsDatabaseCategory> listCategory = getMyAppsCategoryList( plugin );
+        ReferenceList refList = new ReferenceList( );
+        ReferenceItem referenceItem;
+        referenceItem = new ReferenceItem( );
+        referenceItem.setCode( "" );
+        referenceItem.setName( "" );
+        refList.add( referenceItem );
+        for ( MyAppsDatabaseCategory category : listCategory )
+        {
+            referenceItem = new ReferenceItem( );
+            referenceItem.setCode( category.getCodeCategory( ) );
+            referenceItem.setName( category.getLibelleCategory( ) );
+            refList.add( referenceItem );
+        }
+        return refList;
+
+    }
 
 }

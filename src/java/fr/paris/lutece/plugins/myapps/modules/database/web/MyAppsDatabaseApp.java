@@ -65,7 +65,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
  *
  * MyAppsDatabaseApp
@@ -81,22 +80,24 @@ public class MyAppsDatabaseApp implements XPageApplication
     /**
      * Front Office application to manage myapps application
      *
-     * @param request The request
-     * @param nMode The mode
-     * @param plugin The plugin
+     * @param request
+     *            The request
+     * @param nMode
+     *            The mode
+     * @param plugin
+     *            The plugin
      * @return The Xpage
-     * @throws SiteMessageException exception if some parameters are not correctly filled
-     * @throws UserNotSignedException exception if the current user is not connected
+     * @throws SiteMessageException
+     *             exception if some parameters are not correctly filled
+     * @throws UserNotSignedException
+     *             exception if the current user is not connected
      */
-    public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin )
-        throws SiteMessageException, UserNotSignedException
+    public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin ) throws SiteMessageException, UserNotSignedException
     {
         LuteceUser user = getUser( request );
-        XPage page = new XPage(  );
-        page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_PAGE_TITLE,
-                request.getLocale(  ) ) );
-        page.setPathLabel( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_PAGE_PATH,
-                request.getLocale(  ) ) );
+        XPage page = new XPage( );
+        page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_PAGE_TITLE, request.getLocale( ) ) );
+        page.setPathLabel( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_PAGE_PATH, request.getLocale( ) ) );
 
         String strAction = request.getParameter( MyAppsDatabaseConstants.PARAMETER_ACTION );
 
@@ -106,29 +107,34 @@ public class MyAppsDatabaseApp implements XPageApplication
             {
                 page = getManageMyAppsPage( page, request, user, plugin );
             }
-            else if ( MyAppsDatabaseConstants.ACTION_INSERT.equals( strAction ) )
-            {
-                page = getInsertMyAppsPage( page, request, plugin );
-            }
-            else if ( MyAppsDatabaseConstants.ACTION_MODIFY.equals( strAction ) )
-            {
-                page = getModifyMyAppsPage( page, request, user, plugin );
-            }
-            else if ( MyAppsDatabaseConstants.ACTION_DO_INSERT.equals( strAction ) )
-            {
-                doInsertMyApp( request, user, plugin );
-                page = getManageMyAppsPage( page, request, user, plugin );
-            }
-            else if ( MyAppsDatabaseConstants.ACTION_DO_MODIFY.equals( strAction ) )
-            {
-                doModifyMyApp( request, user, plugin );
-                page = getManageMyAppsPage( page, request, user, plugin );
-            }
-            else if ( MyAppsDatabaseConstants.ACTION_DO_REMOVE.equals( strAction ) )
-            {
-                doRemoveMyApp( request, user, plugin );
-                page = getManageMyAppsPage( page, request, user, plugin );
-            }
+            else
+                if ( MyAppsDatabaseConstants.ACTION_INSERT.equals( strAction ) )
+                {
+                    page = getInsertMyAppsPage( page, request, plugin );
+                }
+                else
+                    if ( MyAppsDatabaseConstants.ACTION_MODIFY.equals( strAction ) )
+                    {
+                        page = getModifyMyAppsPage( page, request, user, plugin );
+                    }
+                    else
+                        if ( MyAppsDatabaseConstants.ACTION_DO_INSERT.equals( strAction ) )
+                        {
+                            doInsertMyApp( request, user, plugin );
+                            page = getManageMyAppsPage( page, request, user, plugin );
+                        }
+                        else
+                            if ( MyAppsDatabaseConstants.ACTION_DO_MODIFY.equals( strAction ) )
+                            {
+                                doModifyMyApp( request, user, plugin );
+                                page = getManageMyAppsPage( page, request, user, plugin );
+                            }
+                            else
+                                if ( MyAppsDatabaseConstants.ACTION_DO_REMOVE.equals( strAction ) )
+                                {
+                                    doRemoveMyApp( request, user, plugin );
+                                    page = getManageMyAppsPage( page, request, user, plugin );
+                                }
         }
 
         return page;
@@ -137,37 +143,38 @@ public class MyAppsDatabaseApp implements XPageApplication
     /**
      * Get the manage myApps interface
      *
-     * @param page the {@link XPage}
-     * @param request {@link HttpServletRequest}
-     * @param user the current {@link LuteceUser}
-     * @param plugin {@link Plugin}
+     * @param page
+     *            the {@link XPage}
+     * @param request
+     *            {@link HttpServletRequest}
+     * @param user
+     *            the current {@link LuteceUser}
+     * @param plugin
+     *            {@link Plugin}
      * @return a {@link XPage}
-     * @throws SiteMessageException exception if some parameters are not correctly filled
+     * @throws SiteMessageException
+     *             exception if some parameters are not correctly filled
      */
-    private XPage getManageMyAppsPage( XPage page, HttpServletRequest request, LuteceUser user, Plugin plugin )
-        throws SiteMessageException
+    private XPage getManageMyAppsPage( XPage page, HttpServletRequest request, LuteceUser user, Plugin plugin ) throws SiteMessageException
     {
-    	
-    	String strMyAppCategory = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_CODE_CATEGORY );
-    	 
-    	MyAppsDatabaseFilter filter=new MyAppsDatabaseFilter();
-    	filter.setUserName(user.getName(  ));
-    	filter.setCategory(strMyAppCategory);
-    	List<MyApps> listEnabledMyApps = MyAppsDatabaseService.getInstance(  )
-                                                              .getMyAppsListByFilter( filter, true, plugin );
-        List<MyApps> listDisabledMyApps = MyAppsDatabaseService.getInstance(  ).selectMyAppsList( filter,plugin );
+
+        String strMyAppCategory = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_CODE_CATEGORY );
+
+        MyAppsDatabaseFilter filter = new MyAppsDatabaseFilter( );
+        filter.setUserName( user.getName( ) );
+        filter.setCategory( strMyAppCategory );
+        List<MyApps> listEnabledMyApps = MyAppsDatabaseService.getInstance( ).getMyAppsListByFilter( filter, true, plugin );
+        List<MyApps> listDisabledMyApps = MyAppsDatabaseService.getInstance( ).selectMyAppsList( filter, plugin );
         listDisabledMyApps.removeAll( listEnabledMyApps );
 
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( MyAppsDatabaseConstants.MARK_ENABLED_MYAPPS_LIST, listEnabledMyApps );
         model.put( MyAppsDatabaseConstants.MARK_DISABLED_MYAPPS_LIST, listDisabledMyApps );
-        model.put(MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY, strMyAppCategory);
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MYAPPS_MANAGE, request.getLocale(  ), model );
-        page.setContent( template.getHtml(  ) );
-        page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_MANAGE_PAGE_TITLE,
-                request.getLocale(  ) ) );
-        page.setPathLabel( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_MANAGE_PAGE_PATH,
-                request.getLocale(  ) ) );
+        model.put( MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY, strMyAppCategory );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MYAPPS_MANAGE, request.getLocale( ), model );
+        page.setContent( template.getHtml( ) );
+        page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_MANAGE_PAGE_TITLE, request.getLocale( ) ) );
+        page.setPathLabel( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_MANAGE_PAGE_PATH, request.getLocale( ) ) );
 
         return page;
     }
@@ -175,66 +182,61 @@ public class MyAppsDatabaseApp implements XPageApplication
     /**
      * Get the insert myApps interface
      *
-     * @param page the {@link XPage}
-     * @param request {@link HttpServletRequest}
-     * @param plugin {@link Plugin}
+     * @param page
+     *            the {@link XPage}
+     * @param request
+     *            {@link HttpServletRequest}
+     * @param plugin
+     *            {@link Plugin}
      * @return a {@link XPage}
-     * @throws SiteMessageException exception if some parameters are not correctly filled
-     * @throws UserNotSignedException 
+     * @throws SiteMessageException
+     *             exception if some parameters are not correctly filled
+     * @throws UserNotSignedException
      */
-    private XPage getInsertMyAppsPage( XPage page, HttpServletRequest request, Plugin plugin )
-        throws SiteMessageException, UserNotSignedException
+    private XPage getInsertMyAppsPage( XPage page, HttpServletRequest request, Plugin plugin ) throws SiteMessageException, UserNotSignedException
     {
         String strMyAppId = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_ID );
         String strMyAppCategory = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_CODE_CATEGORY );
-    	
+
         if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) )
         {
             int nMyAppId = Integer.parseInt( strMyAppId );
-            MyAppsDatabase myApp = (MyAppsDatabase) MyAppsDatabaseService.getInstance(  ).findByPrimaryKey( nMyAppId, plugin );
+            MyAppsDatabase myApp = (MyAppsDatabase) MyAppsDatabaseService.getInstance( ).findByPrimaryKey( nMyAppId, plugin );
             if ( myApp != null )
             {
-            	// Check if the application does not need any login
-            	if ( StringUtils.isBlank( myApp.getCode(  ) ) && StringUtils.isBlank( myApp.getPassword(  ) ) &&
-            			( StringUtils.isBlank( myApp.getDataHeading(  ) ) || StringUtils.isBlank( myApp.getData(  ) ) && 
-            					StringUtils.isNotBlank( myApp.getDataHeading(  ) ) ) )
+                // Check if the application does not need any login
+                if ( StringUtils.isBlank( myApp.getCode( ) )
+                        && StringUtils.isBlank( myApp.getPassword( ) )
+                        && ( StringUtils.isBlank( myApp.getDataHeading( ) ) || StringUtils.isBlank( myApp.getData( ) )
+                                && StringUtils.isNotBlank( myApp.getDataHeading( ) ) ) )
                 {
-            		/*
-            		 * 2 cases in which the application does not require any login 
-            		 * 1) 	- The application code is empty
-            		 * 		- The application password is empty
-            		 * 		- The application data is empty
-            		 * 2)	- The application code is empty
-            		 * 		- The application password is empty
-            		 * 		- The application code is not empty
-            		 * 		- The application code heading is empty 
-            		 * In this case, the application is directly inserted, and the user
-            		 * is redirected to the myapps management page.
-            		 */
-                	LuteceUser user = getUser( request );
-                	doInsertMyApp( request, user, plugin );
-                	page = getManageMyAppsPage( page, request, user, plugin );
+                    /*
+                     * 2 cases in which the application does not require any login 1) - The application code is empty - The application password is empty - The
+                     * application data is empty 2) - The application code is empty - The application password is empty - The application code is not empty -
+                     * The application code heading is empty In this case, the application is directly inserted, and the user is redirected to the myapps
+                     * management page.
+                     */
+                    LuteceUser user = getUser( request );
+                    doInsertMyApp( request, user, plugin );
+                    page = getManageMyAppsPage( page, request, user, plugin );
                 }
                 else
                 {
-                	/*
-                	 * This case needs either a login, either a password, either a complementary 
-                	 * data or a combination of those 3.
-                	 */
-                	Map<String, Object> model = new HashMap<String, Object>(  );
+                    /*
+                     * This case needs either a login, either a password, either a complementary data or a combination of those 3.
+                     */
+                    Map<String, Object> model = new HashMap<String, Object>( );
                     model.put( MyAppsDatabaseConstants.MARK_MYAPP, myApp );
-                    model.put(MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY, strMyAppCategory);
-                    HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MYAPPS_INSERT, request.getLocale(  ), model );
-                    page.setContent( template.getHtml(  ) );
-                    page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_INSERT_PAGE_TITLE,
-                            request.getLocale(  ) ) );
-                    page.setPathLabel( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_INSERT_PAGE_PATH,
-                            request.getLocale(  ) ) );
+                    model.put( MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY, strMyAppCategory );
+                    HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MYAPPS_INSERT, request.getLocale( ), model );
+                    page.setContent( template.getHtml( ) );
+                    page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_INSERT_PAGE_TITLE, request.getLocale( ) ) );
+                    page.setPathLabel( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_INSERT_PAGE_PATH, request.getLocale( ) ) );
                 }
             }
             else
             {
-            	SiteMessageService.setMessage( request, MyAppsDatabaseConstants.MESSAGE_ERROR, SiteMessage.TYPE_STOP );
+                SiteMessageService.setMessage( request, MyAppsDatabaseConstants.MESSAGE_ERROR, SiteMessage.TYPE_STOP );
             }
         }
         else
@@ -248,39 +250,39 @@ public class MyAppsDatabaseApp implements XPageApplication
     /**
      * Get the modify myApps interface
      *
-     * @param page the {@link XPage}
-     * @param request {@link HttpServletRequest}
-     * @param user the current {@link LuteceUser}
-     * @param plugin {@link Plugin}
+     * @param page
+     *            the {@link XPage}
+     * @param request
+     *            {@link HttpServletRequest}
+     * @param user
+     *            the current {@link LuteceUser}
+     * @param plugin
+     *            {@link Plugin}
      * @return a {@link XPage}
-     * @throws SiteMessageException exception if some parameters are not correctly filled
+     * @throws SiteMessageException
+     *             exception if some parameters are not correctly filled
      */
-    private XPage getModifyMyAppsPage( XPage page, HttpServletRequest request, LuteceUser user, Plugin plugin )
-        throws SiteMessageException
+    private XPage getModifyMyAppsPage( XPage page, HttpServletRequest request, LuteceUser user, Plugin plugin ) throws SiteMessageException
     {
         String strMyAppId = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_ID );
         String strMyAppCategory = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_CODE_CATEGORY );
-    	
+
         if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) )
         {
             int nMyAppId = Integer.parseInt( strMyAppId );
-            MyApps myApp = MyAppsDatabaseService.getInstance(  ).findByPrimaryKey( nMyAppId, plugin );
-            MyAppsUser myAppUser = MyAppsDatabaseService.getInstance(  )
-                                                        .getCredential( nMyAppId, user.getName(  ), plugin );
+            MyApps myApp = MyAppsDatabaseService.getInstance( ).findByPrimaryKey( nMyAppId, plugin );
+            MyAppsUser myAppUser = MyAppsDatabaseService.getInstance( ).getCredential( nMyAppId, user.getName( ), plugin );
 
             if ( ( myApp != null ) && ( myAppUser != null ) )
             {
-                Map<String, Object> model = new HashMap<String, Object>(  );
+                Map<String, Object> model = new HashMap<String, Object>( );
                 model.put( MyAppsDatabaseConstants.MARK_MYAPP, myApp );
                 model.put( MyAppsDatabaseConstants.MARK_MYAPP_USER, myAppUser );
-                model.put(MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY, strMyAppCategory);
-                HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MYAPPS_MODIFY, request.getLocale(  ),
-                        model );
-                page.setContent( template.getHtml(  ) );
-                page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_MODIFY_PAGE_TITLE,
-                        request.getLocale(  ) ) );
-                page.setPathLabel( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_MODIFY_PAGE_PATH,
-                        request.getLocale(  ) ) );
+                model.put( MyAppsDatabaseConstants.MARK_MYAPP_CATEGORY, strMyAppCategory );
+                HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MYAPPS_MODIFY, request.getLocale( ), model );
+                page.setContent( template.getHtml( ) );
+                page.setTitle( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_MODIFY_PAGE_TITLE, request.getLocale( ) ) );
+                page.setPathLabel( I18nService.getLocalizedString( MyAppsDatabaseConstants.PROPERTY_MODIFY_PAGE_PATH, request.getLocale( ) ) );
             }
             else
             {
@@ -298,51 +300,61 @@ public class MyAppsDatabaseApp implements XPageApplication
     /**
      * Do insert a myApps
      *
-     * @param request {@link HttpServletRequest}
-     * @param user the current {@link LuteceUser}
-     * @param plugin {@link Plugin}
-     * @throws SiteMessageException exception if some parameters are not correctly filled
+     * @param request
+     *            {@link HttpServletRequest}
+     * @param user
+     *            the current {@link LuteceUser}
+     * @param plugin
+     *            {@link Plugin}
+     * @throws SiteMessageException
+     *             exception if some parameters are not correctly filled
      */
-    private void doInsertMyApp( HttpServletRequest request, LuteceUser user, Plugin plugin )
-        throws SiteMessageException
+    private void doInsertMyApp( HttpServletRequest request, LuteceUser user, Plugin plugin ) throws SiteMessageException
     {
         MyAppsDatabaseUser myAppsUser = getMyAppsDatabaseUserInfo( request, user, plugin );
-        if( myAppsUser != null )
+        if ( myAppsUser != null )
         {
-        	MyAppsDatabaseService.getInstance(  ).createMyAppUser( myAppsUser, plugin );
+            MyAppsDatabaseService.getInstance( ).createMyAppUser( myAppsUser, plugin );
         }
     }
 
     /**
      * Do modify a myApps
      *
-     * @param request {@link HttpServletRequest}
-     * @param user the current {@link LuteceUser}
-     * @param plugin {@link Plugin}
-     * @throws SiteMessageException exception if some parameters are not correctly filled
+     * @param request
+     *            {@link HttpServletRequest}
+     * @param user
+     *            the current {@link LuteceUser}
+     * @param plugin
+     *            {@link Plugin}
+     * @throws SiteMessageException
+     *             exception if some parameters are not correctly filled
      */
-    private void doModifyMyApp( HttpServletRequest request, LuteceUser user, Plugin plugin )
-        throws SiteMessageException
+    private void doModifyMyApp( HttpServletRequest request, LuteceUser user, Plugin plugin ) throws SiteMessageException
     {
-    	MyAppsDatabaseUser myAppsUser = getMyAppsDatabaseUserInfo( request, user, plugin );
-    	if( myAppsUser != null )
+        MyAppsDatabaseUser myAppsUser = getMyAppsDatabaseUserInfo( request, user, plugin );
+        if ( myAppsUser != null )
         {
-    		MyAppsDatabaseService.getInstance(  ).updateMyAppUser( myAppsUser, plugin );
+            MyAppsDatabaseService.getInstance( ).updateMyAppUser( myAppsUser, plugin );
         }
     }
 
     /**
      * Get MyAppsDatabaseUser
-     * @param request {@link HttpServletRequest}
-     * @param user the {@link LuteceUser}
-     * @param plugin {@link Plugin}
+     * 
+     * @param request
+     *            {@link HttpServletRequest}
+     * @param user
+     *            the {@link LuteceUser}
+     * @param plugin
+     *            {@link Plugin}
      * @return a {@link MyAppsDatabaseUser}
-     * @throws SiteMessageException exception if some parameters are not correctly filled
+     * @throws SiteMessageException
+     *             exception if some parameters are not correctly filled
      */
-    private MyAppsDatabaseUser getMyAppsDatabaseUserInfo( HttpServletRequest request, LuteceUser user, Plugin plugin )
-    	throws SiteMessageException
+    private MyAppsDatabaseUser getMyAppsDatabaseUserInfo( HttpServletRequest request, LuteceUser user, Plugin plugin ) throws SiteMessageException
     {
-    	MyAppsDatabaseUser myAppsUser = null;
+        MyAppsDatabaseUser myAppsUser = null;
         String strMyAppId = request.getParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_ID );
         String strUserLogin = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_LOGIN );
         String strPassword = request.getParameter( MyAppsDatabaseConstants.PARAMETER_USER_PASSWORD );
@@ -351,25 +363,22 @@ public class MyAppsDatabaseApp implements XPageApplication
         if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) )
         {
             int nMyAppId = Integer.parseInt( strMyAppId );
-            MyAppsDatabase myApp = (MyAppsDatabase) MyAppsDatabaseService.getInstance(  )
-                                                                         .findByPrimaryKey( nMyAppId, plugin );
+            MyAppsDatabase myApp = (MyAppsDatabase) MyAppsDatabaseService.getInstance( ).findByPrimaryKey( nMyAppId, plugin );
 
             // Check mandatory fields
-            if ( myApp != null && !( StringUtils.isNotBlank( myApp.getCode(  ) ) && StringUtils.isBlank( strUserLogin ) || 
-            		StringUtils.isNotBlank( myApp.getPassword(  ) ) && StringUtils.isBlank( strPassword ) ) && 
-            		( StringUtils.isNotBlank( myApp.getData(  ) ) && StringUtils.isNotBlank( strExtraData ) ) ||
-                    StringUtils.isBlank( myApp.getData(  ) ) || StringUtils.isBlank( myApp.getDataHeading(  ) ) )
+            if ( myApp != null
+                    && !( StringUtils.isNotBlank( myApp.getCode( ) ) && StringUtils.isBlank( strUserLogin ) || StringUtils.isNotBlank( myApp.getPassword( ) )
+                            && StringUtils.isBlank( strPassword ) ) && ( StringUtils.isNotBlank( myApp.getData( ) ) && StringUtils.isNotBlank( strExtraData ) )
+                    || StringUtils.isBlank( myApp.getData( ) ) || StringUtils.isBlank( myApp.getDataHeading( ) ) )
             {
-                String strUserName = user.getName(  );
-                myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService.getInstance(  )
-                                                                                          .getCredential( nMyAppId,
-                        strUserName, plugin );
+                String strUserName = user.getName( );
+                myAppsUser = (MyAppsDatabaseUser) MyAppsDatabaseService.getInstance( ).getCredential( nMyAppId, strUserName, plugin );
 
                 if ( myAppsUser == null )
                 {
-                	myAppsUser = new MyAppsDatabaseUser(  );
+                    myAppsUser = new MyAppsDatabaseUser( );
                 }
-            	myAppsUser.setName( strUserName );
+                myAppsUser.setName( strUserName );
                 myAppsUser.setIdApplication( nMyAppId );
                 myAppsUser.setStoredUserName( ( strUserLogin != null ) ? strUserLogin : StringUtils.EMPTY );
                 myAppsUser.setStoredUserPassword( ( strPassword != null ) ? strPassword : StringUtils.EMPTY );
@@ -377,23 +386,26 @@ public class MyAppsDatabaseApp implements XPageApplication
             }
             else
             {
-            	SiteMessageService.setMessage( request, Messages.MANDATORY_FIELDS, SiteMessage.TYPE_STOP );
+                SiteMessageService.setMessage( request, Messages.MANDATORY_FIELDS, SiteMessage.TYPE_STOP );
             }
         }
         else
         {
             SiteMessageService.setMessage( request, Messages.MANDATORY_FIELDS, SiteMessage.TYPE_STOP );
         }
-        
-    	return myAppsUser;
+
+        return myAppsUser;
     }
 
     /**
      * Do delete a myApps
      *
-     * @param request {@link HttpServletRequest}
-     * @param user the current {@link LuteceUser}
-     * @param plugin {@link Plugin}
+     * @param request
+     *            {@link HttpServletRequest}
+     * @param user
+     *            the current {@link LuteceUser}
+     * @param plugin
+     *            {@link Plugin}
      */
     private void doRemoveMyApp( HttpServletRequest request, LuteceUser user, Plugin plugin )
     {
@@ -403,29 +415,30 @@ public class MyAppsDatabaseApp implements XPageApplication
         if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) )
         {
             int nMyAppId = Integer.parseInt( strMyAppId );
-            MyAppsDatabaseService.getInstance(  ).removeMyAppUser( nMyAppId, user.getName(  ), plugin );
+            MyAppsDatabaseService.getInstance( ).removeMyAppUser( nMyAppId, user.getName( ), plugin );
 
             UrlItem url = new UrlItem( AppPathService.getBaseUrl( request ) );
             url.addParameter( MyAppsDatabaseConstants.PARAMETER_PAGE, MyAppsPlugin.PLUGIN_NAME );
-            url.addParameter(MyAppsDatabaseConstants.PARAMETER_MYAPP_CODE_CATEGORY, strMyAppCategory);
+            url.addParameter( MyAppsDatabaseConstants.PARAMETER_MYAPP_CODE_CATEGORY, strMyAppCategory );
         }
     }
 
     /**
      * Get the current user
      *
-     * @param request {@link HttpServletRequest}
+     * @param request
+     *            {@link HttpServletRequest}
      * @return the current {@link LuteceUser}
-     * @throws UserNotSignedException exception if the current user is not connected
+     * @throws UserNotSignedException
+     *             exception if the current user is not connected
      */
-    private LuteceUser getUser( HttpServletRequest request )
-        throws UserNotSignedException
+    private LuteceUser getUser( HttpServletRequest request ) throws UserNotSignedException
     {
-        LuteceUser user = SecurityService.getInstance(  ).getRemoteUser( request );
+        LuteceUser user = SecurityService.getInstance( ).getRemoteUser( request );
 
         if ( user == null )
         {
-            throw new UserNotSignedException(  );
+            throw new UserNotSignedException( );
         }
 
         return user;

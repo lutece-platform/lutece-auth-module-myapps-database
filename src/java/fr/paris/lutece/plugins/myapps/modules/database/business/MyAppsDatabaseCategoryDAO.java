@@ -44,109 +44,124 @@ import fr.paris.lutece.util.sql.DAOUtil;
  * MyAppsDatabaseCategoryDAO
  * 
  */
-public final class MyAppsDatabaseCategoryDAO implements IMyAppsDatabaseCategoryDAO  {
-	// SQL
-	private static final String SQL_QUERY_SELECTALL = " SELECT code_category,libelle_category FROM myapps_database_category ";
-	private static final String SQL_QUERY_INSERT = " INSERT INTO myapps_database_category ( code_category, libelle_category) VALUES ( ?, ? ) ";
-	private static final String SQL_QUERY_DELETE = " DELETE FROM myapps_database_category WHERE code_category = ? ";
-	private static final String SQL_QUERY_UPDATE = " UPDATE myapps_database_category SET code_category = ?, libelle_category = ? WHERE code_category = ? ";
-	private static final String SQL_FILTER_CATEGORY=" WHERE code_category = ? "; 
-	private static final String SQL_QUERY_SELECT = SQL_QUERY_SELECTALL + SQL_FILTER_CATEGORY;
-	private static final String SQL_ORDER_BY_CATEGORY = " ORDER BY libelle_category ASC";
+public final class MyAppsDatabaseCategoryDAO implements IMyAppsDatabaseCategoryDAO
+{
+    // SQL
+    private static final String SQL_QUERY_SELECTALL = " SELECT code_category,libelle_category FROM myapps_database_category ";
+    private static final String SQL_QUERY_INSERT = " INSERT INTO myapps_database_category ( code_category, libelle_category) VALUES ( ?, ? ) ";
+    private static final String SQL_QUERY_DELETE = " DELETE FROM myapps_database_category WHERE code_category = ? ";
+    private static final String SQL_QUERY_UPDATE = " UPDATE myapps_database_category SET code_category = ?, libelle_category = ? WHERE code_category = ? ";
+    private static final String SQL_FILTER_CATEGORY = " WHERE code_category = ? ";
+    private static final String SQL_QUERY_SELECT = SQL_QUERY_SELECTALL + SQL_FILTER_CATEGORY;
+    private static final String SQL_ORDER_BY_CATEGORY = " ORDER BY libelle_category ASC";
 
-	
-	
-	/* (non-Javadoc)
-	 * @see fr.paris.lutece.plugins.myapps.modules.database.business.IMyAppsDatabaseCategoryDAO#insert(fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseCategory, fr.paris.lutece.portal.service.plugin.Plugin)
-	 */
-	public void insert(MyAppsDatabaseCategory category , Plugin plugin) {
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_INSERT, plugin);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see fr.paris.lutece.plugins.myapps.modules.database.business.IMyAppsDatabaseCategoryDAO#insert(fr.paris.lutece.plugins.myapps.modules.database.business.
+     * MyAppsDatabaseCategory, fr.paris.lutece.portal.service.plugin.Plugin)
+     */
+    public void insert( MyAppsDatabaseCategory category, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
 
-		int nIndex = 1;
-		
-		daoUtil.setString(nIndex++,category.getCodeCategory());
-		daoUtil.setString(nIndex++, category.getLibelleCategory());
-		
-		daoUtil.executeUpdate();
-		daoUtil.free();
-	}
+        int nIndex = 1;
 
-	
-	/* (non-Javadoc)
-	 * @see fr.paris.lutece.plugins.myapps.modules.database.business.IMyAppsDatabaseCategoryDAO#load(java.lang.String, fr.paris.lutece.portal.service.plugin.Plugin)
-	 */
-	public MyAppsDatabaseCategory  load(String strCodeCategory, Plugin plugin) {
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_SELECT, plugin);
-		daoUtil.setString(1, strCodeCategory);
-		daoUtil.executeQuery();
+        daoUtil.setString( nIndex++, category.getCodeCategory( ) );
+        daoUtil.setString( nIndex++, category.getLibelleCategory( ) );
 
-		MyAppsDatabaseCategory category = null;
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
+    }
 
-		if (daoUtil.next()) {
-			int nIndex = 1;
-			category = new MyAppsDatabaseCategory();
-			category.setCodeCategory(daoUtil.getString(nIndex++));
-			category.setLibelleCategory(daoUtil.getString(nIndex++));
-			
-		}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see fr.paris.lutece.plugins.myapps.modules.database.business.IMyAppsDatabaseCategoryDAO#load(java.lang.String,
+     * fr.paris.lutece.portal.service.plugin.Plugin)
+     */
+    public MyAppsDatabaseCategory load( String strCodeCategory, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
+        daoUtil.setString( 1, strCodeCategory );
+        daoUtil.executeQuery( );
 
-		daoUtil.free();
+        MyAppsDatabaseCategory category = null;
 
-		return category;
-	}
-	
-	/* (non-Javadoc)
-	 * @see fr.paris.lutece.plugins.myapps.modules.database.business.IMyAppsDatabaseCategoryDAO#delete(java.lang.String, fr.paris.lutece.portal.service.plugin.Plugin)
-	 */
-	public void delete(String strCodeCategory, Plugin plugin) {
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_DELETE, plugin);
-		daoUtil.setString(1, strCodeCategory);
-		daoUtil.executeUpdate();
-		daoUtil.free();
-	}
+        if ( daoUtil.next( ) )
+        {
+            int nIndex = 1;
+            category = new MyAppsDatabaseCategory( );
+            category.setCodeCategory( daoUtil.getString( nIndex++ ) );
+            category.setLibelleCategory( daoUtil.getString( nIndex++ ) );
 
-	/* (non-Javadoc)
-	 * @see fr.paris.lutece.plugins.myapps.modules.database.business.IMyAppsDatabaseCategoryDAO#store(fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabaseCategory, fr.paris.lutece.portal.service.plugin.Plugin)
-	 */
-	public void store(MyAppsDatabaseCategory category , Plugin plugin) {
-		
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_UPDATE, plugin);
+        }
 
-		int nIndex = 1;
-		
-		daoUtil.setString(nIndex++,category.getCodeCategory());
-		daoUtil.setString(nIndex++, category.getLibelleCategory());
-		daoUtil.setString(nIndex++,category.getCodeCategory());
-		
-		daoUtil.executeUpdate();
-		daoUtil.free();
-	}
+        daoUtil.free( );
 
+        return category;
+    }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see fr.paris.lutece.plugins.myapps.modules.database.business.IMyAppsDatabaseCategoryDAO#delete(java.lang.String,
+     * fr.paris.lutece.portal.service.plugin.Plugin)
+     */
+    public void delete( String strCodeCategory, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
+        daoUtil.setString( 1, strCodeCategory );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
+    }
 
-	/* (non-Javadoc)
-	 * @see fr.paris.lutece.plugins.myapps.modules.database.business.IMyAppsDatabaseCategoryDAO#selectCategoryList(fr.paris.lutece.portal.service.plugin.Plugin)
-	 */
-	public List<MyAppsDatabaseCategory> selectCategoryList(Plugin plugin
-			) {
-		List<MyAppsDatabaseCategory> myAppsCategoryList = new ArrayList<MyAppsDatabaseCategory>();
-		MyAppsDatabaseCategory category = null;
-		
-		DAOUtil daoUtil = new DAOUtil(SQL_QUERY_SELECTALL + SQL_ORDER_BY_CATEGORY, plugin);
-		daoUtil.executeQuery();
-		
-		while (daoUtil.next()) {
-			int nIndex = 1;
-			category = new MyAppsDatabaseCategory();
-			category.setCodeCategory(daoUtil.getString(nIndex++));
-			category.setLibelleCategory(daoUtil.getString(nIndex++));
-			myAppsCategoryList.add(category);
-		}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see fr.paris.lutece.plugins.myapps.modules.database.business.IMyAppsDatabaseCategoryDAO#store(fr.paris.lutece.plugins.myapps.modules.database.business.
+     * MyAppsDatabaseCategory, fr.paris.lutece.portal.service.plugin.Plugin)
+     */
+    public void store( MyAppsDatabaseCategory category, Plugin plugin )
+    {
 
-		daoUtil.free();
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
 
-		return myAppsCategoryList;
-	}
+        int nIndex = 1;
 
-	
+        daoUtil.setString( nIndex++, category.getCodeCategory( ) );
+        daoUtil.setString( nIndex++, category.getLibelleCategory( ) );
+        daoUtil.setString( nIndex++, category.getCodeCategory( ) );
+
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see fr.paris.lutece.plugins.myapps.modules.database.business.IMyAppsDatabaseCategoryDAO#selectCategoryList(fr.paris.lutece.portal.service.plugin.Plugin)
+     */
+    public List<MyAppsDatabaseCategory> selectCategoryList( Plugin plugin )
+    {
+        List<MyAppsDatabaseCategory> myAppsCategoryList = new ArrayList<MyAppsDatabaseCategory>( );
+        MyAppsDatabaseCategory category = null;
+
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL + SQL_ORDER_BY_CATEGORY, plugin );
+        daoUtil.executeQuery( );
+
+        while ( daoUtil.next( ) )
+        {
+            int nIndex = 1;
+            category = new MyAppsDatabaseCategory( );
+            category.setCodeCategory( daoUtil.getString( nIndex++ ) );
+            category.setLibelleCategory( daoUtil.getString( nIndex++ ) );
+            myAppsCategoryList.add( category );
+        }
+
+        daoUtil.free( );
+
+        return myAppsCategoryList;
+    }
+
 }

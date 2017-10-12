@@ -42,7 +42,6 @@ import fr.paris.lutece.test.LuteceTestCase;
 
 import java.util.List;
 
-
 /**
  *
  * MyAppsDatabaseImgProviderTest
@@ -55,26 +54,26 @@ public class MyAppsDatabaseImgProviderTest extends LuteceTestCase
     /**
      * Test method getImageResource of class fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseImgProvider
      */
-    public void testGetImageResource(  )
+    public void testGetImageResource( )
     {
         System.out.println( "getImageResource" );
 
-        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList(null, _plugin );
+        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList( null, _plugin );
 
-        if ( listMyApps.size(  ) > 0 )
+        if ( listMyApps.size( ) > 0 )
         {
             int nIndex = 0;
             boolean bBreak = false;
 
-            while ( ( nIndex < listMyApps.size(  ) ) && !bBreak )
+            while ( ( nIndex < listMyApps.size( ) ) && !bBreak )
             {
                 MyApps myApp = listMyApps.get( nIndex );
 
-                if ( myApp.hasIcon(  ) )
+                if ( myApp.hasIcon( ) )
                 {
-                    MyAppsDatabaseImgProvider instance = new MyAppsDatabaseImgProvider(  );
+                    MyAppsDatabaseImgProvider instance = new MyAppsDatabaseImgProvider( );
 
-                    ImageResource result = instance.getImageResource( myApp.getIdApplication(  ) );
+                    ImageResource result = instance.getImageResource( myApp.getIdApplication( ) );
 
                     assertNotNull( result );
                     bBreak = true;

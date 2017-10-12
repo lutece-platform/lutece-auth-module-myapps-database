@@ -45,7 +45,6 @@ import fr.paris.lutece.test.LuteceTestCase;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * MyAppsDatabaseServiceTest
@@ -57,17 +56,19 @@ public class MyAppsDatabaseServiceTest extends LuteceTestCase
 
     /**
      * Test of getMyAppsPermissions method of class fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseService
-     * @throws AccessDeniedException if the user has not the right
+     * 
+     * @throws AccessDeniedException
+     *             if the user has not the right
      */
-    public void testGetMyAppsPermissions(  ) throws AccessDeniedException
+    public void testGetMyAppsPermissions( ) throws AccessDeniedException
     {
         System.out.println( "getMyAppsPermissions" );
 
-        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList(null, _plugin );
+        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList( null, _plugin );
         AdminUser user = AdminUserHome.findUserByLogin( "admin" );
-        user.setRoles( AdminUserHome.getRolesListForUser( user.getUserId(  ) ) );
+        user.setRoles( AdminUserHome.getRolesListForUser( user.getUserId( ) ) );
 
-        MyAppsDatabaseService instance = new MyAppsDatabaseService(  );
+        MyAppsDatabaseService instance = new MyAppsDatabaseService( );
 
         Map<String, Map<String, Boolean>> result = instance.getMyAppsPermissions( listMyApps, user );
 
@@ -77,26 +78,26 @@ public class MyAppsDatabaseServiceTest extends LuteceTestCase
     /**
      * Test method getResourceImageUrl of class fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabaseService
      */
-    public void testGetResourceImageUrl(  )
+    public void testGetResourceImageUrl( )
     {
         System.out.println( "getImageResource" );
 
-        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList( null,_plugin );
+        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList( null, _plugin );
 
-        if ( listMyApps.size(  ) > 0 )
+        if ( listMyApps.size( ) > 0 )
         {
             int nIndex = 0;
             boolean bBreak = false;
 
-            while ( ( nIndex < listMyApps.size(  ) ) && !bBreak )
+            while ( ( nIndex < listMyApps.size( ) ) && !bBreak )
             {
                 MyApps myApp = listMyApps.get( nIndex );
 
-                if ( myApp.hasIcon(  ) )
+                if ( myApp.hasIcon( ) )
                 {
-                    MyAppsDatabaseService instance = new MyAppsDatabaseService(  );
+                    MyAppsDatabaseService instance = new MyAppsDatabaseService( );
 
-                    String result = instance.getResourceImageUrl( String.valueOf( myApp.getIdApplication(  ) ), _plugin );
+                    String result = instance.getResourceImageUrl( String.valueOf( myApp.getIdApplication( ) ), _plugin );
 
                     assertNotNull( result );
                     bBreak = true;

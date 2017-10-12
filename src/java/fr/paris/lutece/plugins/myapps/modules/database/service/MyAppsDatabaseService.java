@@ -54,7 +54,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * MyAppsDatabaseService
@@ -65,9 +64,9 @@ public final class MyAppsDatabaseService
     private static MyAppsDatabaseService _singleton;
 
     /**
-    * Initialize the Database service
-    */
-    public void init(  )
+     * Initialize the Database service
+     */
+    public void init( )
     {
     }
 
@@ -76,11 +75,11 @@ public final class MyAppsDatabaseService
      *
      * @return The instance of the singleton
      */
-    public static synchronized MyAppsDatabaseService getInstance(  )
+    public static synchronized MyAppsDatabaseService getInstance( )
     {
         if ( _singleton == null )
         {
-            _singleton = new MyAppsDatabaseService(  );
+            _singleton = new MyAppsDatabaseService( );
         }
 
         return _singleton;
@@ -89,7 +88,8 @@ public final class MyAppsDatabaseService
     /**
      * Get the list of MyApps
      *
-     * @param plugin {@link Plugin}
+     * @param plugin
+     *            {@link Plugin}
      * @return a list of {@link MyAppsDatabase}
      */
     public ReferenceList getMyApps( Plugin plugin )
@@ -100,8 +100,10 @@ public final class MyAppsDatabaseService
     /**
      * Returns an instance of a myApps whose identifier is specified in parameter
      *
-     * @param nMyAppId The myApps primary key
-     * @param plugin the Plugin
+     * @param nMyAppId
+     *            The myApps primary key
+     * @param plugin
+     *            the Plugin
      * @return an instance of MyApps
      */
     public MyApps findByPrimaryKey( int nMyAppId, Plugin plugin )
@@ -110,40 +112,43 @@ public final class MyAppsDatabaseService
     }
 
     /**
-     * Select the MyApps list 
-     * @param filter the app filter
-     * @param plugin {@link Plugin}
+     * Select the MyApps list
+     * 
+     * @param filter
+     *            the app filter
+     * @param plugin
+     *            {@link Plugin}
      * @return a list of {@link MyApps}
      */
-    public List<MyApps> selectMyAppsList(MyAppsDatabaseFilter filter, Plugin plugin )
+    public List<MyApps> selectMyAppsList( MyAppsDatabaseFilter filter, Plugin plugin )
     {
-        return MyAppsDatabaseHome.selectMyAppsList( filter,plugin  );
+        return MyAppsDatabaseHome.selectMyAppsList( filter, plugin );
     }
 
     /**
      * Get the permissions for each {@link MyApps}
      *
-     * @param listMyApps a list of {@link MyApps}
-     * @param user the current {@link AdminUser}
+     * @param listMyApps
+     *            a list of {@link MyApps}
+     * @param user
+     *            the current {@link AdminUser}
      * @return a map of permissions
      */
     public Map<String, Map<String, Boolean>> getMyAppsPermissions( List<MyApps> listMyApps, AdminUser user )
     {
-        Map<String, Map<String, Boolean>> mapPermissions = new HashMap<String, Map<String, Boolean>>(  );
+        Map<String, Map<String, Boolean>> mapPermissions = new HashMap<String, Map<String, Boolean>>( );
 
         for ( MyApps myApps : listMyApps )
         {
-            Map<String, Boolean> listPermissions = new HashMap<String, Boolean>(  );
-            boolean bPermissionModify = RBACService.isAuthorized( MyAppsDatabase.RESOURCE_TYPE,
-                    String.valueOf( myApps.getIdApplication(  ) ),
+            Map<String, Boolean> listPermissions = new HashMap<String, Boolean>( );
+            boolean bPermissionModify = RBACService.isAuthorized( MyAppsDatabase.RESOURCE_TYPE, String.valueOf( myApps.getIdApplication( ) ),
                     MyAppsDatabaseResourceIdService.PERMISSION_MODIFY_MYAPPS_DATABASE, user );
-            boolean bPermissionDelete = RBACService.isAuthorized( MyAppsDatabase.RESOURCE_TYPE,
-                    String.valueOf( myApps.getIdApplication(  ) ),
+            boolean bPermissionDelete = RBACService.isAuthorized( MyAppsDatabase.RESOURCE_TYPE, String.valueOf( myApps.getIdApplication( ) ),
                     MyAppsDatabaseResourceIdService.PERMISSION_DELETE_MYAPPS_DATABASE, user );
             listPermissions.put( MyAppsDatabaseResourceIdService.PERMISSION_MODIFY_MYAPPS_DATABASE, bPermissionModify );
             listPermissions.put( MyAppsDatabaseResourceIdService.PERMISSION_DELETE_MYAPPS_DATABASE, bPermissionDelete );
 
-            mapPermissions.put( String.valueOf( myApps.getIdApplication(  ) ), listPermissions );
+            mapPermissions.put( String.valueOf( myApps.getIdApplication( ) ), listPermissions );
         }
 
         return mapPermissions;
@@ -152,8 +157,10 @@ public final class MyAppsDatabaseService
     /**
      * Create a new {@link MyAppsDatabase}
      *
-     * @param myApp the {@link MyAppsDatabase} to create
-     * @param plugin {@link Plugin}
+     * @param myApp
+     *            the {@link MyAppsDatabase} to create
+     * @param plugin
+     *            {@link Plugin}
      */
     public void create( MyAppsDatabase myApp, Plugin plugin )
     {
@@ -163,9 +170,12 @@ public final class MyAppsDatabaseService
     /**
      * Update a {@link MyAppsDatabase}
      *
-     * @param myApp the {@link MyAppsDatabase} to update
-     * @param bUpdateIcon true if the icon must be updated, false otherwise
-     * @param plugin {@link Plugin}
+     * @param myApp
+     *            the {@link MyAppsDatabase} to update
+     * @param bUpdateIcon
+     *            true if the icon must be updated, false otherwise
+     * @param plugin
+     *            {@link Plugin}
      */
     public void update( MyAppsDatabase myApp, boolean bUpdateIcon, Plugin plugin )
     {
@@ -175,8 +185,10 @@ public final class MyAppsDatabaseService
     /**
      * Remove a {@link MyAppsDatabase}
      *
-     * @param nMyAppId the MyApp Id
-     * @param plugin {@link Plugin}
+     * @param nMyAppId
+     *            the MyApp Id
+     * @param plugin
+     *            {@link Plugin}
      */
     public void remove( int nMyAppId, Plugin plugin )
     {
@@ -186,8 +198,10 @@ public final class MyAppsDatabaseService
     /**
      * Get the image resource
      *
-     * @param nMyAppId the MyApp Id
-     * @param plugin {@link Plugin}
+     * @param nMyAppId
+     *            the MyApp Id
+     * @param plugin
+     *            {@link Plugin}
      * @return the image resource
      */
     public ImageResource getImageResource( int nMyAppId, Plugin plugin )
@@ -198,8 +212,10 @@ public final class MyAppsDatabaseService
     /**
      * Create a new {@link MyAppsDatabaseUser}
      *
-     * @param myAppsUser the {@link MyAppsDatabaseUser} to create
-     * @param plugin {@link Plugin}
+     * @param myAppsUser
+     *            the {@link MyAppsDatabaseUser} to create
+     * @param plugin
+     *            {@link Plugin}
      */
     public void createMyAppUser( MyAppsDatabaseUser myAppsUser, Plugin plugin )
     {
@@ -209,8 +225,10 @@ public final class MyAppsDatabaseService
     /**
      * Update a {@link MyAppsDatabaseUser}
      *
-     * @param myAppsUser the {@link MyAppsDatabaseUser} to update
-     * @param plugin {@link Plugin}
+     * @param myAppsUser
+     *            the {@link MyAppsDatabaseUser} to update
+     * @param plugin
+     *            {@link Plugin}
      */
     public void updateMyAppUser( MyAppsDatabaseUser myAppsUser, Plugin plugin )
     {
@@ -220,8 +238,10 @@ public final class MyAppsDatabaseService
     /**
      * Delete a {@link MyAppsDatabaseUser}
      *
-     * @param nMyAppsUserId the MyAppsUser Id
-     * @param plugin {@link Plugin}
+     * @param nMyAppsUserId
+     *            the MyAppsUser Id
+     * @param plugin
+     *            {@link Plugin}
      */
     public void removeMyAppUser( int nMyAppsUserId, Plugin plugin )
     {
@@ -231,9 +251,12 @@ public final class MyAppsDatabaseService
     /**
      * Delete a {@link MyAppsDatabaseUser}
      *
-     * @param nMyAppId the MyApp Id
-     * @param strUserName the user name
-     * @param plugin {@link Plugin}
+     * @param nMyAppId
+     *            the MyApp Id
+     * @param strUserName
+     *            the user name
+     * @param plugin
+     *            {@link Plugin}
      */
     public void removeMyAppUser( int nMyAppId, String strUserName, Plugin plugin )
     {
@@ -243,21 +266,26 @@ public final class MyAppsDatabaseService
     /**
      * Loads a list of myApps belonging to a filter
      *
-     * @param filter the app filter
-     * @param bIsAscSort true if it is sorted ascendly, false otherwise
-     * @param plugin the Plugin
+     * @param filter
+     *            the app filter
+     * @param bIsAscSort
+     *            true if it is sorted ascendly, false otherwise
+     * @param plugin
+     *            the Plugin
      * @return the collection which contains the data of all the myApps
      */
     public List<MyApps> getMyAppsListByFilter( MyAppsDatabaseFilter filter, boolean bIsAscSort, Plugin plugin )
     {
-        return MyAppsDatabaseHome.getMyAppsListByFilter(filter, bIsAscSort, plugin);
+        return MyAppsDatabaseHome.getMyAppsListByFilter( filter, bIsAscSort, plugin );
     }
 
     /**
      * Management of the image associated to the application
      *
-     * @param strMyAppId The myapp identifier
-     * @param plugin {@link Plugin}
+     * @param strMyAppId
+     *            The myapp identifier
+     * @param plugin
+     *            {@link Plugin}
      * @return the URL of the image resource
      */
     public String getResourceImageUrl( String strMyAppId, Plugin plugin )
@@ -270,11 +298,11 @@ public final class MyAppsDatabaseService
 
             if ( MyAppsDatabaseHome.hasIcon( nMyAppsId, plugin ) )
             {
-                String strResourceType = MyAppsDatabaseImgProvider.getInstance(  ).getResourceTypeId(  );
+                String strResourceType = MyAppsDatabaseImgProvider.getInstance( ).getResourceTypeId( );
                 UrlItem url = new UrlItem( Parameters.IMAGE_SERVLET );
                 url.addParameter( Parameters.RESOURCE_TYPE, strResourceType );
                 url.addParameter( Parameters.RESOURCE_ID, strMyAppId );
-                strUrl = url.getUrlWithEntity(  );
+                strUrl = url.getUrlWithEntity( );
             }
         }
 
@@ -284,9 +312,12 @@ public final class MyAppsDatabaseService
     /**
      * Loads the data of all the myAppsUsers and returns them in form of a collection
      *
-     * @param nMyAppId the ID of the appication
-     * @param strUserName the user name
-     * @param plugin the Plugin
+     * @param nMyAppId
+     *            the ID of the appication
+     * @param strUserName
+     *            the user name
+     * @param plugin
+     *            the Plugin
      * @return a {@link MyAppsUser}
      *
      */

@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.myapps.modules.database.utils.constants;
 
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 
-
 /**
  *
  * MyAppsDatabaseConstants
@@ -111,8 +110,7 @@ public final class MyAppsDatabaseConstants
     public static final String PROPERTY_PAGE_TITLE_MODIFY_CATEGORY = "module.myapps.database.modify_category.pageTitle";
     public static final String PROPERTY_DEFAULT_ITEMS_PER_PAGE = "myapps-database.itemsPerPage";
     public static final String PROPERTY_DEFAULT_FIELD_SIZE = "myapps-database.field.size";
-    public static final int PROPERTY_DEFAULT_FIELD_SIZE_INT = AppPropertiesService.getPropertyInt( PROPERTY_DEFAULT_FIELD_SIZE,
-            255 );
+    public static final int PROPERTY_DEFAULT_FIELD_SIZE_INT = AppPropertiesService.getPropertyInt( PROPERTY_DEFAULT_FIELD_SIZE, 255 );
     public static final String PROPERTY_LABEL_NAME = "module.myapps.database.label.name";
     public static final String PROPERTY_LABEL_URL = "module.myapps.database.label.url";
     public static final String PROPERTY_LABEL_DESCRIPTION = "module.myapps.database.label.description";
@@ -135,10 +133,10 @@ public final class MyAppsDatabaseConstants
     // CONSTANTS
     public static final String QUESTION_MARK = "?";
     public static final String AMPERSAND = "&";
-    //JSP
+    // JSP
     public static final String JSP_DO_REMOVE_MYAPP = "jsp/admin/plugins/myapps/modules/database/DoRemoveMyApp.jsp";
     public static final String JSP_DO_REMOVE_MYAPP_CATEGORY = "jsp/admin/plugins/myapps/modules/database/DoRemoveMyAppCategory.jsp";
-    public static final String JSP_MANAGE_MYAPP_CATEGORY = "jsp/admin/plugins/myapps/modules/database/ManageMyAppsCategory.jsp";    
+    public static final String JSP_MANAGE_MYAPP_CATEGORY = "jsp/admin/plugins/myapps/modules/database/ManageMyAppsCategory.jsp";
     // TEMPLATES
     public static final String TEMPLATE_MYAPPS = "admin/plugins/myapps/modules/database/manage_myapps.html";
     public static final String TEMPLATE_MYAPPS_CATEGORY = "admin/plugins/myapps/modules/database/manage_myapps_category.html";
@@ -146,12 +144,11 @@ public final class MyAppsDatabaseConstants
     public static final String TEMPLATE_MODIFY_APPLICATION = "admin/plugins/myapps/modules/database/modify_myapp.html";
     public static final String TEMPLATE_CREATE_CATEGORY = "admin/plugins/myapps/modules/database/create_myapp_category.html";
     public static final String TEMPLATE_MODIFY_CATEGORY = "admin/plugins/myapps/modules/database/modify_myapp_category.html";
-    
-    
+
     /**
      * Private constructor
      */
-    private MyAppsDatabaseConstants(  )
+    private MyAppsDatabaseConstants( )
     {
     }
 }

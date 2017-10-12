@@ -38,7 +38,6 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.test.LuteceTestCase;
 
-
 /**
  *
  * MyAppsDatabaseTest
@@ -56,8 +55,12 @@ public class MyAppsDatabaseTest extends LuteceTestCase
     private final static String DATAHEADING2 = "DataHeading2";
     private final static String DESCRIPTION1 = "Description1";
     private final static String DESCRIPTION2 = "Description2";
-    private final static byte[] ICONCONTENT1 = { 1 };
-    private final static byte[] ICONCONTENT2 = { 2 };
+    private final static byte [ ] ICONCONTENT1 = {
+        1
+    };
+    private final static byte [ ] ICONCONTENT2 = {
+        2
+    };
     private final static String ICONMIMETYPE1 = "IconMimeType1";
     private final static String ICONMIMETYPE2 = "IconMimeType2";
     private final static String NAME1 = "Name1";
@@ -71,10 +74,10 @@ public class MyAppsDatabaseTest extends LuteceTestCase
     /**
      * Test business of class fr.paris.lutece.plugins.myapps.modules.database.business.MyAppsDatabase
      */
-    public void testBusiness(  )
+    public void testBusiness( )
     {
         // Initialize an object
-        MyAppsDatabase myApp = new MyAppsDatabase(  );
+        MyAppsDatabase myApp = new MyAppsDatabase( );
         myApp.setIdApplication( MyAppsDatabaseHome.newPrimaryKey( _plugin ) );
         myApp.setCode( CODE1 );
         myApp.setCodeHeading( CODEHEADING1 );
@@ -90,26 +93,25 @@ public class MyAppsDatabaseTest extends LuteceTestCase
         // Create test
         MyAppsDatabaseHome.create( myApp, _plugin );
 
-        MyAppsDatabase myAppStored = (MyAppsDatabase) MyAppsDatabaseHome.findByPrimaryKey( myApp.getIdApplication(  ),
-                _plugin );
-        ImageResource img = MyAppsDatabaseHome.getImageResource( myAppStored.getIdApplication(  ), _plugin );
-        myAppStored.setIconContent( img.getImage(  ) );
-        assertEquals( myAppStored.getIdApplication(  ), myApp.getIdApplication(  ) );
-        assertEquals( myAppStored.getCode(  ), myApp.getCode(  ) );
-        assertEquals( myAppStored.getCodeHeading(  ), myApp.getCodeHeading(  ) );
-        assertEquals( myAppStored.getData(  ), myApp.getData(  ) );
-        assertEquals( myAppStored.getDataHeading(  ), myApp.getDataHeading(  ) );
-        assertEquals( myAppStored.getDescription(  ), myApp.getDescription(  ) );
+        MyAppsDatabase myAppStored = (MyAppsDatabase) MyAppsDatabaseHome.findByPrimaryKey( myApp.getIdApplication( ), _plugin );
+        ImageResource img = MyAppsDatabaseHome.getImageResource( myAppStored.getIdApplication( ), _plugin );
+        myAppStored.setIconContent( img.getImage( ) );
+        assertEquals( myAppStored.getIdApplication( ), myApp.getIdApplication( ) );
+        assertEquals( myAppStored.getCode( ), myApp.getCode( ) );
+        assertEquals( myAppStored.getCodeHeading( ), myApp.getCodeHeading( ) );
+        assertEquals( myAppStored.getData( ), myApp.getData( ) );
+        assertEquals( myAppStored.getDataHeading( ), myApp.getDataHeading( ) );
+        assertEquals( myAppStored.getDescription( ), myApp.getDescription( ) );
 
-        for ( int i = 0; i < myAppStored.getIconContent(  ).length; i++ )
+        for ( int i = 0; i < myAppStored.getIconContent( ).length; i++ )
         {
-            assertEquals( myAppStored.getIconContent(  )[i], myApp.getIconContent(  )[i] );
+            assertEquals( myAppStored.getIconContent( ) [i], myApp.getIconContent( ) [i] );
         }
 
-        assertEquals( myAppStored.getIconMimeType(  ), myApp.getIconMimeType(  ) );
-        assertEquals( myAppStored.getName(  ), myApp.getName(  ) );
-        assertEquals( myAppStored.getPassword(  ), myApp.getPassword(  ) );
-        assertEquals( myAppStored.getUrl(  ), myApp.getUrl(  ) );
+        assertEquals( myAppStored.getIconMimeType( ), myApp.getIconMimeType( ) );
+        assertEquals( myAppStored.getName( ), myApp.getName( ) );
+        assertEquals( myAppStored.getPassword( ), myApp.getPassword( ) );
+        assertEquals( myAppStored.getUrl( ), myApp.getUrl( ) );
 
         // Update test
         myApp.setCode( CODE2 );
@@ -123,32 +125,32 @@ public class MyAppsDatabaseTest extends LuteceTestCase
         myApp.setPassword( PASSWORD2 );
         myApp.setUrl( URL2 );
         MyAppsDatabaseHome.update( myApp, true, _plugin );
-        myAppStored = (MyAppsDatabase) MyAppsDatabaseHome.findByPrimaryKey( myApp.getIdApplication(  ), _plugin );
-        img = MyAppsDatabaseHome.getImageResource( myAppStored.getIdApplication(  ), _plugin );
-        myAppStored.setIconContent( img.getImage(  ) );
-        assertEquals( myAppStored.getIdApplication(  ), myApp.getIdApplication(  ) );
-        assertEquals( myAppStored.getCode(  ), myApp.getCode(  ) );
-        assertEquals( myAppStored.getCodeHeading(  ), myApp.getCodeHeading(  ) );
-        assertEquals( myAppStored.getData(  ), myApp.getData(  ) );
-        assertEquals( myAppStored.getDataHeading(  ), myApp.getDataHeading(  ) );
-        assertEquals( myAppStored.getDescription(  ), myApp.getDescription(  ) );
+        myAppStored = (MyAppsDatabase) MyAppsDatabaseHome.findByPrimaryKey( myApp.getIdApplication( ), _plugin );
+        img = MyAppsDatabaseHome.getImageResource( myAppStored.getIdApplication( ), _plugin );
+        myAppStored.setIconContent( img.getImage( ) );
+        assertEquals( myAppStored.getIdApplication( ), myApp.getIdApplication( ) );
+        assertEquals( myAppStored.getCode( ), myApp.getCode( ) );
+        assertEquals( myAppStored.getCodeHeading( ), myApp.getCodeHeading( ) );
+        assertEquals( myAppStored.getData( ), myApp.getData( ) );
+        assertEquals( myAppStored.getDataHeading( ), myApp.getDataHeading( ) );
+        assertEquals( myAppStored.getDescription( ), myApp.getDescription( ) );
 
-        for ( int i = 0; i < myAppStored.getIconContent(  ).length; i++ )
+        for ( int i = 0; i < myAppStored.getIconContent( ).length; i++ )
         {
-            assertEquals( myAppStored.getIconContent(  )[i], myApp.getIconContent(  )[i] );
+            assertEquals( myAppStored.getIconContent( ) [i], myApp.getIconContent( ) [i] );
         }
 
-        assertEquals( myAppStored.getIconMimeType(  ), myApp.getIconMimeType(  ) );
-        assertEquals( myAppStored.getName(  ), myApp.getName(  ) );
-        assertEquals( myAppStored.getPassword(  ), myApp.getPassword(  ) );
-        assertEquals( myAppStored.getUrl(  ), myApp.getUrl(  ) );
+        assertEquals( myAppStored.getIconMimeType( ), myApp.getIconMimeType( ) );
+        assertEquals( myAppStored.getName( ), myApp.getName( ) );
+        assertEquals( myAppStored.getPassword( ), myApp.getPassword( ) );
+        assertEquals( myAppStored.getUrl( ), myApp.getUrl( ) );
 
         // List test
         MyAppsDatabaseHome.getMyAppsList( _plugin );
 
         // Delete test
-        MyAppsDatabaseHome.remove( myApp.getIdApplication(  ), _plugin );
-        myAppStored = (MyAppsDatabase) MyAppsDatabaseHome.findByPrimaryKey( myApp.getIdApplication(  ), _plugin );
+        MyAppsDatabaseHome.remove( myApp.getIdApplication( ), _plugin );
+        myAppStored = (MyAppsDatabase) MyAppsDatabaseHome.findByPrimaryKey( myApp.getIdApplication( ), _plugin );
         assertNull( myAppStored );
     }
 }

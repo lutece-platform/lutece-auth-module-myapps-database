@@ -46,7 +46,6 @@ import fr.paris.lutece.test.MokeHttpServletRequest;
 
 import java.util.List;
 
-
 /**
  *
  * MyAppsDatabaseJspBeanTest
@@ -58,19 +57,21 @@ public class MyAppsDatabaseJspBeanTest extends LuteceTestCase
 
     /**
      * Test of getManageMyApps method of class fr.paris.lutece.plugins.myapps.modules.database.web.MyAppsDatabaseJspBean
-     * @throws AccessDeniedException if the user has not the right
+     * 
+     * @throws AccessDeniedException
+     *             if the user has not the right
      */
-    public void testGetManageMyApps(  ) throws AccessDeniedException
+    public void testGetManageMyApps( ) throws AccessDeniedException
     {
         System.out.println( "getManageMyApps" );
 
-        MokeHttpServletRequest request = new MokeHttpServletRequest(  );
+        MokeHttpServletRequest request = new MokeHttpServletRequest( );
 
         AdminUser user = AdminUserHome.findUserByLogin( "admin" );
-        user.setRoles( AdminUserHome.getRolesListForUser( user.getUserId(  ) ) );
+        user.setRoles( AdminUserHome.getRolesListForUser( user.getUserId( ) ) );
         request.registerAdminUserWithRigth( user, MyAppsDatabaseJspBean.RIGHT_MYAPPS_DATABASE_MANAGEMENT );
 
-        MyAppsDatabaseJspBean instance = new MyAppsDatabaseJspBean(  );
+        MyAppsDatabaseJspBean instance = new MyAppsDatabaseJspBean( );
         instance.init( request, MyAppsDatabaseJspBean.RIGHT_MYAPPS_DATABASE_MANAGEMENT );
 
         String result = instance.getManageMyApps( request );
@@ -80,19 +81,21 @@ public class MyAppsDatabaseJspBeanTest extends LuteceTestCase
 
     /**
      * Test of getConfirmRemoveMyApp method of class fr.paris.lutece.plugins.myapps.modules.database.web.MyAppsDatabaseJspBean
-     * @throws AccessDeniedException if the user has not the right
+     * 
+     * @throws AccessDeniedException
+     *             if the user has not the right
      */
-    public void testGetConfirmRemoveMyApp(  ) throws AccessDeniedException
+    public void testGetConfirmRemoveMyApp( ) throws AccessDeniedException
     {
         System.out.println( "getConfirmRemoveMyApp" );
 
-        MokeHttpServletRequest request = new MokeHttpServletRequest(  );
+        MokeHttpServletRequest request = new MokeHttpServletRequest( );
 
         AdminUser user = AdminUserHome.findUserByLogin( "admin" );
-        user.setRoles( AdminUserHome.getRolesListForUser( user.getUserId(  ) ) );
+        user.setRoles( AdminUserHome.getRolesListForUser( user.getUserId( ) ) );
         request.registerAdminUserWithRigth( user, MyAppsDatabaseJspBean.RIGHT_MYAPPS_DATABASE_MANAGEMENT );
 
-        MyAppsDatabaseJspBean instance = new MyAppsDatabaseJspBean(  );
+        MyAppsDatabaseJspBean instance = new MyAppsDatabaseJspBean( );
         instance.init( request, MyAppsDatabaseJspBean.RIGHT_MYAPPS_DATABASE_MANAGEMENT );
 
         String result = instance.getConfirmRemoveMyApp( request );
@@ -102,26 +105,27 @@ public class MyAppsDatabaseJspBeanTest extends LuteceTestCase
 
     /**
      * Test of getModifyMyApp method of class fr.paris.lutece.plugins.myapps.modules.database.web.MyAppsDatabaseJspBean
-     * @throws AccessDeniedException if the user has not the right
+     * 
+     * @throws AccessDeniedException
+     *             if the user has not the right
      */
-    public void testGetModifyMyApp(  ) throws AccessDeniedException
+    public void testGetModifyMyApp( ) throws AccessDeniedException
     {
         System.out.println( "getModifyMyApp" );
 
-        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList(null, _plugin );
+        List<MyApps> listMyApps = (List<MyApps>) MyAppsDatabaseHome.selectMyAppsList( null, _plugin );
 
-        if ( listMyApps.size(  ) > 0 )
+        if ( listMyApps.size( ) > 0 )
         {
             MyApps myApp = listMyApps.get( 0 );
-            MokeHttpServletRequest request = new MokeHttpServletRequest(  );
-            request.addMokeParameters( MyAppsDatabaseConstants.PARAMETER_MYAPP_ID,
-                String.valueOf( myApp.getIdApplication(  ) ) );
+            MokeHttpServletRequest request = new MokeHttpServletRequest( );
+            request.addMokeParameters( MyAppsDatabaseConstants.PARAMETER_MYAPP_ID, String.valueOf( myApp.getIdApplication( ) ) );
 
             AdminUser user = AdminUserHome.findUserByLogin( "admin" );
-            user.setRoles( AdminUserHome.getRolesListForUser( user.getUserId(  ) ) );
+            user.setRoles( AdminUserHome.getRolesListForUser( user.getUserId( ) ) );
             request.registerAdminUserWithRigth( user, MyAppsDatabaseJspBean.RIGHT_MYAPPS_DATABASE_MANAGEMENT );
 
-            MyAppsDatabaseJspBean instance = new MyAppsDatabaseJspBean(  );
+            MyAppsDatabaseJspBean instance = new MyAppsDatabaseJspBean( );
             instance.init( request, MyAppsDatabaseJspBean.RIGHT_MYAPPS_DATABASE_MANAGEMENT );
 
             String result = instance.getModifyMyApp( request );
@@ -132,19 +136,21 @@ public class MyAppsDatabaseJspBeanTest extends LuteceTestCase
 
     /**
      * Test of getCreateMyApp method of class fr.paris.lutece.plugins.myapps.modules.database.web.MyAppsDatabaseJspBean
-     * @throws AccessDeniedException if the user has not the right
+     * 
+     * @throws AccessDeniedException
+     *             if the user has not the right
      */
-    public void testGetCreateMyApp(  ) throws AccessDeniedException
+    public void testGetCreateMyApp( ) throws AccessDeniedException
     {
         System.out.println( "getCreateMyApp" );
 
-        MokeHttpServletRequest request = new MokeHttpServletRequest(  );
+        MokeHttpServletRequest request = new MokeHttpServletRequest( );
 
         AdminUser user = AdminUserHome.findUserByLogin( "admin" );
-        user.setRoles( AdminUserHome.getRolesListForUser( user.getUserId(  ) ) );
+        user.setRoles( AdminUserHome.getRolesListForUser( user.getUserId( ) ) );
         request.registerAdminUserWithRigth( user, MyAppsDatabaseJspBean.RIGHT_MYAPPS_DATABASE_MANAGEMENT );
 
-        MyAppsDatabaseJspBean instance = new MyAppsDatabaseJspBean(  );
+        MyAppsDatabaseJspBean instance = new MyAppsDatabaseJspBean( );
         instance.init( request, MyAppsDatabaseJspBean.RIGHT_MYAPPS_DATABASE_MANAGEMENT );
 
         String result = instance.getCreateMyApp( request );

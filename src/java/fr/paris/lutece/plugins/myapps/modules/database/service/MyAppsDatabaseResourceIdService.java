@@ -47,7 +47,6 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.Locale;
 
-
 /**
  *
  * MyAppsDatabaseResourceIdService
@@ -66,7 +65,7 @@ public class MyAppsDatabaseResourceIdService extends ResourceIdService
     /**
      * Constructor
      */
-    public MyAppsDatabaseResourceIdService(  )
+    public MyAppsDatabaseResourceIdService( )
     {
         setPluginName( MyAppsDatabasePlugin.PLUGIN_NAME );
     }
@@ -74,25 +73,25 @@ public class MyAppsDatabaseResourceIdService extends ResourceIdService
     /**
      * Initializes the service
      */
-    public void register(  )
+    public void register( )
     {
-        ResourceType rt = new ResourceType(  );
-        rt.setResourceIdServiceClass( MyAppsDatabaseResourceIdService.class.getName(  ) );
+        ResourceType rt = new ResourceType( );
+        rt.setResourceIdServiceClass( MyAppsDatabaseResourceIdService.class.getName( ) );
         rt.setPluginName( MyAppsDatabasePlugin.PLUGIN_NAME );
         rt.setResourceTypeKey( MyAppsDatabase.RESOURCE_TYPE );
         rt.setResourceTypeLabelKey( PROPERTY_LABEL_RESOURCE_TYPE );
 
-        Permission p = new Permission(  );
+        Permission p = new Permission( );
         p.setPermissionKey( PERMISSION_CREATE_MYAPPS_DATABASE );
         p.setPermissionTitleKey( PROPERTY_LABEL_CREATE );
         rt.registerPermission( p );
 
-        p = new Permission(  );
+        p = new Permission( );
         p.setPermissionKey( PERMISSION_MODIFY_MYAPPS_DATABASE );
         p.setPermissionTitleKey( PROPERTY_LABEL_MODIFY );
         rt.registerPermission( p );
 
-        p = new Permission(  );
+        p = new Permission( );
         p.setPermissionKey( PERMISSION_DELETE_MYAPPS_DATABASE );
         p.setPermissionTitleKey( PROPERTY_LABEL_DELETE );
         rt.registerPermission( p );
@@ -103,21 +102,24 @@ public class MyAppsDatabaseResourceIdService extends ResourceIdService
     /**
      * Returns a list of resource ids
      *
-     * @param locale The current locale
+     * @param locale
+     *            The current locale
      * @return A list of resource ids
      */
     public ReferenceList getResourceIdList( Locale locale )
     {
         Plugin plugin = PluginService.getPlugin( MyAppsDatabasePlugin.PLUGIN_NAME );
 
-        return MyAppsDatabaseService.getInstance(  ).getMyApps( plugin );
+        return MyAppsDatabaseService.getInstance( ).getMyApps( plugin );
     }
 
     /**
      * Returns the Title of a given resource
      *
-     * @param strMyAppId The Id of the resource
-     * @param locale The current locale
+     * @param strMyAppId
+     *            The Id of the resource
+     * @param locale
+     *            The current locale
      * @return The Title of a given resource
      */
     public String getTitle( String strMyAppId, Locale locale )
@@ -127,12 +129,12 @@ public class MyAppsDatabaseResourceIdService extends ResourceIdService
         if ( StringUtils.isNotBlank( strMyAppId ) && StringUtils.isNumeric( strMyAppId ) )
         {
             int nMyAppsId = Integer.parseInt( strMyAppId );
-            Plugin plugin = PluginService.getPlugin( getPluginName(  ) );
-            MyApps myApps = MyAppsDatabaseService.getInstance(  ).findByPrimaryKey( nMyAppsId, plugin );
+            Plugin plugin = PluginService.getPlugin( getPluginName( ) );
+            MyApps myApps = MyAppsDatabaseService.getInstance( ).findByPrimaryKey( nMyAppsId, plugin );
 
             if ( myApps != null )
             {
-                strTitle = myApps.getName(  );
+                strTitle = myApps.getName( );
             }
         }
 

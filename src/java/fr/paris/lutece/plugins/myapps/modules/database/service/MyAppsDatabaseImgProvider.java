@@ -39,7 +39,6 @@ import fr.paris.lutece.portal.service.image.ImageResourceProvider;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 
-
 /**
  *
  * MyAppsDatabaseImgProvider
@@ -53,7 +52,7 @@ public class MyAppsDatabaseImgProvider implements ImageResourceProvider
     /**
      * Contructor
      */
-    public MyAppsDatabaseImgProvider(  )
+    public MyAppsDatabaseImgProvider( )
     {
     }
 
@@ -62,11 +61,11 @@ public class MyAppsDatabaseImgProvider implements ImageResourceProvider
      *
      * @return a {@link MyAppsDatabaseImgProvider}
      */
-    public static synchronized MyAppsDatabaseImgProvider getInstance(  )
+    public static synchronized MyAppsDatabaseImgProvider getInstance( )
     {
         if ( _singleton == null )
         {
-            _singleton = new MyAppsDatabaseImgProvider(  );
+            _singleton = new MyAppsDatabaseImgProvider( );
         }
 
         return _singleton;
@@ -75,15 +74,15 @@ public class MyAppsDatabaseImgProvider implements ImageResourceProvider
     /**
      * Init the provider
      */
-    public void init(  )
+    public void init( )
     {
-        register(  );
+        register( );
     }
 
     /**
      * Register the provider to the manager
      */
-    public void register(  )
+    public void register( )
     {
         ImageResourceManager.registerProvider( this );
     }
@@ -93,7 +92,7 @@ public class MyAppsDatabaseImgProvider implements ImageResourceProvider
      *
      * @return The resource type Id
      */
-    public String getResourceTypeId(  )
+    public String getResourceTypeId( )
     {
         return IMAGE_RESOURCE_TYPE_ID;
     }
@@ -101,13 +100,14 @@ public class MyAppsDatabaseImgProvider implements ImageResourceProvider
     /**
      * Get the image resource given an MyApp Id
      *
-     * @param nMyAppId the Id of the application
+     * @param nMyAppId
+     *            the Id of the application
      * @return an {@link ImageResource}
      */
     public ImageResource getImageResource( int nMyAppId )
     {
         Plugin plugin = PluginService.getPlugin( MyAppsDatabasePlugin.PLUGIN_NAME );
 
-        return MyAppsDatabaseService.getInstance(  ).getImageResource( nMyAppId, plugin );
+        return MyAppsDatabaseService.getInstance( ).getImageResource( nMyAppId, plugin );
     }
 }
