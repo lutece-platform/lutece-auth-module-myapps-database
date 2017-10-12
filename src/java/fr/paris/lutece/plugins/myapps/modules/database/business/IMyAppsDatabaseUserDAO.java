@@ -37,6 +37,7 @@ import fr.paris.lutece.plugins.myapps.business.MyAppsUser;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -122,4 +123,23 @@ public interface IMyAppsDatabaseUserDAO
      * @return a {@link MyAppsDatabaseUser}
      */
     MyAppsDatabaseUser getCredentials( int nMyAppsUserId, Plugin plugin );
+    
+    /**
+     * Select all the applications of a user
+     * 
+     * @param strUserName the user name
+     * @param plugin {@link Plugin}
+     * @return the list which contains all the user application
+     */
+    List<MyAppsDatabaseUser> selectUserApplications( String strUserName, Plugin plugin );
+    
+    /**
+     * Update the order of MyApps user
+     * 
+     * @param nApplicationOrder the new order to set
+     * @param nApplicationId the id of the application to update
+     * @param strUserName the name of the user
+     * @param plugin the {@link Plugin}
+     */
+    void updateMyAppsDatabaseUserOrder( int nApplicationOrder, int nApplicationId, String strUserName, Plugin plugin );
 }

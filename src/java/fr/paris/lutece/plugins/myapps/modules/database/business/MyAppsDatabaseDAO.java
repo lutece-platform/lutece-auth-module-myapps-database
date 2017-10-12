@@ -40,6 +40,7 @@ import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.sql.DAOUtil;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,7 @@ public final class MyAppsDatabaseDAO implements IMyAppsDatabaseDAO {
 	// Image resource fetching
 	private static final String SQL_QUERY_SELECT_RESOURCE_IMAGE = " SELECT icon_content , icon_mime_type FROM myapps_database_application WHERE id_application= ? ";
 	private static final String SQL_ORDER_BY_NAME = " ORDER BY a.name ";
+	private static final String SQL_ORDER_BY_APPLICATION_ORDER = " ORDER BY u.application_order";
 	private static final String SQL_ASC = " ASC ";
 	private static final String SQL_DESC = " DESC ";
 
@@ -310,6 +312,44 @@ public final class MyAppsDatabaseDAO implements IMyAppsDatabaseDAO {
 		return myAppsList;
 	}
 
+	/**
+    * {@inheritDoc}
+    */
+	public List<MyApps> selectMyAppsListByUser( String strUserName, Plugin plugin )
+	{
+	    List<MyApps> myAppsList = new ArrayList<MyApps>( );
+	    StringBuilder sbSQL = new StringBuilder( SQL_QUERY_SELECTALL );
+	    sbSQL.append( SQL_FILTER_USER_NAME );
+	    sbSQL.append( SQL_ORDER_BY_APPLICATION_ORDER );
+
+	    DAOUtil daoUtil = new DAOUtil( sbSQL.toString( ), plugin );
+	    daoUtil.setString( NumberUtils.INTEGER_ONE, strUserName );
+	    daoUtil.executeQuery( );
+
+	    while ( daoUtil.next( ) ) {
+	        int nIndex = 1;
+	        MyAppsDatabase myApps = new MyAppsDatabase( );
+
+	        myApps.setIdApplication(daoUtil.getInt(nIndex++));
+	        myApps.setName(daoUtil.getString(nIndex++));
+	        myApps.setDescription(daoUtil.getString(nIndex++));
+	        myApps.setUrl(daoUtil.getString(nIndex++));
+	        myApps.setCode(daoUtil.getString(nIndex++));
+	        myApps.setPassword(daoUtil.getString(nIndex++));
+	        myApps.setData(daoUtil.getString(nIndex++));
+	        myApps.setCodeHeading(daoUtil.getString(nIndex++));
+	        myApps.setDataHeading(daoUtil.getString(nIndex++));
+	        myApps.setIconMimeType(daoUtil.getString(nIndex++));
+	        myApps.setCodeCategory(daoUtil.getString(nIndex++));
+
+	        myAppsList.add( myApps );
+	    }
+
+	    daoUtil.free( );
+
+	    return myAppsList;
+	}
+	   
 	/**
 	 * {@inheritDoc}
 	 */

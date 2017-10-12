@@ -46,6 +46,7 @@ public class MyAppsDatabaseUser extends MyAppsUser
     private String _strStoredUserName;
     private String _strStoredUserPassword;
     private String _strStoredUserData;
+    private int _nApplicationOrder;
 
     /**
      * Returns the StoredUserName
@@ -105,5 +106,25 @@ public class MyAppsDatabaseUser extends MyAppsUser
     public void setStoredUserData( String strStoredUserData )
     {
         _strStoredUserData = strStoredUserData;
+    }
+
+    /**
+     * Returns the application order
+     * 
+     * @return The ApplicationOrder
+     */
+    public int getApplicationOrder( )
+    {
+        return _nApplicationOrder;
+    }
+
+    /**
+     * Sets the application order
+     * 
+     * @param nApplicationOrder the nApplicationOrder to set
+     */
+    public void setApplicationOrder( int nApplicationOrder )
+    {
+        _nApplicationOrder = nApplicationOrder;
     }
 }

@@ -33,6 +33,7 @@ CREATE TABLE myapps_database_user (
   stored_user_name VARCHAR(255),
   stored_user_password VARCHAR(255),
   stored_user_data VARCHAR(255),
+  application_order int(6) DEFAULT 1 NOT NULL,
   PRIMARY KEY (id_myapps_user)
 );
 

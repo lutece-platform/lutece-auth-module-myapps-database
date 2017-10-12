@@ -33,14 +33,14 @@
  */
 package fr.paris.lutece.plugins.myapps.modules.database.business;
 
+import java.util.Collection;
+import java.util.List;
+
 import fr.paris.lutece.plugins.myapps.business.MyAppsUser;
 import fr.paris.lutece.plugins.myapps.modules.database.service.MyAppsDatabasePlugin;
 import fr.paris.lutece.plugins.myapps.modules.database.utils.constants.MyAppsDatabaseConstants;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
-import fr.paris.lutece.util.ReferenceList;
-
-import java.util.Collection;
 
 
 /**
@@ -165,5 +165,30 @@ public final class MyAppsDatabaseUserHome
     public static MyAppsUser getCredentials( int nMyAppsUserId, Plugin plugin )
     {
         return _dao.getCredentials( nMyAppsUserId, plugin );
+    }
+    
+    /**
+     * Return the list of all applications of a user
+     * 
+     * @param strUserName the user name
+     * @param plugin the Plugin
+     * @return the list of all applications of the user
+     */
+    public static List<MyAppsDatabaseUser> getUserListApplications( String strUserName, Plugin plugin )
+    {
+        return _dao.selectUserApplications( strUserName, plugin );
+    }
+    
+    /**
+     * Update the order of MyApps user
+     * 
+     * @param nApplicationOrder the new order to set
+     * @param nApplicationId the id of the application to update
+     * @param strUserName the name of the user
+     * @param plugin the {@link Plugin}
+     */
+    public static void updateMyAppsDatabseUserOrder( int nMyAppsOrder, int nMyAppsUserId, String strUserName, Plugin plugin )
+    {
+        _dao.updateMyAppsDatabaseUserOrder( nMyAppsOrder, nMyAppsUserId, strUserName, plugin );
     }
 }
