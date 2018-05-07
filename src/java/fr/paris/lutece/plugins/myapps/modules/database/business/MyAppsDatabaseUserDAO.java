@@ -40,6 +40,7 @@ import fr.paris.lutece.plugins.myapps.business.MyAppsUser;
 import fr.paris.lutece.plugins.myapps.util.crypto.CryptoUtil;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
+import fr.paris.lutece.portal.service.util.CryptoService;
 import fr.paris.lutece.util.sql.DAOUtil;
 
 /**
@@ -63,8 +64,7 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
     private static final String SQL_QUERY_UPDATE_ORDER = " UPDATE myapps_database_user SET application_order = ? WHERE id_application = ? AND name = ? ";
 
     // Encryption param
-    private static final String PROPERTY_CRYPTO_KEY = "crypto.key";
-    private static final String KEY = AppPropertiesService.getProperty( PROPERTY_CRYPTO_KEY );
+    private static final String KEY = CryptoService.getCryptoKey( );
 
     /**
      * {@inheritDoc}
