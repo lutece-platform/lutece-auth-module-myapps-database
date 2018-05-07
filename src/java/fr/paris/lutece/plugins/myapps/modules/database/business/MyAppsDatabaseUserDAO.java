@@ -63,9 +63,6 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
     private static final String SQL_QUERY_SELECT_USER_APPLICATIONS = SQL_QUERY_SELECTALL + " WHERE name = ? ORDER BY application_order";
     private static final String SQL_QUERY_UPDATE_ORDER = " UPDATE myapps_database_user SET application_order = ? WHERE id_application = ? AND name = ? ";
 
-    // Encryption param
-    private static final String KEY = CryptoService.getCryptoKey( );
-
     /**
      * {@inheritDoc}
      */
@@ -98,6 +95,7 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
         myAppsUser.setMyAppsUserId( newPrimaryKey( plugin ) );
 
         // Encrypt username and password
+        String KEY = CryptoService.getCryptoKey( );
         String strUsername = CryptoUtil.encrypt( myAppsUser.getStoredUserName( ), KEY );
         String strPassword = CryptoUtil.encrypt( myAppsUser.getStoredUserPassword( ), KEY );
 
@@ -180,6 +178,7 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
         daoUtil.setString( nIndex++, myAppsUser.getName( ) );
         daoUtil.setInt( nIndex++, myAppsUser.getIdApplication( ) );
 
+        String KEY = CryptoService.getCryptoKey( );
         String strUsername = CryptoUtil.encrypt( myAppsUser.getStoredUserName( ), KEY );
         String strPassword = CryptoUtil.encrypt( myAppsUser.getStoredUserPassword( ), KEY );
         daoUtil.setString( nIndex++, strUsername );
@@ -246,6 +245,7 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
             myAppsUser.setIdApplication( daoUtil.getInt( nIndex++ ) );
 
             // Decrypt username and password
+            String KEY = CryptoService.getCryptoKey( );
             String strUsername = CryptoUtil.decrypt( daoUtil.getString( nIndex++ ), KEY );
             String strPassword = CryptoUtil.decrypt( daoUtil.getString( nIndex++ ), KEY );
             myAppsUser.setStoredUserName( strUsername );
@@ -280,6 +280,7 @@ public final class MyAppsDatabaseUserDAO implements IMyAppsDatabaseUserDAO
             myAppsUser.setIdApplication( daoUtil.getInt( nIndex++ ) );
 
             // Decrypt username and password
+            String KEY = CryptoService.getCryptoKey( );
             String strUsername = CryptoUtil.decrypt( daoUtil.getString( nIndex++ ), KEY );
             String strPassword = CryptoUtil.decrypt( daoUtil.getString( nIndex++ ), KEY );
             myAppsUser.setStoredUserName( strUsername );
